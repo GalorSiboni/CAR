@@ -65,17 +65,17 @@ public class MainActivity extends AppCompatActivity {
                 users.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.child(editUser.getText().toString()).exists()){
-                            if(!editUser.getText().toString().isEmpty()){
+                        if(dataSnapshot.child(editUser.getText().toString()).exists()) {
+                            if (!editUser.getText().toString().isEmpty()) {
                                 User login = dataSnapshot.child(editUser.getText().toString()).getValue(User.class);
-                                if(login.getPassword().equals(editPass.getText().toString()))
-                                    Toast.makeText(MainActivity.this,"Login Success!",Toast.LENGTH_SHORT).show();
+                                if (login.getPassword().equals(editPass.getText().toString()))
+                                    Toast.makeText(MainActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
                                 else
-                                    Toast.makeText(MainActivity.this,"Password Is Wrong",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, "Password Is Wrong", Toast.LENGTH_SHORT).show();
                             }
+                        }
                             else
                                 Toast.makeText(MainActivity.this,"Username Is Not Registered",Toast.LENGTH_SHORT).show();
-                        }
                     }
 
                     @Override
