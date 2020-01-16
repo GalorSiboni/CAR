@@ -38,26 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         regBTN.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                final User user = new User(editUser.getText().toString(),editPass.getText().toString());
 
-                users.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.child(user.getUsername()).exists())
-                            Toast.makeText(MainActivity.this,"The Username Is Already Exist!",Toast.LENGTH_SHORT).show();
-                        else{
-                            users.child(user.getUsername()).setValue(user);
-                            Toast.makeText(MainActivity.this,"Register Success!",Toast.LENGTH_SHORT).show();
-                            editUser.setText("");
-                            editPass.setText("");
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
             }
         });
         logBTN.setOnClickListener(new View.OnClickListener() {
