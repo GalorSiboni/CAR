@@ -82,7 +82,7 @@ public class RegisterPage extends AppCompatActivity {
                 }
             }
         });
-        submit.setOnClickListener(new View.OnClickListener() {
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openLoginPage();
