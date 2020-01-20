@@ -38,28 +38,24 @@ public class menu extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 //                        startActivity(new Intent(menu.this,showProfile.class));
-//                        finish();
                     }
                 });
                 showAccidents.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         startActivity(new Intent(menu.this, AccidentReport.class));
-                        finish();
                     }
                 });
                 insuranceAgent.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 //                        startActivity(new Intent(menu.this,insuranceAgent.class));
-//                        finish();
                     }
                 });
                 emergencyServices.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 //                        startActivity(new Intent(menu.this,emergencyServices.class));
-//                        finish();
                     }
                 });
                 break;
@@ -73,7 +69,6 @@ public class menu extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 //                        startActivity(new Intent(menu.this,talkWithClient.class));
-//                        finish();
                     }
                 });
                 break;
@@ -87,7 +82,6 @@ public class menu extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 //                        startActivity(new Intent(menu.this,emergencyServices.class));
-//                        finish();
                     }
                 });
                 break;

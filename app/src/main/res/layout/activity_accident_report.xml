@@ -114,7 +114,6 @@
         android:text="@string/new_accident"
         android:textColor="#FFFFFF"
         android:textSize="20sp">
-
     </Button>
 
 <!--<ImageView-->
