@@ -45,17 +45,16 @@ public class RegisterPage extends AppCompatActivity {
         submit = findViewById(R.id.regOnPageBTN);
         login = findViewById(R.id.login);
 
-        s0 = userName.getText().toString().trim();
-        s1 = pass.getText().toString().trim();
-        s2 = fName.getText().toString().trim();
-        s3 = sName.getText().toString().trim();
-        s4 = mail.getText().toString().trim();
-        s5 = cPass.getText().toString().trim();
-
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                s0 = userName.getText().toString().trim();
+                s1 = pass.getText().toString().trim();
+                s2 = fName.getText().toString().trim();
+                s3 = sName.getText().toString().trim();
+                s4 = mail.getText().toString().trim();
+                s5 = cPass.getText().toString().trim();
                 if(s1.equals(s5)){
                     final User user = new User(s0,s1,s2,s3,s4);
 
@@ -83,7 +82,7 @@ public class RegisterPage extends AppCompatActivity {
                 }
             }
         });
-        login.setOnClickListener(new View.OnClickListener() {
+        submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openLoginPage();
