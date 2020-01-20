@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
     private EditText editUser,editPass;
     private Button regBTN,logBTN;
+    private String kindOfUser;
     //Firebase
     FirebaseDatabase db;
     DatabaseReference users;
@@ -51,8 +53,16 @@ public class MainActivity extends AppCompatActivity {
                         if(dataSnapshot.child(editUser.getText().toString()).exists()) {
                             if (!editUser.getText().toString().isEmpty()) {
                                 User login = dataSnapshot.child(editUser.getText().toString()).getValue(User.class);
-                                if (login.getPassword().equals(editPass.getText().toString()))
+                                if (login.getPassword().equals(editPass.getText().toString())) {
                                     Toast.makeText(MainActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
+                                    kindOfUser =  switchCase(editUser.getText().toString());
+//                                    Intent intent = new Intent (MainActivity.this, menu.class);
+//                                    intent.putExtra("kind of user", kindOfUser);
+//                                    startActivity(intent);
+
+//                                    Intent intent = getIntent();
+//                                    String kindOfUser = intent.getStringExtra("kindOfUser");
+                                }
                                 else
                                     Toast.makeText(MainActivity.this, "Password Is Wrong", Toast.LENGTH_SHORT).show();
                             }
@@ -69,4 +79,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+private String switchCase(String user) {
+    String kind = "";
+    switch(user){
+        case "LielT": {
+            kind = "user";
+        }
+        case "GalorSiboni": {
+            kind = "user";
+            break;
+        }
+        case "Agent": {
+            kind = "agent";
+            break;
+        }
+        case "Witness": {
+            kind = "witness";
+            break;
+        }
+    }
+    return kind;
+}
 }
