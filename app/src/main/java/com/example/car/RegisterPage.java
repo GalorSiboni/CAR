@@ -50,11 +50,12 @@ public class RegisterPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 s0 = userName.getText().toString().trim();
-                s1 = pass.getText().toString().trim();
+                s1 = pass.getText().toString();
                 s2 = fName.getText().toString().trim();
                 s3 = sName.getText().toString().trim();
                 s4 = mail.getText().toString().trim();
-                s5 = cPass.getText().toString().trim();
+                s4 = s4.replace(".","_DOT_");
+                s5 = cPass.getText().toString();
                 if(s1.equals(s5)){
                     final User user = new User(s0,s1,s2,s3,s4);
 
