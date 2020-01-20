@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FBF3F2"
+    tools:context=".menu">
+    <TextView
+        android:id="@+id/textMenu"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textColor="#1992f0"
+    android:fontFamily="@font/acme"
+   android:gravity="center"
+    android:text="MENU"
+    android:textSize="50sp"
+    android:paddingBottom="20dp"
+    android:textStyle="bold">
+    </TextView>
+
+    <Button
+        android:id="@+id/showProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textMenu"
+        android:background="#566C73"
+        android:textColor="#FFFF"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/acme"
+        android:text="Show Profile">
+    </Button>
+
+    <Button
+        android:id="@+id/showAccident"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/showProfile"
+        android:background="#566C73"
+        android:textColor="#FFFF"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/acme"
+        android:text="Show Accidents">
+    </Button>
+
+    <Button
+        android:id="@+id/emergency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/showAccident"
+        android:background="#566C73"
+        android:textColor="#FFFF"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/acme"
+        android:text="emergency services">
+    </Button>
+
+    <Button
+        android:id="@+id/insuranceAgent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emergency"
+        android:background="#566C73"
+        android:textColor="#FFFF"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/acme"
+        android:text="talk with insurance agent">
+    </Button>
+</RelativeLayout>
