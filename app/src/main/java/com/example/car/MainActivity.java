@@ -1,5 +1,6 @@
 package com.example.car;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -38,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
         regBTN.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+                startActivity(new Intent(MainActivity.this,RegisterPage.class));
+                finish();
             }
         });
         logBTN.setOnClickListener(new View.OnClickListener() {
@@ -55,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
                                     Toast.makeText(MainActivity.this, "Password Is Wrong", Toast.LENGTH_SHORT).show();
                             }
                         }
-                            else
-                                Toast.makeText(MainActivity.this,"Username Is Not Registered",Toast.LENGTH_SHORT).show();
+                        else
+                            Toast.makeText(MainActivity.this,"Username Is Not Registered",Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

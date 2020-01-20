@@ -21,7 +21,8 @@ import com.google.firebase.database.ValueEventListener;
 public class RegisterPage extends AppCompatActivity {
     private Button submit;
     private EditText fName,sName,mail,pass,cPass,userName;
-
+    private TextView login;
+    private String s0,s1,s2,s3,s4,s5;
     //Firebase
     FirebaseDatabase db;
     DatabaseReference users;
@@ -42,39 +43,57 @@ public class RegisterPage extends AppCompatActivity {
         pass = findViewById(R.id.Password);
         cPass = findViewById(R.id.PasswordConfrim);
         submit = findViewById(R.id.regOnPageBTN);
+        login = findViewById(R.id.login);
+
+        s0 = userName.getText().toString().trim();
+        s1 = pass.getText().toString().trim();
+        s2 = fName.getText().toString().trim();
+        s3 = sName.getText().toString().trim();
+        s4 = mail.getText().toString().trim();
+        s5 = cPass.getText().toString().trim();
+
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(pass.getText().toString() == cPass.getText().toString()){
-                final User user = new User(userName.getText().toString(),pass.getText().toString(),fName.getText().toString(),sName.getText().toString(),mail.getText().toString());
+                if(s1.equals(s5)){
+                    final User user = new User(s0,s1,s2,s3,s4);
 
-                users.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.child(user.getUsername()).exists())
-                            Toast.makeText(RegisterPage.this,"The Username Is Already Exist!",Toast.LENGTH_SHORT).show();
-                        else{
-                            users.child(user.getUsername()).setValue(user);
-                            Toast.makeText(RegisterPage.this,"Register Success!",Toast.LENGTH_SHORT).show();
+                    users.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.child(user.getUsername()).exists())
+                                Toast.makeText(RegisterPage.this,"The Username Is Already Exist!",Toast.LENGTH_SHORT).show();
+                            else if(dataSnapshot.child(user.getMail()).exists())
+                                Toast.makeText(RegisterPage.this,"This Mail Is Already Exist!",Toast.LENGTH_SHORT).show();
+                            else{
+                                users.child(user.getUsername()).setValue(user);
+                                Toast.makeText(RegisterPage.this,"Register Success!",Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    }
-                });
-              }
+                        }
+                    });
+                }
                 else {
                     Toast.makeText(RegisterPage.this,"Password Confirmation Failed!",Toast.LENGTH_SHORT).show();
-                }}
+                }
+            }
         });
-        openLoginPage();
-
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openLoginPage();
+            }
+        } );
     }
 
+
     public void openLoginPage() {
-        startActivity(new Intent(this,MainActivity.class));
+        startActivity(new Intent(RegisterPage.this,MainActivity.class));
         finish();
     }
 }
