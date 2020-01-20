@@ -21,7 +21,8 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
     private EditText editUser,editPass;
     private Button regBTN,logBTN;
-    private String kindOfUser;
+    private String kindOfUser, fullName;
+
     //Firebase
     FirebaseDatabase db;
     DatabaseReference users;
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
                                     kindOfUser =  switchCase(editUser.getText().toString());
                                     Intent intent = new Intent (MainActivity.this, menu.class);
                                     intent.putExtra("kindOfUser", kindOfUser);
+                                    intent.putExtra("name", fullName);
                                     startActivity(intent);
                                      }
                                 else
@@ -81,17 +83,20 @@ private String switchCase(String user) {
     String kind = "";
     switch(user){
         case "LielT": {
-            kind = "user";
+            fullName = "Liel Titelbaum";
         }
         case "GalorSiboni": {
+            fullName = "Galor Siboni";
             kind = "user";
             break;
         }
         case "Agent": {
+            fullName = "Yossi Cohen";
             kind = "agent";
             break;
         }
         case "Witness": {
+            fullName = "Dani Din";
             kind = "witness";
             break;
         }

@@ -18,12 +18,24 @@
     android:paddingBottom="20dp"
     android:textStyle="bold">
     </TextView>
+    <TextView
+        android:id="@+id/greeting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#1992f0"
+        android:fontFamily="@font/acme"
+        android:gravity="center"
+        android:text="welcome:"
+        android:textSize="25dp"
+        android:layout_below="@id/textMenu"
+        android:textStyle="bold">
+    </TextView>
 
     <Button
         android:id="@+id/showProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textMenu"
+        android:layout_below="@id/greeting"
         android:background="#566C73"
         android:textColor="#FFFF"
         android:layout_marginTop="30dp"
@@ -35,7 +47,7 @@
         android:id="@+id/talkWithClient"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textMenu"
+        android:layout_below="@id/greeting"
         android:background="#566C73"
         android:textColor="#FFFF"
         android:layout_marginTop="30dp"

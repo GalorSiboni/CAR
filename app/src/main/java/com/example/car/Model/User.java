@@ -17,4 +17,4 @@ package com.example.car.Model; public class User {
     public void setPassword(String password){ this.password = password;}
     public String getMail(){ return mail; }
     public void setMail(String mail){this.mail = mail; }
-    public String getFullName(){ return fName+" "+sName; }  }
+    public String getFullName(){ return this.fName+" "+this.sName; }  }

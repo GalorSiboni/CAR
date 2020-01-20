@@ -66,6 +66,8 @@ public class RegisterPage extends AppCompatActivity {
                                 Toast.makeText(RegisterPage.this,"The Username Is Already Exist!",Toast.LENGTH_SHORT).show();
                             else if(dataSnapshot.child(user.getMail()).exists())
                                 Toast.makeText(RegisterPage.this,"This Mail Is Already Exist!",Toast.LENGTH_SHORT).show();
+                            else if(dataSnapshot.child(user.getFullName()).exists())
+                                Toast.makeText(RegisterPage.this,"This Full Name Is Already Exist!",Toast.LENGTH_SHORT).show();
                             else{
                                 users.child(user.getUsername()).setValue(user);
                                 Toast.makeText(RegisterPage.this,"Register Success!",Toast.LENGTH_SHORT).show();
