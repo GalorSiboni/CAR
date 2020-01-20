@@ -56,13 +56,10 @@ public class MainActivity extends AppCompatActivity {
                                 if (login.getPassword().equals(editPass.getText().toString())) {
                                     Toast.makeText(MainActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
                                     kindOfUser =  switchCase(editUser.getText().toString());
-//                                    Intent intent = new Intent (MainActivity.this, menu.class);
-//                                    intent.putExtra("kind of user", kindOfUser);
-//                                    startActivity(intent);
-
-//                                    Intent intent = getIntent();
-//                                    String kindOfUser = intent.getStringExtra("kindOfUser");
-                                }
+                                    Intent intent = new Intent (MainActivity.this, menu.class);
+                                    intent.putExtra("kindOfUser", kindOfUser);
+                                    startActivity(intent);
+                                     }
                                 else
                                     Toast.makeText(MainActivity.this, "Password Is Wrong", Toast.LENGTH_SHORT).show();
                             }
