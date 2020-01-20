@@ -31,6 +31,18 @@
         android:fontFamily="@font/acme"
         android:text="Show Profile">
     </Button>
+    <Button
+        android:id="@+id/talkWithClient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textMenu"
+        android:background="#566C73"
+        android:textColor="#FFFF"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/acme"
+        android:text="Talk With Client">
+    </Button>
 
     <Button
         android:id="@+id/showAccident"
