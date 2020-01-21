@@ -36,9 +36,10 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Date"
-                android:textStyle="bold"></TextView>
+                android:textStyle="bold">
+            </TextView>
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="Description"
                 android:textStyle="bold"
@@ -46,7 +47,7 @@
                 android:gravity="center">
             </TextView>
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="Location"
                 android:textStyle="bold"
@@ -60,6 +61,7 @@
                 android:layout_height="100dp"
                 android:text="23/07/2019"
                 android:textStyle="bold"
+                android:textSize="12dp"
                 android:layout_weight="1"
                 android:background="#ffffff"
                 android:layout_marginBottom="1dp"
@@ -72,7 +74,8 @@
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="A car passed at red light and hit the back of my car"
+                android:textSize="12dp"
+                android:text="A car passed at red light\n and hit the back of my car"
                 android:background="#ffffff"
                 android:layout_marginBottom="1dp"
                 android:layout_marginRight="1dp"
@@ -84,10 +87,12 @@
                 android:layout_marginRight="1dp"
                 android:layout_marginBottom="1dp"
                 android:layout_weight="1"
+                android:textSize="12dp"
                 android:background="#ffffff"
                 android:gravity="center"
-                android:text="Giv'at HaTahmoshet st. Tel-Aviv"
-                android:textStyle="bold"></TextView>
+                android:text="Giv'at HaTahmoshet\n st. Tel-Aviv"
+                android:textStyle="bold">
+            </TextView>
         </TableRow>
     </TableLayout>
 
