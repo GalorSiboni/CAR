@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                                     intent.putExtra("kindOfUser", kindOfUser);
                                     intent.putExtra("name", fullName);
                                     startActivity(intent);
+                                    finish();
                                      }
                                 else
                                     Toast.makeText(MainActivity.this, "Password Is Wrong", Toast.LENGTH_SHORT).show();
@@ -80,14 +81,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 private String switchCase(String user) {
-    String kind = "";
+    String kind ="user";
     switch(user){
         case "LielT": {
             fullName = "Liel Titelbaum";
+            break;
         }
         case "GalorSiboni": {
             fullName = "Galor Siboni";
-            kind = "user";
             break;
         }
         case "Agent": {
@@ -99,6 +100,9 @@ private String switchCase(String user) {
             fullName = "Dani Din";
             kind = "witness";
             break;
+        }
+        default:{
+            fullName = " New User";
         }
     }
     return kind;
