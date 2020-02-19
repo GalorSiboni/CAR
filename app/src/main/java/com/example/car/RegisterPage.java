@@ -74,7 +74,7 @@ public class RegisterPage extends AppCompatActivity {
                                 users.child(user.getUsername()).setValue(user);
                                 Toast.makeText(RegisterPage.this,"Register Success!",Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent (RegisterPage.this, menu.class);
-                                intent.putExtra("name", user.getFullName());
+                                intent.putExtra("name", s2 + " "+ s3);
                                 intent.putExtra("userName", user.getUsername());// TODO
                                 startActivity(intent);
                                 finish();
