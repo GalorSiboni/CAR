@@ -42,7 +42,7 @@ public class menu extends AppCompatActivity {
         emergencyServices.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                        startActivity(new Intent(menu.this,emergencyServices.class));
+                        startActivity(new Intent(menu.this,EmergancyServices.class));
             }
         });
     }

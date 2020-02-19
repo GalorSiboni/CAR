@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.car">
-
+    <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,10 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-        <activity android:name=".menu"></activity>
-        <activity android:name=".AccidentReport" />
-        <activity android:name=".RegisterPage" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".EmergancyServices"
+                  android:screenOrientation="portrait"></activity>
+        <activity android:name=".menu"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".AccidentReport"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".RegisterPage"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".MainActivity"
+                  android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

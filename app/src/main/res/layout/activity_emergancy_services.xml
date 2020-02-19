@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EmergancyServices">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/police"
+            android:layout_width="181dp"
+            android:layout_height="168dp"
+            android:src="@drawable/police" />
+        <ImageButton
+            android:id="@+id/mada"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mada"
+            />
+
+        <ImageButton
+            android:id="@+id/firefighters"
+            android:layout_width="184dp"
+            android:layout_height="154dp"
+            android:src="@drawable/fire" />
+    </LinearLayout>
+</RelativeLayout>
