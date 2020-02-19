@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.car.Model.Profile;
 import com.example.car.Model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,7 +35,7 @@ public class RegisterPage extends AppCompatActivity {
 
         //Firebase
         db = FirebaseDatabase.getInstance();
-        users = db.getReference("Users");
+        users = db.getReference("Profiles");// TODO: 19/02/2020 need to change also to the same const value in main activity!
 
         userName = findViewById(R.id.regUserName);
         fName = findViewById(R.id.FirstName);
@@ -55,9 +56,10 @@ public class RegisterPage extends AppCompatActivity {
                 s3 = sName.getText().toString().trim();
                 s4 = mail.getText().toString().trim();
                 String[] str = s4.split("@");
-                s4 = str[0] + str[1].replace(".","_DOT_");                s5 = cPass.getText().toString();
+                s4 = str[0] + str[1].replace(".","_DOT_");//email -> replace . to _dot_ because of firebase settings
+                s5 = cPass.getText().toString();//password check
                 if(s1.equals(s5)){
-                    final User user = new User(s0,s1,s2,s3,s4);
+                    final Profile user = new Profile(s0,s1,s2,s3,s4);
 
                     users.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -93,7 +95,6 @@ public class RegisterPage extends AppCompatActivity {
             }
         } );
     }
-
 
     public void openLoginPage() {
         startActivity(new Intent(RegisterPage.this,MainActivity.class));

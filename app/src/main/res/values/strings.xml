@@ -20,5 +20,7 @@
     <string name="insuranceCompanyName_label">Insurance Company Name:</string>
     <string name="insurancePolicyNumber_label">Insurance Policy Number;</string>
     <string name="insuranceAgentName_label">Insurance Agent Name:</string>
+    <string name="insuranceAgentPhoneNum_label">Insurance Agent Phone Number:</string>
+    <string name="dataBase_mainActivity_paths">Profiles</string>
 
 </resources>

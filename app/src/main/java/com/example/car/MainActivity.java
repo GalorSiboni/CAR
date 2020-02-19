@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.car.Model.Profile;
 import com.example.car.Model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Firebase
         db = FirebaseDatabase.getInstance();
-        users = db.getReference("Users");
+        users = db.getReference("Profiles");// TODO: 19/02/2020 need to change to const path!!!
 
 
         regBTN.setOnClickListener(new View.OnClickListener() {
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if(dataSnapshot.child(editUser.getText().toString()).exists()) {
                             if (!editUser.getText().toString().isEmpty()) {
-                                User login = dataSnapshot.child(editUser.getText().toString()).getValue(User.class);
+                                Profile login = dataSnapshot.child(editUser.getText().toString()).getValue(Profile.class);
                                 if (login.getPassword().equals(editPass.getText().toString())) {
                                     Toast.makeText(MainActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent (MainActivity.this, menu.class);

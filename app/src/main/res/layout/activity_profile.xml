@@ -329,6 +329,25 @@
                     android:layout_height="wrap_content">
                 </EditText>
             </TableRow>
+
+            <TableRow
+                android:id="@+id/insuranceAgentPhoneNumRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/insuranceAgentNameRow">
+                <TextView
+                    android:id="@+id/insuranceAgentPhoneNumLab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/insuranceAgentPhoneNum_label">
+                </TextView>
+
+                <EditText
+                    android:id="@+id/insuranceAgentPhoneNumEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </EditText>
+            </TableRow>
         </LinearLayout>
     </ScrollView>
 

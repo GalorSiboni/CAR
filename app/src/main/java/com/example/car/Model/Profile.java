@@ -16,7 +16,7 @@ public class Profile extends User{
     private String ownerPhoneNumber;//done
     private String insuranceCompanyName;//done
     private String insurancePolicyNumber;//done
-    private String insuranceAgentName;
+    private String insuranceAgentName;//done
     private String insuranceAgentPhoneNum;
 
     public Profile(String username, String password, String fName, String sName, String mail,Date birthDate, String carNumber, String carModel, String carColor, String driverName, String id, String address, String licenceNumber, String phoneNumber, String ownerAddress, String ownerPhoneNumber, String insuranceCompanyName, String insurancePolicyNumber, String insuranceAgentName, String insuranceAgentPhoneNum) {
@@ -36,6 +36,11 @@ public class Profile extends User{
         this.insurancePolicyNumber = insurancePolicyNumber;
         this.insuranceAgentName = insuranceAgentName;
         this.insuranceAgentPhoneNum = insuranceAgentPhoneNum;
+    }
+
+    public Profile(String username, String password, String fName, String sName, String mail)
+    {
+        super(username, password, fName, sName, mail);
     }
 
     public void setCarNumber(String carNumber) {
