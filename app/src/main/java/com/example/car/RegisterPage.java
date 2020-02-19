@@ -54,8 +54,8 @@ public class RegisterPage extends AppCompatActivity {
                 s2 = fName.getText().toString().trim();
                 s3 = sName.getText().toString().trim();
                 s4 = mail.getText().toString().trim();
-                s4 = s4.replace(".","_DOT_");
-                s5 = cPass.getText().toString();
+                String[] str = s4.split("@");
+                s4 = str[0] + str[1].replace(".","_DOT_");                s5 = cPass.getText().toString();
                 if(s1.equals(s5)){
                     final User user = new User(s0,s1,s2,s3,s4);
 
@@ -71,6 +71,7 @@ public class RegisterPage extends AppCompatActivity {
                             else{
                                 users.child(user.getUsername()).setValue(user);
                                 Toast.makeText(RegisterPage.this,"Register Success!",Toast.LENGTH_SHORT).show();
+                                openLoginPage();
                             }
                         }
 

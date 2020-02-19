@@ -4,12 +4,14 @@ package com.example.car.Model; public class User {
     private String fName;
     private String sName;
     private String mail;
+    private String fullName;
     public User(){ }
     public User(String username,String password,String fName,String sName,String mail){
         this.username = username;
         this.password = password;
         this.fName = fName;
         this.sName = sName;
+        this.fullName = fName+" "+sName;
         this.mail = mail; }
     public String getUsername(){ return username; }
     public void setUsername(String username){ this.username = username; }
@@ -17,4 +19,4 @@ package com.example.car.Model; public class User {
     public void setPassword(String password){ this.password = password;}
     public String getMail(){ return mail; }
     public void setMail(String mail){this.mail = mail; }
-    public String getFullName(){ return this.fName+" "+this.sName; }  }
+    public String getFullName(){ return this.fullName;}  }

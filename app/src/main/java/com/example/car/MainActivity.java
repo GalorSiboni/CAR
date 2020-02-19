@@ -21,7 +21,6 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
     private EditText editUser,editPass;
     private Button regBTN,logBTN;
-    private String kindOfUser, fullName;
 
     //Firebase
     FirebaseDatabase db;
@@ -56,10 +55,8 @@ public class MainActivity extends AppCompatActivity {
                                 User login = dataSnapshot.child(editUser.getText().toString()).getValue(User.class);
                                 if (login.getPassword().equals(editPass.getText().toString())) {
                                     Toast.makeText(MainActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
-                                    kindOfUser =  switchCase(editUser.getText().toString());
                                     Intent intent = new Intent (MainActivity.this, menu.class);
-                                    intent.putExtra("kindOfUser", kindOfUser);
-                                    intent.putExtra("name", fullName);
+                                    intent.putExtra("name", login.getFullName());
                                     startActivity(intent);
                                     finish();
                                      }
@@ -70,41 +67,11 @@ public class MainActivity extends AppCompatActivity {
                         else
                             Toast.makeText(MainActivity.this,"Username Is Not Registered",Toast.LENGTH_SHORT).show();
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-
                     }
                 });
             }
         });
     }
-
-private String switchCase(String user) {
-    String kind ="user";
-    switch(user){
-        case "LielT": {
-            fullName = "Liel Titelbaum";
-            break;
-        }
-        case "GalorSiboni": {
-            fullName = "Galor Siboni";
-            break;
-        }
-        case "Agent": {
-            fullName = "Yossi Cohen";
-            kind = "agent";
-            break;
-        }
-        case "Witness": {
-            fullName = "Dani Din";
-            kind = "witness";
-            break;
-        }
-        default:{
-            fullName = " New User";
-        }
-    }
-    return kind;
-}
 }

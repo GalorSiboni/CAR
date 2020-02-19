@@ -43,18 +43,7 @@
         android:fontFamily="@font/acme"
         android:text="Show Profile">
     </Button>
-    <Button
-        android:id="@+id/talkWithClient"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/greeting"
-        android:background="#566C73"
-        android:textColor="#FFFF"
-        android:layout_marginTop="30dp"
-        android:textStyle="bold"
-        android:fontFamily="@font/acme"
-        android:text="Talk With Client">
-    </Button>
+
 
     <Button
         android:id="@+id/showAccident"
@@ -80,18 +69,5 @@
         android:textStyle="bold"
         android:fontFamily="@font/acme"
         android:text="emergency services">
-    </Button>
-
-    <Button
-        android:id="@+id/insuranceAgent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/emergency"
-        android:background="#566C73"
-        android:textColor="#FFFF"
-        android:layout_marginTop="30dp"
-        android:textStyle="bold"
-        android:fontFamily="@font/acme"
-        android:text="talk with insurance agent">
     </Button>
 </RelativeLayout>

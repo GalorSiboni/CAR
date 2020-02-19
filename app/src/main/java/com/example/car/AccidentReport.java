@@ -33,6 +33,7 @@ public class AccidentReport extends AppCompatActivity {
         }
         else{
             //open
+            table_flg = true;
             switchBtn.setText("Hide Details");
         }
     }
