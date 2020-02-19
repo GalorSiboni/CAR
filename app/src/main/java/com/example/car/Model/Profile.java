@@ -18,7 +18,8 @@ public class Profile extends User{
     private String insuranceAgentName = "";//done
     private String insuranceAgentPhoneNum = "";
 
-    public Profile(String fName, String sName, String carNumber, String carModel, String carColor, String driverName, String id, String address, String licenceNumber, String phoneNumber, String ownerAddress, String ownerPhoneNumber, String insuranceCompanyName, String insurancePolicyNumber, String insuranceAgentName, String insuranceAgentPhoneNum) {
+    public Profile(String username,String password,String mail,String fName, String sName, String carNumber, String carModel, String carColor, String driverName, String id, String address, String licenceNumber, String phoneNumber, String ownerAddress, String ownerPhoneNumber, String insuranceCompanyName, String insurancePolicyNumber, String insuranceAgentName, String insuranceAgentPhoneNum) {
+        super(username, password, fName, sName, mail);
         setFirstName( fName );
         setLastName( sName );
         this.carNumber = carNumber;

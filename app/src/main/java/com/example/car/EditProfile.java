@@ -2,14 +2,11 @@ package com.example.car;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
 import com.example.car.Model.Profile;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,7 +19,7 @@ public class EditProfile extends AppCompatActivity {
     private EditText firstNameEdit, lastNameEdit, phoneNumberEdit, addressEdit, driverNameEdit, idEdit, carNumberEdit, carModelEdit, carColorEdit,
             licenceNumberEdit, ownerAddressEdit, ownerPhoneNumberEdit, insuranceCompanyNameEdit, insurancePolicyNumberEdit, insuranceAgentNameEdit, insuranceAgentPhoneNumEdit;
     private Button save,edit;
-    private String userName;
+    private String userName,password,mail;
     //Firebase
     FirebaseDatabase db;
     DatabaseReference users;
@@ -39,6 +36,7 @@ public class EditProfile extends AppCompatActivity {
         idEdit = findViewById( R.id.idEdit );
         carNumberEdit = findViewById( R.id.carNumberEdit );
         carModelEdit = findViewById( R.id.carModelEdit );
+        carColorEdit = findViewById( R.id.carColorEdit );
         licenceNumberEdit = findViewById( R.id.licenceNumberEdit );
         ownerAddressEdit = findViewById( R.id.ownerAddressEdit );
         ownerPhoneNumberEdit = findViewById( R.id.ownerPhoneNumberEdit );
@@ -51,7 +49,7 @@ public class EditProfile extends AppCompatActivity {
         edit = findViewById( R.id.edit );
         final EditText[] editTextsArr = {firstNameEdit, lastNameEdit, phoneNumberEdit, addressEdit, driverNameEdit, idEdit, carNumberEdit, carModelEdit, carColorEdit,
                 licenceNumberEdit, ownerAddressEdit, ownerPhoneNumberEdit, insuranceCompanyNameEdit, insurancePolicyNumberEdit, insuranceAgentNameEdit, insuranceAgentPhoneNumEdit};
-        editMode( editTextsArr,true );
+        editMode( editTextsArr,false );
 
         Intent intent = getIntent();
         userName = intent.getStringExtra( "userName" );
@@ -63,6 +61,8 @@ public class EditProfile extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Profile myProfile = dataSnapshot.child( userName ).getValue( Profile.class );
+                password = myProfile.getPassword();
+                mail = myProfile.getMail();
                 firstNameEdit.setText( myProfile.getFirstName() );
                 lastNameEdit.setText( myProfile.getLastName() );
                 carNumberEdit.setText( myProfile.getCarNumber() );
@@ -87,7 +87,7 @@ public class EditProfile extends AppCompatActivity {
             save.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Profile user = new Profile( firstNameEdit.getText().toString(), lastNameEdit.getText().toString(), carNumberEdit.getText().toString(),
+                final Profile user = new Profile( userName, password, mail, firstNameEdit.getText().toString(), lastNameEdit.getText().toString(), carNumberEdit.getText().toString(),
                         carModelEdit.getText().toString(), carColorEdit.getText().toString(), driverNameEdit.getText().toString(), idEdit.getText().toString(),
                         addressEdit.getText().toString(), licenceNumberEdit.getText().toString(), phoneNumberEdit.getText().toString(), ownerAddressEdit.getText().toString(),
                         ownerPhoneNumberEdit.getText().toString(), insurancePolicyNumberEdit.getText().toString(), insuranceCompanyNameEdit.getText().toString(),
@@ -99,24 +99,15 @@ public class EditProfile extends AppCompatActivity {
             edit.setOnClickListener( new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                editMode( editTextsArr,false );
+                editMode( editTextsArr,true );
                 save.setVisibility(View.VISIBLE);
                 }
                 });
     }
     private void editMode(EditText[] arr,boolean visibilityFlag){
-        if (visibilityFlag)
             for(int i = 0;i < arr.length -1 ;i++){
-                arr[i].setFocusable( false );
-                arr[i].setEnabled( false );
-                arr[i].setCursorVisible( false );
-        }
-        else{
-            for(int i = 0;i < arr.length;i++){
-                arr[i].setFocusable( true );
-                arr[i].setEnabled( true );
-                arr[i].setCursorVisible( true );
-            }
+                arr[i].setEnabled( visibilityFlag );
+                arr[i].setCursorVisible( visibilityFlag );
         }
     }
 }

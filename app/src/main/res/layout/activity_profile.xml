@@ -39,8 +39,7 @@
                 <EditText
                     android:id="@+id/firstNameEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="">
+                    android:layout_height="wrap_content">
                 </EditText>
             </TableRow>
 
@@ -61,8 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="-2dp"
-                    android:layout_toRightOf="@id/lastNameLab"
-                    android:text="">
+                    android:layout_toRightOf="@id/lastNameLab">
 
                 </EditText>
             </TableRow>
@@ -83,8 +81,7 @@
                 <EditText
                     android:id="@+id/phoneNumberEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="">
+                    android:layout_height="wrap_content">
                 </EditText>
             </TableRow>
 
@@ -103,8 +100,7 @@
                 <EditText
                     android:id="@+id/addressEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="">>
+                    android:layout_height="wrap_content">
                 </EditText>
             </TableRow>
 
@@ -123,8 +119,7 @@
                 <EditText
                     android:id="@+id/driverNameEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="">
+                    android:layout_height="wrap_content">
                 </EditText>
             </TableRow>
 
@@ -143,8 +138,7 @@
                 <EditText
                     android:id="@+id/idEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="">
+                    android:layout_height="wrap_content">
                 </EditText>
             </TableRow>
 
@@ -163,8 +157,7 @@
                 <EditText
                     android:id="@+id/carNumberEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="">
+                    android:layout_height="wrap_content">
                 </EditText>
             </TableRow>
 
@@ -183,8 +176,7 @@
                 <EditText
                     android:id="@+id/carModelEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="">
+                    android:layout_height="wrap_content">
                 </EditText>
             </TableRow>
 
@@ -203,8 +195,7 @@
                 <EditText
                     android:id="@+id/carColorEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="">
+                    android:layout_height="wrap_content">
                 </EditText>
             </TableRow>
 
@@ -223,8 +214,7 @@
                 <EditText
                     android:id="@+id/licenceNumberEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="">
+                    android:layout_height="wrap_content">
                 </EditText>
             </TableRow>
 
@@ -243,8 +233,7 @@
                 <EditText
                     android:id="@+id/ownerAddressEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="">
+                    android:layout_height="wrap_content">
                 </EditText>
             </TableRow>
 
@@ -263,8 +252,7 @@
                 <EditText
                     android:id="@+id/ownerPhoneNumberEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="">
+                    android:layout_height="wrap_content">
                 </EditText>
             </TableRow>
 
@@ -283,8 +271,7 @@
                 <EditText
                     android:id="@+id/insuranceCompanyNameEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="">
+                    android:layout_height="wrap_content">
                 </EditText>
             </TableRow>
 
@@ -303,8 +290,7 @@
                 <EditText
                     android:id="@+id/insurancePolicyNumberEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="">
+                    android:layout_height="wrap_content">
                 </EditText>
             </TableRow>
 
@@ -323,8 +309,7 @@
                 <EditText
                     android:id="@+id/insuranceAgentNameEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="">
+                    android:layout_height="wrap_content">
                 </EditText>
             </TableRow>
 
@@ -343,12 +328,13 @@
                 <EditText
                     android:id="@+id/insuranceAgentPhoneNumEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="">
+                    android:layout_height="wrap_content">
                 </EditText>
             </TableRow>
         </RelativeLayout>
     </ScrollView>
+
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -369,4 +355,5 @@
             />
 
     </LinearLayout>
+
 </RelativeLayout>
