@@ -3,4 +3,22 @@
     <string name="accident_title">Accident Report Manager</string>
     <string name="previous_accidents">Previous Accidents</string>
     <string name="new_accident">New Accident</string>
+    <string name="profile_label">Profile</string>
+    <string name="firstName_label">First Name:</string>
+    <string name="lastName_label">Last Name:</string>
+    <string name="email_label">Email:</string>
+    <string name="phoneNumber_label">Phone Number:</string>
+    <string name="address_label">Address:</string>
+    <string name="driverName_label">DriverName:</string>
+    <string name="id_label">ID:</string>
+    <string name="carNumber_label">Car Number:</string>
+    <string name="carModel_label">Car Model:</string>
+    <string name="carColor_label">Car Color:</string>
+    <string name="licenceNumber_label">Licence Number:</string>
+    <string name="ownerAddress_label">Owner Address:</string>
+    <string name="ownerPhoneNumber_label">Owner Phone Number:</string>
+    <string name="insuranceCompanyName_label">Insurance Company Name:</string>
+    <string name="insurancePolicyNumber_label">Insurance Policy Number;</string>
+    <string name="insuranceAgentName_label">Insurance Agent Name:</string>
+
 </resources>
