@@ -42,7 +42,6 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
     public void handleResult(Result rawResult) {
         // Do something with the result here
         // Prints scan results
-
-
+        onBackPressed();
     }
 }
