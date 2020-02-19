@@ -18,7 +18,7 @@ package com.example.car.Model; public class User {
     public String getPassword(){ return password; }
     public void setPassword(String password){ this.password = password;}
     public void setFirstName(String fName){ this.fName = fName;}
-    public String getFirst(){ return fName; }
+    public String getFirstName(){ return fName; }
     public void setLastName(String sName){ this.sName = sName;}
     public String getLastName(){ return sName; }
     public String getMail(){ return mail; }
