@@ -52,8 +52,10 @@ public class EditProfile extends AppCompatActivity {
         final EditText[] editTextsArr = {firstNameEdit, lastNameEdit, phoneNumberEdit, addressEdit, driverNameEdit, idEdit, carNumberEdit, carModelEdit, carColorEdit,
                 licenceNumberEdit, ownerAddressEdit, ownerPhoneNumberEdit, insuranceCompanyNameEdit, insurancePolicyNumberEdit, insuranceAgentNameEdit, insuranceAgentPhoneNumEdit};
         editMode( editTextsArr,true );
+
         Intent intent = getIntent();
         userName = intent.getStringExtra( "userName" );
+
         //Firebase
         db = FirebaseDatabase.getInstance();
         users = db.getReference( "Profiles" );// TODO: 19/02/2020 need to change to const path!!!
@@ -65,6 +67,7 @@ public class EditProfile extends AppCompatActivity {
                 lastNameEdit.setText( myProfile.getLastName() );
                 carNumberEdit.setText( myProfile.getCarNumber() );
                 carModelEdit.setText( myProfile.getCarModel() );
+                carColorEdit.setText( myProfile.getCarColor() );
                 driverNameEdit.setText( myProfile.getDriverName() );
                 idEdit.setText( myProfile.getId() );
                 addressEdit.setText( myProfile.getAddress() );
@@ -85,7 +88,7 @@ public class EditProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final Profile user = new Profile( firstNameEdit.getText().toString(), lastNameEdit.getText().toString(), carNumberEdit.getText().toString(),
-                        carModelEdit.getText().toString(), carModelEdit.getText().toString(), driverNameEdit.getText().toString(), idEdit.getText().toString(),
+                        carModelEdit.getText().toString(), carColorEdit.getText().toString(), driverNameEdit.getText().toString(), idEdit.getText().toString(),
                         addressEdit.getText().toString(), licenceNumberEdit.getText().toString(), phoneNumberEdit.getText().toString(), ownerAddressEdit.getText().toString(),
                         ownerPhoneNumberEdit.getText().toString(), insurancePolicyNumberEdit.getText().toString(), insuranceCompanyNameEdit.getText().toString(),
                         insuranceAgentNameEdit.getText().toString(), insuranceAgentPhoneNumEdit.getText().toString() );
@@ -103,7 +106,7 @@ public class EditProfile extends AppCompatActivity {
     }
     private void editMode(EditText[] arr,boolean visibilityFlag){
         if (visibilityFlag)
-            for(int i = 0;i < arr.length;i++){
+            for(int i = 0;i < arr.length -1 ;i++){
                 arr[i].setFocusable( false );
                 arr[i].setEnabled( false );
                 arr[i].setCursorVisible( false );
