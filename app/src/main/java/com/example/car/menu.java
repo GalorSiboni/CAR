@@ -39,19 +39,19 @@ public class menu extends AppCompatActivity {
         scanQR.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                        startActivity(new Intent(menu.this,showProfile.class));
+                startActivity(new Intent(menu.this,QrCodeScanner.class));
             }
         } );
         showAccidents.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity( new Intent( menu.this, AccidentReport.class ) );
+                startActivity( new Intent( menu.this, EditProfile.class ) );
             }
         } );
         emergencyServices.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity( new Intent( menu.this, EmergancyServices.class ) );
+                startActivity( new Intent( menu.this, EmergencyServices.class ) );
             }
         } );
         QRCodeWriter qrCodeWriter = new QRCodeWriter();

@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-public class EmergancyServices extends AppCompatActivity {
+public class EmergencyServices extends AppCompatActivity {
     private ImageButton police,mada,firefighters;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

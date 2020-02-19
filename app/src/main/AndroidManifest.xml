@@ -13,13 +13,16 @@
         android:theme="@style/AppTheme">
         <activity android:name=".QrCodeScanner"></activity>
         <activity
-            android:name=".EmergancyServices"
+            android:name=".EmergencyServices"
             android:screenOrientation="portrait" />
         <activity
             android:name=".menu"
             android:screenOrientation="portrait" />
         <activity
             android:name=".AccidentReport"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".EditProfile"
             android:screenOrientation="portrait" />
         <activity
             android:name=".RegisterPage"
