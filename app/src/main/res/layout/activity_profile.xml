@@ -284,42 +284,6 @@
         </EditText>
     </TableRow>
 
-    <TableRow
-        android:id="@+id/insurancePolicyNumberRow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/insuranceCompanyNameRow">
-        <TextView
-            android:id="@+id/insurancePolicyNumberLab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/insurancePolicyNumber_label">
-        </TextView>
 
-        <EditText
-            android:id="@+id/insurancePolicyNumberEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </EditText>
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/insuranceAgentNameRow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/insurancePolicyNumberRow">
-        <TextView
-            android:id="@+id/insuranceAgentNameLab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/insuranceAgentName_label">
-        </TextView>
-
-        <EditText
-            android:id="@+id/insuranceAgentNameEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </EditText>
-    </TableRow>
 
 </RelativeLayout>
