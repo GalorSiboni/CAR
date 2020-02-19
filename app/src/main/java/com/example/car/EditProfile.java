@@ -93,7 +93,9 @@ public class EditProfile extends AppCompatActivity {
                         ownerPhoneNumberEdit.getText().toString(), insurancePolicyNumberEdit.getText().toString(), insuranceCompanyNameEdit.getText().toString(),
                         insuranceAgentNameEdit.getText().toString(), insuranceAgentPhoneNumEdit.getText().toString() );
                 users.child( userName ).setValue( user );
-                save.setVisibility( View.GONE );
+                Intent intent = new Intent (EditProfile.this, menu.class);
+                intent.putExtra("name", user.getFullName());
+                finish();
             }
         } );
             edit.setOnClickListener( new View.OnClickListener() {
