@@ -18,7 +18,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 public class menu extends AppCompatActivity {
 
     private Button scanQR, showAccidents, emergencyServices;
-    private String fullName;
+    private String fullName,userName;
     private TextView greeting;
     private ImageView qrCode;
     @Override
@@ -35,6 +35,7 @@ public class menu extends AppCompatActivity {
 
         Intent intent = getIntent();
         fullName = intent.getStringExtra( "name" );
+        userName = intent.getStringExtra( "userName" );
         greeting.setText( "welcome :" + fullName );
         scanQR.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -46,6 +47,9 @@ public class menu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity( new Intent( menu.this, EditProfile.class ) );
+                Intent intent = new Intent (menu.this, EditProfile.class);
+                intent.putExtra("userName", userName);// TODO
+                startActivity(intent);
             }
         } );
         emergencyServices.setOnClickListener( new View.OnClickListener() {
@@ -56,7 +60,7 @@ public class menu extends AppCompatActivity {
         } );
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         try {
-            BitMatrix bitMatrix = qrCodeWriter.encode( fullName, BarcodeFormat.QR_CODE, 200, 200, null );
+            BitMatrix bitMatrix = qrCodeWriter.encode( userName, BarcodeFormat.QR_CODE, 200, 200, null );
             Bitmap bitmap = Bitmap.createBitmap( 200, 200, Bitmap.Config.RGB_565 );
 
             for (int x = 0; x < 200; x++) {

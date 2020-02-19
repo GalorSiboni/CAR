@@ -3,25 +3,24 @@ package com.example.car.Model;
 import java.util.Date;
 
 public class Profile extends User{
-    private Date birthDate;
-    private String carNumber;//done
-    private String carModel;//done
-    private String carColor;//done
-    private String driverName;//done
-    private String id;//done
-    private String address;//done
-    private String licenceNumber;//done
-    private String phoneNumber;//done
-    private String ownerAddress;//done
-    private String ownerPhoneNumber;//done
-    private String insuranceCompanyName;//done
-    private String insurancePolicyNumber;//done
-    private String insuranceAgentName;//done
-    private String insuranceAgentPhoneNum;
+    private String carNumber = "";//done
+    private String carModel = "";//done
+    private String carColor = "";//done
+    private String driverName = "";//done
+    private String id = "";//done
+    private String address = "";//done
+    private String licenceNumber = "";//done
+    private String phoneNumber = "";//done
+    private String ownerAddress = "";//done
+    private String ownerPhoneNumber = "";//done
+    private String insuranceCompanyName = "";//done
+    private String insurancePolicyNumber = "";//done
+    private String insuranceAgentName = "";//done
+    private String insuranceAgentPhoneNum = "";
 
-    public Profile(String username, String password, String fName, String sName, String mail,Date birthDate, String carNumber, String carModel, String carColor, String driverName, String id, String address, String licenceNumber, String phoneNumber, String ownerAddress, String ownerPhoneNumber, String insuranceCompanyName, String insurancePolicyNumber, String insuranceAgentName, String insuranceAgentPhoneNum) {
-        super(username, password, fName, sName, mail);
-        this.birthDate = birthDate;
+    public Profile(String fName, String sName, String carNumber, String carModel, String carColor, String driverName, String id, String address, String licenceNumber, String phoneNumber, String ownerAddress, String ownerPhoneNumber, String insuranceCompanyName, String insurancePolicyNumber, String insuranceAgentName, String insuranceAgentPhoneNum) {
+        setFirstName( fName );
+        setLastName( sName );
         this.carNumber = carNumber;
         this.carModel = carModel;
         this.carColor = carColor;
@@ -37,7 +36,7 @@ public class Profile extends User{
         this.insuranceAgentName = insuranceAgentName;
         this.insuranceAgentPhoneNum = insuranceAgentPhoneNum;
     }
-
+    public Profile(){}
     public Profile(String username, String password, String fName, String sName, String mail)
     {
         super(username, password, fName, sName, mail);
@@ -98,15 +97,6 @@ public class Profile extends User{
     public void setInsuranceAgentPhoneNum(String insuranceAgentPhoneNum) {
         this.insuranceAgentPhoneNum = insuranceAgentPhoneNum;
     }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
     public String getCarNumber() {
         return carNumber;
     }

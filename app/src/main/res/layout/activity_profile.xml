@@ -22,15 +22,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/profileLabel">
-        <LinearLayout
+        <RelativeLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TableRow
                 android:id="@+id/firstNameRow"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/profileLabel">
+                android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/firstNameLab"
                     android:layout_width="wrap_content"
@@ -334,7 +333,7 @@
                 android:id="@+id/insuranceAgentPhoneNumRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/insuranceAgentNameRow">
+                android:layout_below="@+id/insuranceAgentNameRow">
                 <TextView
                     android:id="@+id/insuranceAgentPhoneNumLab"
                     android:layout_width="wrap_content"
@@ -348,8 +347,14 @@
                     android:layout_height="wrap_content">
                 </EditText>
             </TableRow>
-        </LinearLayout>
+        </RelativeLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 
 
 </RelativeLayout>

@@ -56,7 +56,7 @@ public class RegisterPage extends AppCompatActivity {
                 s3 = sName.getText().toString().trim();
                 s4 = mail.getText().toString().trim();
                 String[] str = s4.split("@");
-                s4 = str[0] + str[1].replace(".","_DOT_");//email -> replace . to _dot_ because of firebase settings
+                s4 = str[0] + "@" + str[1].replace(".","_DOT_");//email -> replace . to _dot_ because of firebase settings
                 s5 = cPass.getText().toString();//password check
                 if(s1.equals(s5)){
                     final Profile user = new Profile(s0,s1,s2,s3,s4);
@@ -73,7 +73,7 @@ public class RegisterPage extends AppCompatActivity {
                             else{
                                 users.child(user.getUsername()).setValue(user);
                                 Toast.makeText(RegisterPage.this,"Register Success!",Toast.LENGTH_SHORT).show();
-                                openLoginPage();
+                                openMenuPage();
                             }
                         }
 
@@ -98,6 +98,10 @@ public class RegisterPage extends AppCompatActivity {
 
     public void openLoginPage() {
         startActivity(new Intent(RegisterPage.this,MainActivity.class));
+        finish();
+    }
+    public void openMenuPage() {
+        startActivity(new Intent(RegisterPage.this,menu.class));
         finish();
     }
 }
