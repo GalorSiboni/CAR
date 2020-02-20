@@ -46,7 +46,6 @@ public class menu extends AppCompatActivity {
         showAccidents.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity( new Intent( menu.this, EditProfile.class ) );
                 Intent intent = new Intent (menu.this, EditProfile.class);
                 intent.putExtra("userName", userName);// TODO
                 startActivity(intent);
