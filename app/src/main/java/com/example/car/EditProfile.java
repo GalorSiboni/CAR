@@ -116,6 +116,7 @@ public class EditProfile extends AppCompatActivity {
                 insuranceCompanyNameEdit.setText( myProfile.getInsuranceCompanyName() );
                 insuranceAgentNameEdit.setText( myProfile.getInsuranceAgentName() );
                 insuranceAgentPhoneNumEdit.setText( myProfile.getInsuranceAgentPhoneNum() );
+                if (!imagePerUserFlag)
                 profilePicture.setImageURI( storage.child("image/" + userName).getDownloadUrl().getResult());
             }
 
