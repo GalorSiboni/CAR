@@ -73,6 +73,7 @@ public class EditProfile extends AppCompatActivity {
         insuranceAgentNameEdit = findViewById( R.id.insuranceAgentNameEdit );
         insuranceAgentPhoneNumEdit = findViewById( R.id.insuranceAgentPhoneNumEdit );
         profilePicture = findViewById( R.id.profilePicture );
+
         // buttons
         edit = findViewById( R.id.edit );
         save = findViewById( R.id.Save );
