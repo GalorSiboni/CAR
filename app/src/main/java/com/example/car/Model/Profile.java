@@ -3,20 +3,21 @@ package com.example.car.Model;
 import java.util.Date;
 
 public class Profile extends User{
-    private String carNumber = "";//done
-    private String carModel = "";//done
-    private String carColor = "";//done
-    private String driverName = "";//done
-    private String id = "";//done
-    private String address = "";//done
-    private String licenceNumber = "";//done
-    private String phoneNumber = "";//done
-    private String ownerAddress = "";//done
-    private String ownerPhoneNumber = "";//done
-    private String insuranceCompanyName = "";//done
-    private String insurancePolicyNumber = "";//done
-    private String insuranceAgentName = "";//done
+    private String carNumber = "";
+    private String carModel = "";
+    private String carColor = "";
+    private String driverName = "";
+    private String id = "";
+    private String address = "";
+    private String licenceNumber = "";
+    private String phoneNumber = "";
+    private String ownerAddress = "";
+    private String ownerPhoneNumber = "";
+    private String insuranceCompanyName = "";
+    private String insurancePolicyNumber = "";
+    private String insuranceAgentName = "";
     private String insuranceAgentPhoneNum = "";
+    private String key;
 
     public Profile(String username,String password,String mail,String fName, String sName, String carNumber, String carModel, String carColor, String driverName, String id, String address, String licenceNumber, String phoneNumber, String ownerAddress, String ownerPhoneNumber, String insuranceCompanyName, String insurancePolicyNumber, String insuranceAgentName, String insuranceAgentPhoneNum) {
         super(username, password, fName, sName, mail);
@@ -98,6 +99,15 @@ public class Profile extends User{
     public void setInsuranceAgentPhoneNum(String insuranceAgentPhoneNum) {
         this.insuranceAgentPhoneNum = insuranceAgentPhoneNum;
     }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
     public String getCarNumber() {
         return carNumber;
     }

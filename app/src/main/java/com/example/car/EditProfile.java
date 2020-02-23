@@ -128,7 +128,7 @@ public class EditProfile extends AppCompatActivity {
             save.setOnClickListener( new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    uplodePhoto();
+                    uploadPhoto();
                     final Profile user = new Profile( userName, password, mail, firstNameEdit.getText().toString(), lastNameEdit.getText().toString(), carNumberEdit.getText().toString(),
                             carModelEdit.getText().toString(), carColorEdit.getText().toString(), driverNameEdit.getText().toString(), idEdit.getText().toString(),
                             addressEdit.getText().toString(), licenceNumberEdit.getText().toString(), phoneNumberEdit.getText().toString(), ownerAddressEdit.getText().toString(),
@@ -137,7 +137,6 @@ public class EditProfile extends AppCompatActivity {
                     users.child( userName ).setValue( user );
                     Intent intent = new Intent (EditProfile.this, menu.class);
                     intent.putExtra("name", user.getFullName());
-                    //finish();
                 }
             } );
             edit.setOnClickListener( new View.OnClickListener() {
@@ -178,7 +177,7 @@ public class EditProfile extends AppCompatActivity {
             }
         }
     }
-    private void uplodePhoto(){
+    private void uploadPhoto(){
         if(filePath != null){
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle( "Uploading..." );
@@ -189,7 +188,7 @@ public class EditProfile extends AppCompatActivity {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     progressDialog.dismiss();
-                    Toast.makeText( EditProfile.this, "Uploading", Toast.LENGTH_SHORT ).show();
+                    Toast.makeText( EditProfile.this, "Upload Success", Toast.LENGTH_SHORT ).show();
                 }
             } )
             .addOnFailureListener( new OnFailureListener() {
