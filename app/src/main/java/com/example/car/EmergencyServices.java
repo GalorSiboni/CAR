@@ -1,6 +1,7 @@
 package com.example.car;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -9,14 +10,14 @@ import android.view.View;
 import android.widget.ImageButton;
 
 public class EmergencyServices extends AppCompatActivity {
-    private ImageButton police,mada,firefighters;
+    private CardView police,mada,firefighters;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emergancy_services);
         police = findViewById(R.id.police);
         mada = findViewById(R.id.mada);
-        firefighters = findViewById(R.id.firefighters);
+        firefighters = findViewById(R.id.fireFighters);
         police.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

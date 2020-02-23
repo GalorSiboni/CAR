@@ -32,5 +32,12 @@
     <string name="edit_photo">Edit Photo</string>
     <string name="save">Save</string>
     <string name="edit_lbl">Edit</string>
+    <string name="call_to_the_police_emergency_dispatch_center">Call to the Police\'s emergency dispatch center</string>
+    <string name="call_to_the_mada_emergency_dispatch_center">Call to the Mada\'s emergency dispatch center</string>
+    <string name="call_to_the_fire_emergency_dispatch_center">Call to the Fire Fighters\'s emergency dispatch center</string>
+    <string name="police_emergency_services">Police Emergency Services</string>
+    <string name="mada_emergency_services">Mada Emergency Services</string>
+    <string name="fire_fighters_emergency_services">Fire Fighters Emergency Services</string>
+    <string name="emergency_services_headline">Emergency Services</string>
 
 </resources>
