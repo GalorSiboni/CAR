@@ -5,14 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.car.Model.Profile;
-import com.example.car.Model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -56,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                                 Profile login = dataSnapshot.child(editUser.getText().toString()).getValue(Profile.class);
                                 if (login.getPassword().equals(editPass.getText().toString())) {
                                     Toast.makeText(MainActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent (MainActivity.this, menu.class);
+                                    Intent intent = new Intent (MainActivity.this, Menu.class);
                                     intent.putExtra("name", login.getFullName());
                                     intent.putExtra("userName", login.getUsername());// TODO
                                     startActivity(intent);

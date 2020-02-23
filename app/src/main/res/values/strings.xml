@@ -29,5 +29,6 @@
     <string name="emergency_services">EMERGENCY SERVICES</string>
     <string name="call_to_one_of_the_needed_emergency_services_police_fire_fighters_and_mada">Call to: The Police, Fire Fighters or MADA</string>
     <string name="welcomeLbl">welcome:</string>
+    <string name="edit_photo">Edit Photo</string>
 
 </resources>
