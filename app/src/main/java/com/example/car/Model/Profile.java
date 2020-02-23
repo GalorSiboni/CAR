@@ -17,7 +17,7 @@ public class Profile extends User{
     private String insurancePolicyNumber = "";
     private String insuranceAgentName = "";
     private String insuranceAgentPhoneNum = "";
-    private String imageUrl;
+    private String imageUrl = "";
 
     public Profile(String username,String password,String mail,String fName, String sName, String carNumber, String carModel, String carColor, String driverName, String id, String address, String licenceNumber, String phoneNumber, String ownerAddress, String ownerPhoneNumber, String insuranceCompanyName, String insurancePolicyNumber, String insuranceAgentName, String insuranceAgentPhoneNum) {
         super(username, password, fName, sName, mail);

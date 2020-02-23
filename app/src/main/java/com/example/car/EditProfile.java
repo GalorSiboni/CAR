@@ -35,6 +35,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.UUID;
 
 
@@ -48,9 +49,8 @@ public class EditProfile extends AppCompatActivity {
     private final int PICK_IMAGE_REQUEST = 71;
     //Firebase
     FirebaseDatabase db;
-    FirebaseStorage storage;
+    private StorageReference storage;
     DatabaseReference users;
-    StorageReference photos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +73,6 @@ public class EditProfile extends AppCompatActivity {
         insuranceAgentNameEdit = findViewById( R.id.insuranceAgentNameEdit );
         insuranceAgentPhoneNumEdit = findViewById( R.id.insuranceAgentPhoneNumEdit );
         profilePicture = findViewById( R.id.profilePicture );
-
         // buttons
         edit = findViewById( R.id.edit );
         save = findViewById( R.id.Save );
@@ -90,8 +89,7 @@ public class EditProfile extends AppCompatActivity {
         //Firebase init
         db = FirebaseDatabase.getInstance();
         users = db.getReference( "Profiles" );// TODO: 19/02/2020 need to change to const path!!!
-        storage = FirebaseStorage.getInstance();
-        photos = storage.getReference();
+        storage = FirebaseStorage.getInstance().getReference().child( "ImageFolder" );
 
         users.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -185,21 +183,28 @@ public class EditProfile extends AppCompatActivity {
             progressDialog.setTitle( "Uploading..." );
             progressDialog.show();
 
-            final StorageReference ref = photos.child("images/" + UUID.randomUUID().toString() );
+            final StorageReference ref = storage.child("image/" + filePath.getLastPathSegment() );
             ref.putFile(filePath).addOnSuccessListener( new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     progressDialog.dismiss();
                     Toast.makeText( EditProfile.this, "Upload Success", Toast.LENGTH_SHORT ).show();
-//                    StorageMetadata snapshotMetadata = taskSnapshot.getMetadata();
-//                    Task<Uri> downloadUrl  = ref.getDownloadUrl();
-//                    downloadUrl.addOnSuccessListener( new OnSuccessListener() {
-//                        @Override
-//                        public void onSuccess(Object uri) {
-//                            String imageReference = uri.toString();
-//                            users.child( userName ).child( "imageUrl" ).setValue( imageReference );
-//                        }
-//                    } );
+                    ref.getDownloadUrl().addOnSuccessListener( new OnSuccessListener <Uri>() {
+
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            DatabaseReference imageStore = FirebaseDatabase.getInstance().getReference().child( userName );
+                            HashMap<String, String> hashMap = new HashMap<>();
+                            hashMap.put( "imageUrl",String.valueOf( uri ) );
+
+                            imageStore.setValue( hashMap ).addOnSuccessListener( new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText( EditProfile.this,"Finally Completed",Toast.LENGTH_SHORT ).show();
+                                }
+                            } );
+                            }
+                    } );
                 }
             } )
             .addOnFailureListener( new OnFailureListener() {
@@ -216,8 +221,8 @@ public class EditProfile extends AppCompatActivity {
                     progressDialog.setMessage("Uploading " +(int)progress + "%");
                 }
             } );
-
         }
+
     }
 
 }
