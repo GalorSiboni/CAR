@@ -18,10 +18,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.car.Model.Profile;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,14 +27,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -48,12 +43,16 @@ public class EditProfile extends AppCompatActivity {
     private ImageView choose;
     private Button save, edit;
     private String userName, password, mail;
+
     private Uri filePath;
+    private StorageTask uploadTask;
+    String uploadId;
     private final int PICK_IMAGE_REQUEST = 71;
     //Firebase
     FirebaseDatabase db;
     StorageReference storage;
     DatabaseReference users;
+    private boolean imagePerUserFlag = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +116,7 @@ public class EditProfile extends AppCompatActivity {
                 insuranceCompanyNameEdit.setText( myProfile.getInsuranceCompanyName() );
                 insuranceAgentNameEdit.setText( myProfile.getInsuranceAgentName() );
                 insuranceAgentPhoneNumEdit.setText( myProfile.getInsuranceAgentPhoneNum() );
+                profilePicture.setImageURI( storage.child("image/" + userName).getDownloadUrl().getResult());
             }
 
             @Override
@@ -132,12 +132,17 @@ public class EditProfile extends AppCompatActivity {
         save.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 Profile user = new Profile( userName, password, mail, firstNameEdit.getText().toString(), lastNameEdit.getText().toString(), carNumberEdit.getText().toString(),
+                Profile user = new Profile( userName, password, mail, firstNameEdit.getText().toString(), lastNameEdit.getText().toString(), carNumberEdit.getText().toString(),
                         carModelEdit.getText().toString(), carColorEdit.getText().toString(), driverNameEdit.getText().toString(), idEdit.getText().toString(),
                         addressEdit.getText().toString(), licenceNumberEdit.getText().toString(), phoneNumberEdit.getText().toString(), ownerAddressEdit.getText().toString(),
                         ownerPhoneNumberEdit.getText().toString(), insurancePolicyNumberEdit.getText().toString(), insuranceCompanyNameEdit.getText().toString(),
                         insuranceAgentNameEdit.getText().toString(), insuranceAgentPhoneNumEdit.getText().toString() );
-                uploadPhoto(user);
+                if(uploadTask !=null && uploadTask.isInProgress()) {
+                    Toast.makeText(EditProfile.this,"Upload in progress",Toast.LENGTH_SHORT ).show();
+                }
+                else {
+                        uploadPhoto();
+                }
                 users.child( userName ).setValue( user );
                 Intent intent = new Intent (EditProfile.this, Menu.class);
                 intent.putExtra("name", user.getFullName());
@@ -182,27 +187,22 @@ public class EditProfile extends AppCompatActivity {
         }
 
     }
-    private void uploadPhoto(final Profile user){
-        if(filePath != null){
+    private void uploadPhoto(){
+        if(filePath != null && imagePerUserFlag){
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle( "Uploading..." );
             progressDialog.show();
 
-            final StorageReference ref = storage.child("image/" + filePath.getLastPathSegment() );
-            ref.putFile(filePath).addOnSuccessListener( new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            final StorageReference ref = storage.child("image/" + userName );
+            imagePerUserFlag = false;
+            uploadTask = ref.putFile(filePath).addOnSuccessListener( new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
                     progressDialog.dismiss();
                     Toast.makeText( EditProfile.this, "Upload Success", Toast.LENGTH_SHORT ).show();
-                    ref.getDownloadUrl().addOnSuccessListener( new OnSuccessListener <Uri>() {
-
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            HashMap<String, String> hashMap = new HashMap<>();
-                            hashMap.put( "imageUrl",String.valueOf( uri ) );
-                            user.setImageUrl( hashMap );
-                        }
-                    } );
+                    String uploadUrl =  taskSnapshot.getUploadSessionUri().toString();
+                    uploadId = users.child( userName ).push().getKey();
+                    users.child( userName ).child( uploadId ).setValue(uploadUrl);
                 }
             } )
                     .addOnFailureListener( new OnFailureListener() {
@@ -220,7 +220,6 @@ public class EditProfile extends AppCompatActivity {
                         }
                     } );
         }
-
     }
 
 }

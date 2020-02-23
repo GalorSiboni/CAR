@@ -1,10 +1,5 @@
 package com.example.car.Model;
 
-import com.google.firebase.database.DatabaseReference;
-
-import java.util.Date;
-import java.util.HashMap;
-
 public class Profile extends User{
     private String carNumber = "";
     private String carModel = "";
@@ -20,7 +15,6 @@ public class Profile extends User{
     private String insurancePolicyNumber = "";
     private String insuranceAgentName = "";
     private String insuranceAgentPhoneNum = "";
-    private HashMap<String, String> imageUrl;
 
     public Profile(String username,String password,String mail,String fName, String sName, String carNumber, String carModel, String carColor, String driverName, String id, String address, String licenceNumber, String phoneNumber, String ownerAddress, String ownerPhoneNumber, String insuranceCompanyName, String insurancePolicyNumber, String insuranceAgentName, String insuranceAgentPhoneNum) {
         super(username, password, fName, sName, mail);
@@ -102,15 +96,6 @@ public class Profile extends User{
     public void setInsuranceAgentPhoneNum(String insuranceAgentPhoneNum) {
         this.insuranceAgentPhoneNum = insuranceAgentPhoneNum;
     }
-
-    public HashMap<String, String> getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(HashMap<String, String> imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
 
     public String getCarNumber() {
         return carNumber;
