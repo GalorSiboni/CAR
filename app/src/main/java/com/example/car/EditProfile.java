@@ -33,15 +33,18 @@ import com.google.firebase.storage.UploadTask;
 import java.io.IOException;
 import java.util.UUID;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class EditProfile extends AppCompatActivity {
     private EditText firstNameEdit, lastNameEdit, phoneNumberEdit, addressEdit, driverNameEdit, idEdit, carNumberEdit, carModelEdit, carColorEdit,
             licenceNumberEdit, ownerAddressEdit, ownerPhoneNumberEdit, insuranceCompanyNameEdit, insurancePolicyNumberEdit, insuranceAgentNameEdit, insuranceAgentPhoneNumEdit;
-    private ImageView profilePicture;
-    private Button save, edit, choose;
+    private CircleImageView profilePicture;
+    private Button save, edit;
+    private ImageView choose;
     private String userName, password, mail;
     private Uri filePath;
-    private final int PICK_IMAGE_REQUEST = 71;
+    private final int PICK_IMAGE_REQUEST = 71;//todo change to const value
     //Firebase
     FirebaseDatabase db;
     FirebaseStorage storage;
@@ -68,13 +71,13 @@ public class EditProfile extends AppCompatActivity {
         insurancePolicyNumberEdit = findViewById(R.id.insurancePolicyNumberEdit);
         insuranceAgentNameEdit = findViewById(R.id.insuranceAgentNameEdit);
         insuranceAgentPhoneNumEdit = findViewById(R.id.insuranceAgentPhoneNumEdit);
-        profilePicture = findViewById(R.id.profilePicture);
+        profilePicture = findViewById(R.id.profile_image);
 
         // buttons
-        edit = findViewById(R.id.edit);
-        save = findViewById(R.id.Save);
+        edit = findViewById(R.id.editProfile);
+        save = findViewById(R.id.save);
         save.setVisibility(View.GONE);
-        choose = findViewById(R.id.photoChooser);
+        choose = findViewById(R.id.editProfilePic);
         choose.setVisibility(View.GONE);
         final EditText[] editTextsArr = {firstNameEdit, lastNameEdit, phoneNumberEdit, addressEdit, driverNameEdit, idEdit, carNumberEdit, carModelEdit, carColorEdit,
                 licenceNumberEdit, ownerAddressEdit, ownerPhoneNumberEdit, insuranceCompanyNameEdit, insurancePolicyNumberEdit, insuranceAgentNameEdit, insuranceAgentPhoneNumEdit};
