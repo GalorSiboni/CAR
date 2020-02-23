@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,7 +15,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
-public class menu extends AppCompatActivity {
+public class Menu extends AppCompatActivity {
     private String userName;
 
     @Override
@@ -48,7 +47,7 @@ public class menu extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(menu.this, EditProfile.class);
+                Intent intent = new Intent(Menu.this, EditProfile.class);
                 intent.putExtra("userName", userName);// TODO change name to const!
                 startActivity(intent);
             }
@@ -57,7 +56,7 @@ public class menu extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(menu.this, menu.class));
+                startActivity(new Intent(Menu.this, Menu.class));
             }
         });
 
@@ -65,21 +64,21 @@ public class menu extends AppCompatActivity {
         emergencyServices.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(menu.this, EmergencyServices.class));
+                startActivity(new Intent(Menu.this, EmergencyServices.class));
             }
         });
 
         scanQR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(menu.this, QrCodeScanner.class));
+                startActivity(new Intent(Menu.this, QrCodeScanner.class));
             }
         });
 
 //        showAccidents.setOnClickListener( new View.OnClickListener() {
             //            @Override
 //            public void onClick(View v) {
-//                Intent intent = new Intent (menu.this, EditProfile.class);
+//                Intent intent = new Intent (Menu.this, EditProfile.class);
 //                intent.putExtra("userName", userName);// TODO
 //                startActivity(intent);
 //            }

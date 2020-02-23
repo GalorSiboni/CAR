@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.car.Model.Profile;
-import com.example.car.Model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -74,7 +73,7 @@ public class RegisterPage extends AppCompatActivity {
                             else{
                                 users.child(user.getUsername()).setValue(user);
                                 Toast.makeText(RegisterPage.this,"Register Success!",Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent (RegisterPage.this, menu.class);
+                                Intent intent = new Intent (RegisterPage.this, Menu.class);
                                 intent.putExtra("name", fullName);
                                 intent.putExtra("userName", user.getUsername());// TODO
                                 startActivity(intent);
@@ -108,7 +107,7 @@ public class RegisterPage extends AppCompatActivity {
         finish();
     }
     public void openMenuPage() {
-        startActivity(new Intent(RegisterPage.this,menu.class));
+        startActivity(new Intent(RegisterPage.this, Menu.class));
         finish();
     }
 }
