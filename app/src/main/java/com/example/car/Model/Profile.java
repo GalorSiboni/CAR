@@ -17,7 +17,7 @@ public class Profile extends User{
     private String insurancePolicyNumber = "";
     private String insuranceAgentName = "";
     private String insuranceAgentPhoneNum = "";
-    private String key;
+    private String imageUrl;
 
     public Profile(String username,String password,String mail,String fName, String sName, String carNumber, String carModel, String carColor, String driverName, String id, String address, String licenceNumber, String phoneNumber, String ownerAddress, String ownerPhoneNumber, String insuranceCompanyName, String insurancePolicyNumber, String insuranceAgentName, String insuranceAgentPhoneNum) {
         super(username, password, fName, sName, mail);
@@ -100,13 +100,14 @@ public class Profile extends User{
         this.insuranceAgentPhoneNum = insuranceAgentPhoneNum;
     }
 
-    public String getKey() {
-        return key;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
+
 
     public String getCarNumber() {
         return carNumber;
