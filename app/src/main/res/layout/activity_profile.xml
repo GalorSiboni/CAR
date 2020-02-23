@@ -12,7 +12,7 @@
         android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="160dp"
-        android:background="@color/green"
+        android:background="@drawable/gradientbackground"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -397,4 +397,18 @@
             </TableRow>
         </RelativeLayout>
     </ScrollView>
+    <Button
+        android:id="@+id/editProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit_lbl">
+    </Button>
+
+    <Button
+        android:id="@+id/save"
+        android:layout_below="@id/editProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save">
+    </Button>
 </RelativeLayout>
