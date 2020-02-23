@@ -29,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -183,12 +184,21 @@ public class EditProfile extends AppCompatActivity {
             progressDialog.setTitle( "Uploading..." );
             progressDialog.show();
 
-            StorageReference ref = photos.child("images/" + UUID.randomUUID().toString() );
+            final StorageReference ref = photos.child("images/" + UUID.randomUUID().toString() );
             ref.putFile(filePath).addOnSuccessListener( new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     progressDialog.dismiss();
                     Toast.makeText( EditProfile.this, "Upload Success", Toast.LENGTH_SHORT ).show();
+//                    StorageMetadata snapshotMetadata = taskSnapshot.getMetadata();
+//                    Task<Uri> downloadUrl  = ref.getDownloadUrl();
+//                    downloadUrl.addOnSuccessListener( new OnSuccessListener() {
+//                        @Override
+//                        public void onSuccess(Object uri) {
+//                            String imageReference = uri.toString();
+//                            users.child( userName ).child( "imageUrl" ).setValue( imageReference );
+//                        }
+//                    } );
                 }
             } )
             .addOnFailureListener( new OnFailureListener() {
@@ -205,6 +215,7 @@ public class EditProfile extends AppCompatActivity {
                     progressDialog.setMessage("Uploading " +(int)progress + "%");
                 }
             } );
+
         }
     }
 
