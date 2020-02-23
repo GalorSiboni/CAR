@@ -180,6 +180,7 @@ public class EditProfile extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+
     }
     private void uploadPhoto(){
         if(filePath != null){
