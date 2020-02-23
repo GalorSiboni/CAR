@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightGray"
+    android:background="@color/lightGray2"
     android:orientation="vertical"
     tools:context=".EditProfile">
 
@@ -29,7 +29,8 @@
                 android:layout_height="30dp"
                 android:layout_margin="5dp"
                 android:background="@drawable/home_btn"
-                android:padding="10dp"></ImageView>
+                android:padding="10dp">
+            </ImageView>
 
             <ImageView
                 android:id="@+id/profileIcon"
@@ -39,7 +40,8 @@
                 android:layout_toEndOf="@id/homeIcon"
                 android:layout_toRightOf="@id/homeIcon"
                 android:background="@drawable/profile_btn"
-                android:padding="10dp"></ImageView>
+                android:padding="10dp">
+            </ImageView>
 
             <ImageView
                 android:id="@+id/logOutIcon"
@@ -49,15 +51,43 @@
                 android:layout_toEndOf="@id/profileIcon"
                 android:layout_toRightOf="@id/profileIcon"
                 android:background="@drawable/exit_btn"
-                android:padding="10dp"></ImageView>
+                android:padding="10dp">
+            </ImageView>
         </RelativeLayout>
 
-    </RelativeLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_centerInParent="true"
+            android:id="@+id/profile_image"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:src="@drawable/profile"
+            android:paddingTop="10dp"
+            app:civ_border_color="#FFFFFF"
+            app:civ_border_width="2dp" />
 
-    <RelativeLayout
-        android:id="@+id/fixToPlaceBelow"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"></RelativeLayout>
+        <TextView
+            android:id="@+id/editProfilePicLbl"
+            android:layout_width="wrap_content"
+            android:layout_below="@id/profile_image"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:text="@string/edit_photo">
+        </TextView>
+        <ImageView
+            android:id="@+id/editProfilePic"
+            android:layout_below="@id/profile_image"
+            android:layout_toRightOf="@+id/editProfilePicLbl"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="10dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:background="@drawable/edit_icon"
+            android:layout_toEndOf="@+id/editProfilePicLbl"
+            android:layout_marginEnd="10dp">
+        </ImageView>
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/profileLabel"
@@ -66,54 +96,12 @@
         android:gravity="center"
         android:paddingBottom="30dp"
         android:text="@string/profile_label"
-        android:textSize="30sp"></TextView>
-
-    <LinearLayout
-        android:id="@+id/profilePic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/profileLabel"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/profilePicture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:id="@+id/buttons"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/profileLabel"
-            android:layout_centerVertical="true"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/photoChooser"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Choose" />
-
-            <Button
-                android:id="@+id/Save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Save" />
-
-            <Button
-                android:id="@+id/edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit" />
-        </LinearLayout>
-    </LinearLayout>
+        android:textSize="30sp" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/profilePic">
+        android:layout_below="@id/top">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -129,12 +117,12 @@
                     android:id="@+id/firstNameLab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/firstName_label"></TextView>
+                    android:text="@string/firstName_label" />
 
                 <EditText
                     android:id="@+id/firstNameEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"></EditText>
+                    android:layout_height="wrap_content" />
             </TableRow>
 
             <TableRow
@@ -147,17 +135,12 @@
                     android:id="@+id/lastNameLab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/firstNameLab"
-                    android:text="@string/lastName_label"></TextView>
+                    android:text="@string/lastName_label" />
 
                 <EditText
                     android:id="@+id/lastNameEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="-2dp"
-                    android:layout_toRightOf="@id/lastNameLab">
-
-                </EditText>
+                    android:layout_height="wrap_content" />
             </TableRow>
 
 
@@ -171,12 +154,12 @@
                     android:id="@+id/phoneNumberLab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/phoneNumber_label"></TextView>
+                    android:text="@string/phoneNumber_label" />
 
                 <EditText
                     android:id="@+id/phoneNumberEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"></EditText>
+                    android:layout_height="wrap_content" />
             </TableRow>
 
             <TableRow
@@ -189,12 +172,12 @@
                     android:id="@+id/addressLab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/address_label"></TextView>
+                    android:text="@string/address_label" />
 
                 <EditText
                     android:id="@+id/addressEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"></EditText>
+                    android:layout_height="wrap_content" />
             </TableRow>
 
             <TableRow
@@ -207,12 +190,12 @@
                     android:id="@+id/driverNameLab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/driverName_label"></TextView>
+                    android:text="@string/driverName_label" />
 
                 <EditText
                     android:id="@+id/driverNameEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"></EditText>
+                    android:layout_height="wrap_content" />
             </TableRow>
 
             <TableRow
@@ -225,12 +208,12 @@
                     android:id="@+id/idLab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/id_label"></TextView>
+                    android:text="@string/id_label" />
 
                 <EditText
                     android:id="@+id/idEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"></EditText>
+                    android:layout_height="wrap_content" />
             </TableRow>
 
             <TableRow
@@ -243,12 +226,12 @@
                     android:id="@+id/carNumberLab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/carNumber_label"></TextView>
+                    android:text="@string/carNumber_label" />
 
                 <EditText
                     android:id="@+id/carNumberEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"></EditText>
+                    android:layout_height="wrap_content" />
             </TableRow>
 
             <TableRow
@@ -261,12 +244,12 @@
                     android:id="@+id/carModelLab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/carModel_label"></TextView>
+                    android:text="@string/carModel_label" />
 
                 <EditText
                     android:id="@+id/carModelEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"></EditText>
+                    android:layout_height="wrap_content" />
             </TableRow>
 
             <TableRow
@@ -279,12 +262,12 @@
                     android:id="@+id/carColorLab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/carColor_label"></TextView>
+                    android:text="@string/carColor_label" />
 
                 <EditText
                     android:id="@+id/carColorEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"></EditText>
+                    android:layout_height="wrap_content" />
             </TableRow>
 
             <TableRow
@@ -297,12 +280,12 @@
                     android:id="@+id/licenceNumberLab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/licenceNumber_label"></TextView>
+                    android:text="@string/licenceNumber_label" />
 
                 <EditText
                     android:id="@+id/licenceNumberEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"></EditText>
+                    android:layout_height="wrap_content" />
             </TableRow>
 
             <TableRow
@@ -315,12 +298,12 @@
                     android:id="@+id/ownerAddressLab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/ownerAddress_label"></TextView>
+                    android:text="@string/ownerAddress_label" />
 
                 <EditText
                     android:id="@+id/ownerAddressEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"></EditText>
+                    android:layout_height="wrap_content" />
             </TableRow>
 
             <TableRow
@@ -333,12 +316,12 @@
                     android:id="@+id/ownerPhoneNumberLab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/ownerPhoneNumber_label"></TextView>
+                    android:text="@string/ownerPhoneNumber_label" />
 
                 <EditText
                     android:id="@+id/ownerPhoneNumberEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"></EditText>
+                    android:layout_height="wrap_content" />
             </TableRow>
 
             <TableRow
@@ -351,12 +334,12 @@
                     android:id="@+id/insuranceCompanyNameLab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/insuranceCompanyName_label"></TextView>
+                    android:text="@string/insuranceCompanyName_label" />
 
                 <EditText
                     android:id="@+id/insuranceCompanyNameEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"></EditText>
+                    android:layout_height="wrap_content" />
             </TableRow>
 
             <TableRow
@@ -369,12 +352,12 @@
                     android:id="@+id/insurancePolicyNumberLab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/insurancePolicyNumber_label"></TextView>
+                    android:text="@string/insurancePolicyNumber_label" />
 
                 <EditText
                     android:id="@+id/insurancePolicyNumberEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"></EditText>
+                    android:layout_height="wrap_content" />
             </TableRow>
 
             <TableRow
@@ -387,12 +370,12 @@
                     android:id="@+id/insuranceAgentNameLab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/insuranceAgentName_label"></TextView>
+                    android:text="@string/insuranceAgentName_label" />
 
                 <EditText
                     android:id="@+id/insuranceAgentNameEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"></EditText>
+                    android:layout_height="wrap_content" />
             </TableRow>
 
             <TableRow
@@ -405,22 +388,13 @@
                     android:id="@+id/insuranceAgentPhoneNumLab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/insuranceAgentPhoneNum_label"></TextView>
+                    android:text="@string/insuranceAgentPhoneNum_label" />
 
                 <EditText
                     android:id="@+id/insuranceAgentPhoneNumEdit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"></EditText>
+                    android:layout_height="wrap_content" />
             </TableRow>
         </RelativeLayout>
     </ScrollView>
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/profile_image"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
-        android:src="@drawable/profile"
-        app:civ_border_color="#FF000000"
-        app:civ_border_width="2dp" />
 </RelativeLayout>
