@@ -4,79 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f2f2f2"
-    tools:context=".menu">
-
-
-
-    <RelativeLayout
-        android:orientation="horizontal"
-        android:id="@+id/top"
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:background="@color/green">
-        <RelativeLayout
-            android:id="@+id/toolBarIcons"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true">
-
-            <ImageView
-                android:id="@+id/homeIcon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:padding="10dp"
-                android:layout_margin="5dp"
-                android:background="@drawable/home_btn">
-            </ImageView>
-
-            <ImageView
-                android:id="@+id/profileIcon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_toRightOf="@id/homeIcon"
-                android:padding="10dp"
-                android:layout_margin="5dp"
-                android:background="@drawable/profile_btn"
-                android:layout_toEndOf="@id/homeIcon">
-            </ImageView>
-            <ImageView
-                android:id="@+id/logOutIcon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:padding="10dp"
-                android:layout_margin="5dp"
-                android:layout_toRightOf="@id/profileIcon"
-                android:background="@drawable/exit_btn"
-                android:layout_toEndOf="@id/profileIcon">
-            </ImageView>
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/greeting"
-            android:layout_below="@+id/toolBarIcons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#FFFF"
-            android:fontFamily="@font/acme"
-            android:gravity="center"
-            android:text="@string/welcomeLbl"
-            android:textSize="40sp"
-            android:textStyle="bold">
-        </TextView>
-    </RelativeLayout>
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@color/lightBlue"
+    tools:context=".MainMenu">
 
     <RelativeLayout
-        android:id="@+id/fixToPlaceBelow"
-        android:layout_width="match_parent"
-        android:layout_height="120dp">
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/icons"
-        android:layout_below="@+id/fixToPlaceBelow"
         android:clipToPadding="false"
         android:gravity="center"
         android:orientation="vertical"
@@ -172,8 +105,7 @@
             android:layout_toRightOf="@id/scanQRCode"
             android:layout_width="100dp"
             android:layout_height="220dp"
-            android:layout_margin="10dp"
-            android:layout_toEndOf="@id/scanQRCode">
+            android:layout_margin="10dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -214,12 +146,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
-    <ImageView
-        android:id="@+id/qrCode"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        app:srcCompat="?attr/actionBarDivider"
-        android:layout_below="@id/icons"
-        android:layout_marginTop="80dp"
-        android:layout_centerHorizontal="true"/>
+
+
 </RelativeLayout>

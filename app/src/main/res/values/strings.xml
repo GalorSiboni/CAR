@@ -22,5 +22,12 @@
     <string name="insuranceAgentName_label">Insurance Agent Name:</string>
     <string name="insuranceAgentPhoneNum_label">Insurance Agent Phone Number:</string>
     <string name="dataBase_mainActivity_paths">Profiles</string>
+    <string name="show_accidents">SHOW ACCIDENTS</string>
+    <string name="show_all_your_previous_accidents">Show all your previous accidents</string>
+    <string name="scan_qr_code">SCAN QR CODE</string>
+    <string name="scan_the_other_driver_s_qr_code_to_swipe_details">Scan the other driver\'s QR CODE to swap details</string>
+    <string name="emergency_services">EMERGENCY SERVICES</string>
+    <string name="call_to_one_of_the_needed_emergency_services_police_fire_fighters_and_mada">Call to: The Police, Fire Fighters or MADA</string>
+    <string name="welcomeLbl">welcome:</string>
 
 </resources>
