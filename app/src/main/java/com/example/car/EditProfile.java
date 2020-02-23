@@ -1,28 +1,55 @@
 package com.example.car;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
+
 import com.example.car.Model.Profile;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.UUID;
 
 
 public class EditProfile extends AppCompatActivity {
     private EditText firstNameEdit, lastNameEdit, phoneNumberEdit, addressEdit, driverNameEdit, idEdit, carNumberEdit, carModelEdit, carColorEdit,
             licenceNumberEdit, ownerAddressEdit, ownerPhoneNumberEdit, insuranceCompanyNameEdit, insurancePolicyNumberEdit, insuranceAgentNameEdit, insuranceAgentPhoneNumEdit;
-    private Button save,edit;
+    private ImageView profilePicture;
+    private Button save,edit,choose;
     private String userName,password,mail;
+    private Uri filePath;
+    private final int PICK_IMAGE_REQUEST = 71;
     //Firebase
     FirebaseDatabase db;
+    FirebaseStorage storage;
     DatabaseReference users;
+    StorageReference photos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +71,13 @@ public class EditProfile extends AppCompatActivity {
         insurancePolicyNumberEdit = findViewById( R.id.insurancePolicyNumberEdit );
         insuranceAgentNameEdit = findViewById( R.id.insuranceAgentNameEdit );
         insuranceAgentPhoneNumEdit = findViewById( R.id.insuranceAgentPhoneNumEdit );
+        profilePicture = findViewById( R.id.profilePicture );
+        // buttons
+        edit = findViewById( R.id.edit );
         save = findViewById( R.id.Save );
         save.setVisibility( View.GONE );
-        edit = findViewById( R.id.edit );
+        choose = findViewById( R.id.photoChooser );
+        choose.setVisibility( View.GONE );
         final EditText[] editTextsArr = {firstNameEdit, lastNameEdit, phoneNumberEdit, addressEdit, driverNameEdit, idEdit, carNumberEdit, carModelEdit, carColorEdit,
                 licenceNumberEdit, ownerAddressEdit, ownerPhoneNumberEdit, insuranceCompanyNameEdit, insurancePolicyNumberEdit, insuranceAgentNameEdit, insuranceAgentPhoneNumEdit};
         editMode( editTextsArr,false );
@@ -54,9 +85,12 @@ public class EditProfile extends AppCompatActivity {
         Intent intent = getIntent();
         userName = intent.getStringExtra( "userName" );
 
-        //Firebase
+        //Firebase init
         db = FirebaseDatabase.getInstance();
         users = db.getReference( "Profiles" );// TODO: 19/02/2020 need to change to const path!!!
+        storage = FirebaseStorage.getInstance();
+        photos = storage.getReference();
+
         users.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -84,25 +118,35 @@ public class EditProfile extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {}});
 
+            choose.setOnClickListener( new View.OnClickListener() {
+               @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
+               @Override
+               public void onClick(View v) {
+                   chooseImage();
+               }
+            });
             save.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Profile user = new Profile( userName, password, mail, firstNameEdit.getText().toString(), lastNameEdit.getText().toString(), carNumberEdit.getText().toString(),
-                        carModelEdit.getText().toString(), carColorEdit.getText().toString(), driverNameEdit.getText().toString(), idEdit.getText().toString(),
-                        addressEdit.getText().toString(), licenceNumberEdit.getText().toString(), phoneNumberEdit.getText().toString(), ownerAddressEdit.getText().toString(),
-                        ownerPhoneNumberEdit.getText().toString(), insurancePolicyNumberEdit.getText().toString(), insuranceCompanyNameEdit.getText().toString(),
-                        insuranceAgentNameEdit.getText().toString(), insuranceAgentPhoneNumEdit.getText().toString() );
-                users.child( userName ).setValue( user );
-                Intent intent = new Intent (EditProfile.this, menu.class);
-                intent.putExtra("name", user.getFullName());
-                finish();
-            }
-        } );
+                @Override
+                public void onClick(View v) {
+                    uplodePhoto();
+                    final Profile user = new Profile( userName, password, mail, firstNameEdit.getText().toString(), lastNameEdit.getText().toString(), carNumberEdit.getText().toString(),
+                            carModelEdit.getText().toString(), carColorEdit.getText().toString(), driverNameEdit.getText().toString(), idEdit.getText().toString(),
+                            addressEdit.getText().toString(), licenceNumberEdit.getText().toString(), phoneNumberEdit.getText().toString(), ownerAddressEdit.getText().toString(),
+                            ownerPhoneNumberEdit.getText().toString(), insurancePolicyNumberEdit.getText().toString(), insuranceCompanyNameEdit.getText().toString(),
+                            insuranceAgentNameEdit.getText().toString(), insuranceAgentPhoneNumEdit.getText().toString() );
+                    users.child( userName ).setValue( user );
+                    Intent intent = new Intent (EditProfile.this, menu.class);
+                    intent.putExtra("name", user.getFullName());
+                    //finish();
+                }
+            } );
             edit.setOnClickListener( new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                 editMode( editTextsArr,true );
                 save.setVisibility(View.VISIBLE);
+                choose.setVisibility(View.VISIBLE);
+                edit.setVisibility(View.GONE);
                 }
                 });
     }
@@ -112,4 +156,57 @@ public class EditProfile extends AppCompatActivity {
                 arr[i].setCursorVisible( visibilityFlag );
         }
     }
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
+    private void chooseImage(){
+        Intent intent = new Intent();
+        intent.setType( "image/*" );
+        intent.setAction( Intent.ACTION_GET_CONTENT );
+        startActivityForResult( Intent.createChooser( intent,"SelectPicture"),PICK_IMAGE_REQUEST );
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult( requestCode,resultCode,data );
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null)
+        {
+            filePath = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap( getContentResolver(),filePath );
+                profilePicture.setImageBitmap( bitmap );
+            }
+             catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private void uplodePhoto(){
+        if(filePath != null){
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle( "Uploading..." );
+            progressDialog.show();
+
+            StorageReference ref = photos.child("images/" + UUID.randomUUID().toString() );
+            ref.putFile(filePath).addOnSuccessListener( new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    progressDialog.dismiss();
+                    Toast.makeText( EditProfile.this, "Uploading", Toast.LENGTH_SHORT ).show();
+                }
+            } )
+            .addOnFailureListener( new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    progressDialog.dismiss();
+                    Toast.makeText( EditProfile.this, "Failed "+e.getMessage() , Toast.LENGTH_SHORT).show();
+                }
+            } )
+            .addOnProgressListener( new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+                    double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
+                    progressDialog.setMessage("Uploading " +(int)progress + "%");
+                }
+            } );
+        }
+    }
+
 }
