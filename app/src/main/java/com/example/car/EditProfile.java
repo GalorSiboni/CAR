@@ -132,12 +132,12 @@ public class EditProfile extends AppCompatActivity {
         save.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadPhoto();
-                final Profile user = new Profile( userName, password, mail, firstNameEdit.getText().toString(), lastNameEdit.getText().toString(), carNumberEdit.getText().toString(),
+                 Profile user = new Profile( userName, password, mail, firstNameEdit.getText().toString(), lastNameEdit.getText().toString(), carNumberEdit.getText().toString(),
                         carModelEdit.getText().toString(), carColorEdit.getText().toString(), driverNameEdit.getText().toString(), idEdit.getText().toString(),
                         addressEdit.getText().toString(), licenceNumberEdit.getText().toString(), phoneNumberEdit.getText().toString(), ownerAddressEdit.getText().toString(),
                         ownerPhoneNumberEdit.getText().toString(), insurancePolicyNumberEdit.getText().toString(), insuranceCompanyNameEdit.getText().toString(),
                         insuranceAgentNameEdit.getText().toString(), insuranceAgentPhoneNumEdit.getText().toString() );
+                uploadPhoto(user);
                 users.child( userName ).setValue( user );
                 Intent intent = new Intent (EditProfile.this, Menu.class);
                 intent.putExtra("name", user.getFullName());
@@ -182,7 +182,7 @@ public class EditProfile extends AppCompatActivity {
         }
 
     }
-    private void uploadPhoto(){
+    private void uploadPhoto(final Profile user){
         if(filePath != null){
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle( "Uploading..." );
@@ -198,16 +198,9 @@ public class EditProfile extends AppCompatActivity {
 
                         @Override
                         public void onSuccess(Uri uri) {
-                            DatabaseReference imageStore = FirebaseDatabase.getInstance().getReference().child( userName );
                             HashMap<String, String> hashMap = new HashMap<>();
                             hashMap.put( "imageUrl",String.valueOf( uri ) );
-
-                            imageStore.setValue( hashMap ).addOnSuccessListener( new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Toast.makeText( EditProfile.this,"Finally Completed",Toast.LENGTH_SHORT ).show();
-                                }
-                            } );
+                            user.setImageUrl( hashMap );
                         }
                     } );
                 }
