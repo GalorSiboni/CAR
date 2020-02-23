@@ -1,6 +1,7 @@
 package com.example.car;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,58 +17,86 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
 public class menu extends AppCompatActivity {
+    private String userName;
 
-    private Button scanQR, showAccidents, emergencyServices;
-    private String fullName,userName;
-    private TextView greeting;
-    private ImageView qrCode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_menu );
+        CardView scanQR, showAccidents, emergencyServices;
+        ImageView qrCode, profile, home, logOut;
+        String fullName;
+        TextView greeting;
 
-        scanQR = findViewById( R.id.scanqr );
-        showAccidents = findViewById( R.id.showAccident );
-        emergencyServices = findViewById( R.id.emergency );
-        greeting = findViewById( R.id.greeting );
-        qrCode = findViewById( R.id.qrCode );
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_menu);
+
+        scanQR = findViewById(R.id.scanQRCode);
+        showAccidents = findViewById(R.id.allAccidents);
+        emergencyServices = findViewById(R.id.emergencyCall);
+        greeting = findViewById(R.id.greeting);
+        qrCode = findViewById(R.id.qrCode);
+        profile = findViewById(R.id.profileIcon);
+        home = findViewById(R.id.homeIcon);
 
 
         Intent intent = getIntent();
-        fullName = intent.getStringExtra( "name" );
-        userName = intent.getStringExtra( "userName" );
-        greeting.setText( "welcome :" + fullName );
-        scanQR.setOnClickListener( new View.OnClickListener() {
+        fullName = intent.getStringExtra("name");//Todo change name to const!!!
+        userName = intent.getStringExtra("userName");//Todo change name to const!!!
+        greeting.setText("welcome :" + fullName);
+
+//
+        //icons events
+        profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(menu.this,QrCodeScanner.class));
-            }
-        } );
-        showAccidents.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (menu.this, EditProfile.class);
-                intent.putExtra("userName", userName);// TODO
+                Intent intent = new Intent(menu.this, EditProfile.class);
+                intent.putExtra("userName", userName);// TODO change name to const!
                 startActivity(intent);
             }
-        } );
-        emergencyServices.setOnClickListener( new View.OnClickListener() {
+        });
+
+        home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity( new Intent( menu.this, EmergencyServices.class ) );
+                startActivity(new Intent(menu.this, menu.class));
             }
-        } );
+        });
+
+        //buttons events
+        emergencyServices.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(menu.this, EmergencyServices.class));
+            }
+        });
+
+        scanQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(menu.this, QrCodeScanner.class));
+            }
+        });
+
+//        showAccidents.setOnClickListener( new View.OnClickListener() {
+            //            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent (menu.this, EditProfile.class);
+//                intent.putExtra("userName", userName);// TODO
+//                startActivity(intent);
+//            }
+//        } );
+
+
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         try {
-            BitMatrix bitMatrix = qrCodeWriter.encode( userName, BarcodeFormat.QR_CODE, 200, 200, null );
-            Bitmap bitmap = Bitmap.createBitmap( 200, 200, Bitmap.Config.RGB_565 );
+            BitMatrix bitMatrix = qrCodeWriter.encode(userName, BarcodeFormat.QR_CODE, 200, 200, null);
+            Bitmap bitmap = Bitmap.createBitmap(200, 200, Bitmap.Config.RGB_565);
 
             for (int x = 0; x < 200; x++) {
                 for (int y = 0; y < 200; y++) {
-                    bitmap.setPixel( x, y, bitMatrix.get( x, y ) ? Color.BLACK : Color.WHITE );
+                    bitmap.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
                 }
             }
-            qrCode.setImageBitmap( bitmap );
+            qrCode.setImageBitmap(bitmap);
         } catch (Exception e) {
             e.printStackTrace();
         }
