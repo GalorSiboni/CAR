@@ -2,6 +2,7 @@ package com.example.car;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.zxing.Result;
@@ -12,7 +13,6 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView.ResultHandler {
     private ZXingScannerView mScannerView;
-
     @Override
     public void onCreate(Bundle state) {
         super.onCreate( state );
@@ -42,6 +42,13 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
     public void handleResult(Result rawResult) {
         // Do something with the result here
         // Prints scan results
-        onBackPressed();
+        //onBackPressed();
+        if (rawResult != null){
+
+            Intent intent = new Intent(QrCodeScanner.this, Menu.class);
+            intent.putExtra("accidentOpenerProfile", rawResult.getText());// TODO change name to const!
+            startActivity(intent);
+        }
+
     }
 }

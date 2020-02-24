@@ -35,6 +35,7 @@ public class Menu extends AppCompatActivity {
         qrCode = findViewById(R.id.qrCode);
         profile = findViewById(R.id.profileIcon);
         home = findViewById(R.id.homeIcon);
+        logOut = findViewById(R.id.logOutIcon);
 
 
         Intent intent = getIntent();
@@ -59,6 +60,13 @@ public class Menu extends AppCompatActivity {
                 startActivity(new Intent(Menu.this, Menu.class));
             }
         });
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Menu.this, MainActivity.class));
+                finish();
+            }
+        });
 
         //buttons events
         emergencyServices.setOnClickListener(new View.OnClickListener() {
@@ -75,14 +83,14 @@ public class Menu extends AppCompatActivity {
             }
         });
 
-//        showAccidents.setOnClickListener( new View.OnClickListener() {
-            //            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent (Menu.this, EditProfile.class);
-//                intent.putExtra("userName", userName);// TODO
-//                startActivity(intent);
-//            }
-//        } );
+        showAccidents.setOnClickListener( new View.OnClickListener() {
+                        @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (Menu.this, AccidentReport.class);
+                intent.putExtra("userName", userName);// TODO
+                startActivity(intent);
+            }
+        } );
 
 
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
