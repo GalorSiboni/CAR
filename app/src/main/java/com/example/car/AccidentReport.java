@@ -2,6 +2,7 @@ package com.example.car;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +14,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 public class AccidentReport extends AppCompatActivity {
-
+    private String myUserName,accidentOpenerUserName;
+    private boolean iScan;
 
     //Firebase
     FirebaseDatabase db;
@@ -35,6 +37,10 @@ public class AccidentReport extends AppCompatActivity {
 //        accidentStorage =  storage.child("accidents/" + accidentID);
 
 
+        Intent intent = getIntent();
+        myUserName = intent.getStringExtra("userName");//Todo change name to const!!!
+        accidentOpenerUserName = intent.getStringExtra("accidentOpenerProfile");//Todo change name to const!!!
+        iScan = intent.getBooleanExtra("whoScan",false);//Todo change name to const!!!
     }
 
 }

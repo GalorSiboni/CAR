@@ -45,8 +45,9 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         //onBackPressed();
         if (rawResult != null){
 
-            Intent intent = new Intent(QrCodeScanner.this, Menu.class);
+            Intent intent = new Intent(QrCodeScanner.this, QrCodeScanner.class);
             intent.putExtra("accidentOpenerProfile", rawResult.getText());// TODO change name to const!
+            intent.putExtra("whoScan", true);// TODO change name to const!
             startActivity(intent);
         }
 
