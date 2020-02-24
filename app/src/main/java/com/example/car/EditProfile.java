@@ -48,7 +48,6 @@ public class EditProfile extends AppCompatActivity {
 
     private Uri filePath;
     private StorageTask uploadTask;
-    String uploadId;
     private final int PICK_IMAGE_REQUEST = 71;
     //Firebase
     FirebaseDatabase db;
