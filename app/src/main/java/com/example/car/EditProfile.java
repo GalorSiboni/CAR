@@ -30,8 +30,10 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -52,7 +54,6 @@ public class EditProfile extends AppCompatActivity {
     FirebaseDatabase db;
     StorageReference storage;
     DatabaseReference users;
-    private boolean imagePerUserFlag = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,8 +117,9 @@ public class EditProfile extends AppCompatActivity {
                 insuranceCompanyNameEdit.setText( myProfile.getInsuranceCompanyName() );
                 insuranceAgentNameEdit.setText( myProfile.getInsuranceAgentName() );
                 insuranceAgentPhoneNumEdit.setText( myProfile.getInsuranceAgentPhoneNum() );
-                if (!imagePerUserFlag)
-                profilePicture.setImageURI( storage.child("image/" + userName).getDownloadUrl().getResult());
+                if (dataSnapshot.child(userName).child( "imageUrl").exists()) {
+                    Picasso.get().load(Uri.parse(dataSnapshot.child(userName).child( "imageUrl" ).getValue().toString())).into( profilePicture );
+                }
             }
 
             @Override
@@ -133,17 +135,17 @@ public class EditProfile extends AppCompatActivity {
         save.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Profile user = new Profile( userName, password, mail, firstNameEdit.getText().toString(), lastNameEdit.getText().toString(), carNumberEdit.getText().toString(),
-                        carModelEdit.getText().toString(), carColorEdit.getText().toString(), driverNameEdit.getText().toString(), idEdit.getText().toString(),
-                        addressEdit.getText().toString(), licenceNumberEdit.getText().toString(), phoneNumberEdit.getText().toString(), ownerAddressEdit.getText().toString(),
-                        ownerPhoneNumberEdit.getText().toString(), insurancePolicyNumberEdit.getText().toString(), insuranceCompanyNameEdit.getText().toString(),
-                        insuranceAgentNameEdit.getText().toString(), insuranceAgentPhoneNumEdit.getText().toString() );
                 if(uploadTask !=null && uploadTask.isInProgress()) {
                     Toast.makeText(EditProfile.this,"Upload in progress",Toast.LENGTH_SHORT ).show();
                 }
                 else {
-                        uploadPhoto();
+                    uploadPhoto();
                 }
+                Profile user = new Profile( userName, password, mail, firstNameEdit.getText().toString(), lastNameEdit.getText().toString(), carNumberEdit.getText().toString(),
+                        carModelEdit.getText().toString(), carColorEdit.getText().toString(), driverNameEdit.getText().toString(), idEdit.getText().toString(),
+                        addressEdit.getText().toString(), licenceNumberEdit.getText().toString(), phoneNumberEdit.getText().toString(), ownerAddressEdit.getText().toString(),
+                        ownerPhoneNumberEdit.getText().toString(), insurancePolicyNumberEdit.getText().toString(), insuranceCompanyNameEdit.getText().toString(),
+                        insuranceAgentNameEdit.getText().toString(), insuranceAgentPhoneNumEdit.getText().toString());
                 users.child( userName ).setValue( user );
                 Intent intent = new Intent (EditProfile.this, Menu.class);
                 intent.putExtra("name", user.getFullName());
@@ -189,23 +191,25 @@ public class EditProfile extends AppCompatActivity {
 
     }
     private void uploadPhoto(){
-        if(filePath != null && imagePerUserFlag){
+        if(filePath != null){
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle( "Uploading..." );
             progressDialog.show();
 
             final StorageReference ref = storage.child("image/" + userName );
-            imagePerUserFlag = false;
             uploadTask = ref.putFile(filePath).addOnSuccessListener( new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
                     progressDialog.dismiss();
                     Toast.makeText( EditProfile.this, "Upload Success", Toast.LENGTH_SHORT ).show();
-                    String uploadUrl =  taskSnapshot.getUploadSessionUri().toString();
-                    uploadId = users.child( userName ).push().getKey();
-                    users.child( userName ).child( uploadId ).setValue(uploadUrl);
-                }
-            } )
+                    ref.getDownloadUrl().addOnSuccessListener( new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String url = uri.toString();
+                            users.child(userName).child( "imageUrl" ).setValue( url );
+                        }
+                    } );
+                   }})
                     .addOnFailureListener( new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
