@@ -26,6 +26,9 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
     FirebaseDatabase db;
     DatabaseReference users;
     DatabaseReference accidents;
+    private Profile myProfile, driver1Profile;
+    private double latitude, longitude;
+    private String driver1User;
     @Override
     public void onCreate(Bundle state) {
         //Firebase init
@@ -38,6 +41,25 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         mScannerView = new ZXingScannerView( this );
         // Set the scanner view as the content view
         setContentView( mScannerView );
+
+        Intent intentLocation = getIntent();
+        double latitude = intentLocation.getDoubleExtra("latitude", 0.0);
+        double longitude = intentLocation.getDoubleExtra("longitude", 0.0);
+        final String userName = intentLocation.getStringExtra("userName");
+
+        users.addListenerForSingleValueEvent( new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                myProfile = dataSnapshot.child( userName ).getValue( Profile.class );
+                if(driver1User != null)
+                    driver1Profile = dataSnapshot.child( driver1User ).getValue( Profile.class );
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -60,25 +82,10 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
     public void handleResult(final Result rawResult) {
         //onBackPressed();
         if (rawResult.getText() != null){
-            Intent intentLocation = getIntent();
-            double latitude = intentLocation.getDoubleExtra("latitude", 0.0);
-            double longitude = intentLocation.getDoubleExtra("longitude", 0.0);
-            final String userName = intentLocation.getStringExtra("userName");
             final Accident newAccident = new Accident(latitude, longitude);
-            users.addListenerForSingleValueEvent( new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Profile myProfile = dataSnapshot.child( userName ).getValue( Profile.class );
-                    Profile driver1Profile = dataSnapshot.child( rawResult.getText() ).getValue( Profile.class );
-                    newAccident.addToProfilesList( driver1Profile);
-                    newAccident.addToProfilesList( myProfile);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
+            driver1User = rawResult.getText();
+            newAccident.addToProfilesList( myProfile);
+            newAccident.addToProfilesList( driver1Profile);
             String key = accidents.push().getKey();
             accidents.child( key ).setValue( newAccident );
             Intent intent = new Intent(QrCodeScanner.this, AccidentReport.class);

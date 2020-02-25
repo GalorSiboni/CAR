@@ -22,7 +22,7 @@ public class RegisterPage extends AppCompatActivity {
     private Button submit;
     private EditText fName,sName,mail,pass,cPass,userName;
     private TextView login;
-    private String s0,s1,s2,s3,s4,s5, fullName;
+    private String s0 = "",s1 = "",s2 = "",s3 = "",s4 = "",s5 = "", fullName = "";
     //Firebase
     FirebaseDatabase db;
     DatabaseReference users;
@@ -49,15 +49,18 @@ public class RegisterPage extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                s0 = userName.getText().toString().trim();
-                s1 = pass.getText().toString();
-                s2 = fName.getText().toString().trim();
-                s3 = sName.getText().toString().trim();
-                s4 = mail.getText().toString().trim();
-                String[] str = s4.split("@");
-                s4 = str[0] + "@" + str[1].replace(".","_DOT_");//email -> replace . to _dot_ because of firebase settings
-                s5 = cPass.getText().toString();//password check
-                fullName = s2 + " " + s3;
+                s0 += userName.getText().toString().trim();
+                s1 += pass.getText().toString();
+                s2 += fName.getText().toString().trim();
+                s3 += sName.getText().toString().trim();
+                if(mail.getText().toString().trim() != "" && mail.getText().toString().trim().contains( "@" )) {
+                    s4 += mail.getText().toString().trim();
+                    String[] str = s4.split( "@" );
+                    s4 += str[0] + "@" + str[1].replace( ".", "_DOT_" );//email -> replace . to _dot_ because of firebase settings
+                }
+                s5 += cPass.getText().toString();//password check
+                fullName += s2 + " " + s3;
+                if(s0 != "" && s1 != "" && s2 != "" && s3 != ""){
                 if(s1.equals(s5)){
                     final Profile user = new Profile(s0,s1,s2,s3,s4);
 
@@ -70,8 +73,6 @@ public class RegisterPage extends AppCompatActivity {
                                 Toast.makeText(RegisterPage.this,"This Mail Is Already Exist!",Toast.LENGTH_SHORT).show();
                             else if(dataSnapshot.child(user.getFullName()).exists())
                                 Toast.makeText(RegisterPage.this,"This Full Name Is Already Exist!",Toast.LENGTH_SHORT).show();
-                            else if(s0 == "" || s1 == "" || s2 == "" || s3 == "" || s4 == "" )
-                                Toast.makeText(RegisterPage.this,"Pls fill all the slots",Toast.LENGTH_SHORT).show();
                             else{
                                 users.child(user.getUsername()).setValue(user);
                                 Toast.makeText(RegisterPage.this,"Register Success!",Toast.LENGTH_SHORT).show();
@@ -93,6 +94,10 @@ public class RegisterPage extends AppCompatActivity {
                 }
                 else {
                     Toast.makeText(RegisterPage.this,"Password Confirmation Failed!",Toast.LENGTH_SHORT).show();
+                }
+            }
+            else{
+                    Toast.makeText(RegisterPage.this,"Pls fill all the slots",Toast.LENGTH_SHORT).show();
                 }
             }
         });
