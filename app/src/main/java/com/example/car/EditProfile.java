@@ -44,11 +44,12 @@ public class EditProfile extends AppCompatActivity {
     private CircleImageView profilePicture;
     private ImageView choose;
     private Button save, edit;
-    private String userName, password, mail;
+    private String userName, password, mail, imageUrl = "";
 
     private Uri filePath;
     private StorageTask uploadTask;
     private final int PICK_IMAGE_REQUEST = 71;
+    private boolean editPhotoFlag = false;
     //Firebase
     FirebaseDatabase db;
     StorageReference storage;
@@ -118,6 +119,7 @@ public class EditProfile extends AppCompatActivity {
                 insuranceAgentPhoneNumEdit.setText( myProfile.getInsuranceAgentPhoneNum() );
                 if (dataSnapshot.child(userName).child( "imageUrl").exists()) {
                     Picasso.get().load(Uri.parse(dataSnapshot.child(userName).child( "imageUrl" ).getValue().toString())).into( profilePicture );
+                    imageUrl = dataSnapshot.child(userName).child( "imageUrl" ).getValue().toString();
                 }
             }
 
@@ -129,22 +131,24 @@ public class EditProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 chooseImage();
+                editPhotoFlag = true;
             }
         });
         save.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(uploadTask !=null && uploadTask.isInProgress()) {
-                    Toast.makeText(EditProfile.this,"Upload in progress",Toast.LENGTH_SHORT ).show();
-                }
-                else {
-                    uploadPhoto();
+                if(editPhotoFlag) {
+                    if (uploadTask != null && uploadTask.isInProgress()) {
+                        Toast.makeText( EditProfile.this, "Upload in progress", Toast.LENGTH_SHORT ).show();
+                    } else {
+                        uploadPhoto();
+                    }
                 }
                 Profile user = new Profile( userName, password, mail, firstNameEdit.getText().toString(), lastNameEdit.getText().toString(), carNumberEdit.getText().toString(),
                         carModelEdit.getText().toString(), carColorEdit.getText().toString(), driverNameEdit.getText().toString(), idEdit.getText().toString(),
                         addressEdit.getText().toString(), licenceNumberEdit.getText().toString(), phoneNumberEdit.getText().toString(), ownerAddressEdit.getText().toString(),
                         ownerPhoneNumberEdit.getText().toString(), insurancePolicyNumberEdit.getText().toString(), insuranceCompanyNameEdit.getText().toString(),
-                        insuranceAgentNameEdit.getText().toString(), insuranceAgentPhoneNumEdit.getText().toString());
+                        insuranceAgentNameEdit.getText().toString(), insuranceAgentPhoneNumEdit.getText().toString(),imageUrl);
                 users.child( userName ).setValue( user );
                 Intent intent = new Intent (EditProfile.this, Menu.class);
                 intent.putExtra("name", user.getFullName());
