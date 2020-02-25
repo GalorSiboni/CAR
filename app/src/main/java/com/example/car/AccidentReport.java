@@ -14,13 +14,12 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 public class AccidentReport extends AppCompatActivity {
-    private String myUserName,accidentOpenerUserName;
-    private boolean iScan;
+    private String myUserName,driver1;
 
     //Firebase
     FirebaseDatabase db;
     StorageReference storage;
-    StorageReference accidentStorage;
+//    StorageReference accidentStorage;
     DatabaseReference users;
     DatabaseReference accidents;
     @Override
@@ -39,8 +38,7 @@ public class AccidentReport extends AppCompatActivity {
 
         Intent intent = getIntent();
         myUserName = intent.getStringExtra("userName");//Todo change name to const!!!
-        accidentOpenerUserName = intent.getStringExtra("accidentOpenerProfile");//Todo change name to const!!!
-        iScan = intent.getBooleanExtra("whoScan",false);//Todo change name to const!!!
+        driver1 = intent.getStringExtra("driver1");//Todo change name to const!!!
     }
 
 }

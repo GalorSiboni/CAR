@@ -33,8 +33,6 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
-import java.util.HashMap;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -99,6 +97,7 @@ public class EditProfile extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Profile myProfile = dataSnapshot.child( userName ).getValue( Profile.class );
+                assert myProfile != null;
                 password = myProfile.getPassword();
                 mail = myProfile.getMail();
                 firstNameEdit.setText( myProfile.getFirstName() );
