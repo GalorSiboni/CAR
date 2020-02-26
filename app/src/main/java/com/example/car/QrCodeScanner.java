@@ -26,9 +26,9 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
     FirebaseDatabase db;
     DatabaseReference users;
     DatabaseReference accidents;
-    private Profile myProfile, driver1Profile;
+    private Profile myProfile;
     private double latitude, longitude;
-    private String driver1User;
+    private String userName;
     @Override
     public void onCreate(Bundle state) {
         //Firebase init
@@ -45,14 +45,12 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         Intent intentLocation = getIntent();
         latitude = intentLocation.getDoubleExtra("latitude", 0.0);
         longitude = intentLocation.getDoubleExtra("longitude", 0.0);
-        final String userName = intentLocation.getStringExtra("userName");
+        userName = intentLocation.getStringExtra("userName");
 
         users.addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 myProfile = dataSnapshot.child( userName ).getValue( Profile.class );
-                if(driver1User != null)
-                    driver1Profile = dataSnapshot.child( driver1User ).getValue( Profile.class );
             }
 
             @Override
@@ -83,13 +81,13 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         //onBackPressed();
         if (rawResult.getText() != null){
             final Accident newAccident = new Accident(latitude, longitude);
-            driver1User = rawResult.getText();
             newAccident.addToProfilesList( myProfile);
-            newAccident.addToProfilesList( driver1Profile);
             String key = accidents.push().getKey();
             accidents.child( key ).setValue( newAccident );
             Intent intent = new Intent(QrCodeScanner.this, AccidentReport.class);
             intent.putExtra("driver1", rawResult.getText());// TODO change name to const!
+            intent.putExtra("accidentKey", key);// TODO change name to const!
+            intent.putExtra("userName", userName);// TODO change name to const!
             startActivity(intent);
             finish();
         }
