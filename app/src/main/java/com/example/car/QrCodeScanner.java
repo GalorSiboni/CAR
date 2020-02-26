@@ -43,8 +43,8 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         setContentView( mScannerView );
 
         Intent intentLocation = getIntent();
-        double latitude = intentLocation.getDoubleExtra("latitude", 0.0);
-        double longitude = intentLocation.getDoubleExtra("longitude", 0.0);
+        latitude = intentLocation.getDoubleExtra("latitude", 0.0);
+        longitude = intentLocation.getDoubleExtra("longitude", 0.0);
         final String userName = intentLocation.getStringExtra("userName");
 
         users.addListenerForSingleValueEvent( new ValueEventListener() {

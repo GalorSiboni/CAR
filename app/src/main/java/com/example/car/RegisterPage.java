@@ -56,10 +56,9 @@ public class RegisterPage extends AppCompatActivity {
                 if(mail.getText().toString().trim() != "" && mail.getText().toString().trim().contains( "@" )) {
                     s4 += mail.getText().toString().trim();
                     String[] str = s4.split( "@" );
-                    s4 += str[0] + "@" + str[1].replace( ".", "_DOT_" );//email -> replace . to _dot_ because of firebase settings
+                    s4 = str[0] + "@" + str[1].replace( ".", "_DOT_" );//email -> replace . to _dot_ because of firebase settings
                 }
                 s5 += cPass.getText().toString();//password check
-                fullName += s2 + " " + s3;
                 if(s0 != "" && s1 != "" && s2 != "" && s3 != ""){
                 if(s1.equals(s5)){
                     final Profile user = new Profile(s0,s1,s2,s3,s4);
@@ -77,12 +76,10 @@ public class RegisterPage extends AppCompatActivity {
                                 users.child(user.getUsername()).setValue(user);
                                 Toast.makeText(RegisterPage.this,"Register Success!",Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent (RegisterPage.this, Menu.class);
-                                intent.putExtra("name", fullName);
+                                intent.putExtra("name", user.getFullName());
                                 intent.putExtra("userName", user.getUsername());// TODO
                                 startActivity(intent);
                                 finish();
-
-                                openMenuPage();
                             }
                         }
 
@@ -111,10 +108,6 @@ public class RegisterPage extends AppCompatActivity {
 
     public void openLoginPage() {
         startActivity(new Intent(RegisterPage.this,MainActivity.class));
-        finish();
-    }
-    public void openMenuPage() {
-        startActivity(new Intent(RegisterPage.this, Menu.class));
         finish();
     }
 }

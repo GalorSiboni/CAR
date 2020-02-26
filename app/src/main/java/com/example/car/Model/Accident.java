@@ -4,6 +4,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -11,7 +12,7 @@ public class Accident {
 
     private Date date = new Date();
     private String openDate;
-    private Profile[] profiles = new Profile[]{};
+    private ArrayList<Profile> profiles = new ArrayList<>(  );
     private LatLng location;
    // private double latitude,longitude;
 
@@ -29,17 +30,16 @@ public class Accident {
         this.openDate = openDate;
     }
 
-    public Profile[] getProfiles() {
+    public ArrayList<Profile> getProfiles() {
         return profiles;
     }
 
-    public void setProfiles(Profile[] profiles) {
+    public void setProfiles(ArrayList<Profile> profiles) {
         this.profiles = profiles;
     }
 
     public void addToProfilesList(Profile profile) {
-        int size = this.profiles.length;
-        this.profiles[size] = profile;
+        this.profiles.add( profile );
     }
 
     public LatLng getLocation() {
