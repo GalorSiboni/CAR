@@ -27,8 +27,8 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
     private EditText editUser,editPass;
     private Button regBTN,logBTN;
-    private double latitude, longitude;
-    private BroadcastReceiver broadcastReceiver;
+    private double latitude, longitude;//TODO lucation
+    private BroadcastReceiver broadcastReceiver;//TODO lucation
 
 
     //Firebase
@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
         db = FirebaseDatabase.getInstance();
         users = db.getReference("Profiles");// TODO: 19/02/2020 need to change to const path!!!
 
-        startGpsService();
-        if (broadcastReceiver == null) {
+        startGpsService();//TODO lucation
+        if (broadcastReceiver == null) {//TODO lucation
             broadcastReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             };
         }
-        registerReceiver(broadcastReceiver, new IntentFilter("location_update"));
+        registerReceiver(broadcastReceiver, new IntentFilter("location_update")); //TODO lucation
 
         regBTN.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -76,11 +76,11 @@ public class MainActivity extends AppCompatActivity {
                                 if (login.getPassword().equals(editPass.getText().toString())) {
                                     Toast.makeText(MainActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent (MainActivity.this, Menu.class);
-                                    Intent intentLocation = new Intent (MainActivity.this, QrCodeScanner.class);
+                                    Intent intentLocation = new Intent (MainActivity.this, QrCodeScanner.class);//TODO lucation
                                     intent.putExtra("name", login.getFullName());
                                     intent.putExtra("userName", login.getUsername());// TODO
-                                    intentLocation.putExtra("latitude", latitude);
-                                    intentLocation.putExtra("longitude", longitude);
+                                    intentLocation.putExtra("latitude", latitude);//TODO lucation
+                                    intentLocation.putExtra("longitude", longitude);//TODO lucation
 
                                     startActivity(intent);
                                     finish();
@@ -101,13 +101,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onDestroy() { //TODO lucation
         super.onDestroy();
         if (broadcastReceiver != null) {
             unregisterReceiver(broadcastReceiver);
         }
     }
-    private void startGpsService() {
+    private void startGpsService() {//TODO lucation
         if (!runtime_permissions()) {
             Intent i = new Intent(getApplicationContext(), GPS_service.class);
             startService(i);
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private boolean runtime_permissions() {
+    private boolean runtime_permissions() {//TODO lucation
         if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {//TODO lucation
         super.onRequestPermissionsResult( requestCode, permissions, grantResults );
         if (requestCode == 100) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {

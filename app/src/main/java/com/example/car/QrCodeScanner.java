@@ -27,7 +27,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
     DatabaseReference users;
     DatabaseReference accidents;
     private Profile myProfile;
-    private double latitude, longitude;
+    private double latitude, longitude;//TODO lucation
     private String userName;
     @Override
     public void onCreate(Bundle state) {
@@ -42,9 +42,9 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         // Set the scanner view as the content view
         setContentView( mScannerView );
 
-        Intent intentLocation = getIntent();
-        latitude = intentLocation.getDoubleExtra("latitude", 0.0);
-        longitude = intentLocation.getDoubleExtra("longitude", 0.0);
+        Intent intentLocation = getIntent();//TODO lucation
+        latitude = intentLocation.getDoubleExtra("latitude", 0.0);//TODO lucation
+        longitude = intentLocation.getDoubleExtra("longitude", 0.0);//TODO lucation
         userName = intentLocation.getStringExtra("userName");
 
         users.addListenerForSingleValueEvent( new ValueEventListener() {
@@ -80,7 +80,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
     public void handleResult(final Result rawResult) {
         //onBackPressed();
         if (rawResult.getText() != null){
-            final Accident newAccident = new Accident(latitude, longitude);
+            final Accident newAccident = new Accident(latitude, longitude);//TODO lucation
             newAccident.addToProfilesList( myProfile);
             String key = accidents.push().getKey();
             accidents.child( key ).setValue( newAccident );
