@@ -16,14 +16,12 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
 public class Menu extends AppCompatActivity {
-    private String userName;
+    private String userName, fullName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         CardView scanQR, showAccidents, emergencyServices;
         ImageView qrCode, profile, home, logOut;
-        String fullName;
-        TextView greeting;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
@@ -31,15 +29,16 @@ public class Menu extends AppCompatActivity {
         scanQR = findViewById(R.id.scanQRCode);
         showAccidents = findViewById(R.id.allAccidents);
         emergencyServices = findViewById(R.id.emergencyCall);
-        greeting = findViewById(R.id.greeting);
         qrCode = findViewById(R.id.qrCode);
         profile = findViewById(R.id.profileIcon);
         home = findViewById(R.id.homeIcon);
+        logOut = findViewById(R.id.logOutIcon);
 
 
         Intent intent = getIntent();
         fullName = intent.getStringExtra("name");//Todo change name to const!!!
         userName = intent.getStringExtra("userName");//Todo change name to const!!!
+        TextView greeting = (TextView) findViewById(R.id.greeting);
         greeting.setText("welcome :" + fullName);
 
 //
@@ -59,6 +58,13 @@ public class Menu extends AppCompatActivity {
                 startActivity(new Intent(Menu.this, Menu.class));
             }
         });
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Menu.this, MainActivity.class));
+                finish();
+            }
+        });
 
         //buttons events
         emergencyServices.setOnClickListener(new View.OnClickListener() {
@@ -71,18 +77,19 @@ public class Menu extends AppCompatActivity {
         scanQR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Menu.this, QrCodeScanner.class));
-            }
+                Intent intent = new Intent (Menu.this, QrCodeScanner.class);
+                intent.putExtra("userName", userName);// TODO
+                startActivity(intent);}
         });
 
-//        showAccidents.setOnClickListener( new View.OnClickListener() {
-            //            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent (Menu.this, EditProfile.class);
-//                intent.putExtra("userName", userName);// TODO
-//                startActivity(intent);
-//            }
-//        } );
+        showAccidents.setOnClickListener( new View.OnClickListener() {
+                        @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (Menu.this, AccidentReport.class);
+                intent.putExtra("userName", userName);// TODO
+                startActivity(intent);
+            }
+        } );
 
 
         QRCodeWriter qrCodeWriter = new QRCodeWriter();

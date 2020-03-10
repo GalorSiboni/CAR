@@ -1,7 +1,5 @@
 package com.example.car.Model;
 
-import java.util.Date;
-
 public class Profile extends User{
     private String carNumber = "";
     private String carModel = "";
@@ -19,7 +17,8 @@ public class Profile extends User{
     private String insuranceAgentPhoneNum = "";
     private String imageUrl = "";
 
-    public Profile(String username,String password,String mail,String fName, String sName, String carNumber, String carModel, String carColor, String driverName, String id, String address, String licenceNumber, String phoneNumber, String ownerAddress, String ownerPhoneNumber, String insuranceCompanyName, String insurancePolicyNumber, String insuranceAgentName, String insuranceAgentPhoneNum) {
+
+    public Profile(String username,String password,String mail,String fName, String sName, String carNumber, String carModel, String carColor, String driverName, String id, String address, String licenceNumber, String phoneNumber, String ownerAddress, String ownerPhoneNumber, String insuranceCompanyName, String insurancePolicyNumber, String insuranceAgentName, String insuranceAgentPhoneNum, String imageUrl) {
         super(username, password, fName, sName, mail);
         setFirstName( fName );
         setLastName( sName );
@@ -37,6 +36,7 @@ public class Profile extends User{
         this.insurancePolicyNumber = insurancePolicyNumber;
         this.insuranceAgentName = insuranceAgentName;
         this.insuranceAgentPhoneNum = insuranceAgentPhoneNum;
+        this.imageUrl = imageUrl;
     }
     public Profile(){}
     public Profile(String username, String password, String fName, String sName, String mail)
@@ -107,7 +107,6 @@ public class Profile extends User{
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-
 
     public String getCarNumber() {
         return carNumber;
