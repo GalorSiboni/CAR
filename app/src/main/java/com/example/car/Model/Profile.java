@@ -1,5 +1,7 @@
 package com.example.car.Model;
 
+import java.util.ArrayList;
+
 public class Profile extends User{
     private String carNumber = "";
     private String carModel = "";
@@ -16,12 +18,14 @@ public class Profile extends User{
     private String insuranceAgentName = "";
     private String insuranceAgentPhoneNum = "";
     private String imageUrl = "";
+    private ArrayList<Accident> accidentArrayList;
 
 
     public Profile(String username,String password,String mail,String fName, String sName, String carNumber, String carModel, String carColor, String driverName, String id, String address, String licenceNumber, String phoneNumber, String ownerAddress, String ownerPhoneNumber, String insuranceCompanyName, String insurancePolicyNumber, String insuranceAgentName, String insuranceAgentPhoneNum, String imageUrl) {
         super(username, password, fName, sName, mail);
-        setFirstName( fName );
-        setLastName( sName );
+        accidentArrayList = new ArrayList<>();
+        setFirstName(fName);
+        setLastName(sName);
         this.carNumber = carNumber;
         this.carModel = carModel;
         this.carColor = carColor;

@@ -40,5 +40,8 @@
     <string name="mada_emergency_services">Mada Emergency Services</string>
     <string name="fire_fighters_emergency_services">Fire Fighters Emergency Services</string>
     <string name="emergency_services_headline">Emergency Services</string>
+    <string name="accident_date_time">"Date and time: "</string>
+    <string name="accident_profiles_details">Other driver info</string>
+    <string name="accident_photos_txt">Images</string>
 
 </resources>

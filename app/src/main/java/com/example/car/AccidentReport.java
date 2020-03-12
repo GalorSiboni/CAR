@@ -28,9 +28,11 @@ public class AccidentReport extends AppCompatActivity {
     //Firebase
     FirebaseDatabase db;
     StorageReference storage;
-//    StorageReference accidentStorage;
+
+    //StorageReference accidentStorage;
     DatabaseReference users;
     DatabaseReference accidents;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,16 +41,15 @@ public class AccidentReport extends AppCompatActivity {
 
         //Firebase init
         db = FirebaseDatabase.getInstance();
-        users = db.getReference( "Profiles" );// TODO: 19/02/2020 need to change to const path!!!
-        accidents = db.getReference( "Accidents" );// TODO: 19/02/2020 need to change to const path!!!
-        storage = FirebaseStorage.getInstance().getReference().child( "ImageFolder" );
+        users = db.getReference(Constants.FIRE_BASE_DB_PROFILES_PATH);
+        accidents = db.getReference(Constants.FIRE_BASE_ACCIDENT_PATH);
+        storage = FirebaseStorage.getInstance().getReference().child(Constants.FIRE_BASE_STORAGE_PROFILE_IMAGE);
 //        accidentStorage =  storage.child("accidents/" + accidentID);
 
-
         Intent intent = getIntent();
-        driver1 = intent.getStringExtra("driver1");//Todo change name to const!!!
-        myUserName = intent.getStringExtra("userName");//Todo change name to const!!!
-        key = intent.getStringExtra("accidentKey");//Todo change name to const!!!
+        driver1 = intent.getStringExtra(Constants.DRIVER1_INTENT_DETAILS);
+        myUserName = intent.getStringExtra(Constants.INTENT_USER_NAME);
+        key = intent.getStringExtra(Constants.ACCIDENT_KEY_INTENT);
 //        users.addListenerForSingleValueEvent( new ValueEventListener() {
 //            @Override
 //            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

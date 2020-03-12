@@ -18,6 +18,8 @@
     <color name="startblue">#152b38</color>
     <color name="endblue">#0bcce6</color>
     <color name="pink">#09c6df</color>
+    <color name="blue_for_list_view">#66CCCC</color>
+    <color name="bcg_for_list_view">#FDFAF7</color>
 
     <color name="black_overlay">#66000000</color>
 </resources>

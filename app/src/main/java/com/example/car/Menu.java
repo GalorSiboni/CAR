@@ -36,10 +36,10 @@ public class Menu extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        fullName = intent.getStringExtra("name");//Todo change name to const!!!
-        userName = intent.getStringExtra("userName");//Todo change name to const!!!
+        fullName = intent.getStringExtra(Constants.INTENT_FULL_NAME);
+        userName = intent.getStringExtra(Constants.INTENT_USER_NAME);
         TextView greeting = (TextView) findViewById(R.id.greeting);
-        greeting.setText("welcome :" + fullName);
+        greeting.setText(String.format("%s%s", Constants.GREETING_STR, fullName));
 
 //
         //icons events
@@ -47,7 +47,7 @@ public class Menu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Menu.this, EditProfile.class);
-                intent.putExtra("userName", userName);// TODO change name to const!
+                intent.putExtra(Constants.INTENT_USER_NAME, userName);
                 startActivity(intent);
             }
         });
@@ -78,7 +78,7 @@ public class Menu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (Menu.this, QrCodeScanner.class);
-                intent.putExtra("userName", userName);// TODO
+                intent.putExtra(Constants.INTENT_USER_NAME, userName);
                 startActivity(intent);}
         });
 
@@ -86,7 +86,7 @@ public class Menu extends AppCompatActivity {
                         @Override
             public void onClick(View v) {
                 Intent intent = new Intent (Menu.this, AccidentReport.class);
-                intent.putExtra("userName", userName);// TODO
+                intent.putExtra(Constants.INTENT_USER_NAME, userName);
                 startActivity(intent);
             }
         } );
