@@ -86,7 +86,7 @@ public class EditProfile extends AppCompatActivity {
         editMode( editTextsArr,false );
 
         Intent intent = getIntent();
-        userName = intent.getStringExtra( "userName" );//just for commit
+        userName = intent.getStringExtra( "userName" );
 
         //Firebase init
         db = FirebaseDatabase.getInstance();
