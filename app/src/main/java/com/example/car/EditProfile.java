@@ -172,9 +172,9 @@ public class EditProfile extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
     private void chooseImage(){
         Intent intent = new Intent();
-        intent.setType( "image/*" );
+        intent.setType("image/*");// TODO: 12/03/2020 change 
         intent.setAction( Intent.ACTION_GET_CONTENT );
-        startActivityForResult( Intent.createChooser( intent,"SelectPicture"),PICK_IMAGE_REQUEST );
+        startActivityForResult( Intent.createChooser( intent,"SelectPicture"),PICK_IMAGE_REQUEST ); // TODO: 12/03/2020 change
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
@@ -208,7 +208,7 @@ public class EditProfile extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             String url = uri.toString();
-                            users.child(userName).child( "imageUrl" ).setValue( url );
+                            users.child(userName).child(Constants.IMAGE_URL).setValue(url);
                         }
                     } );
                    }})

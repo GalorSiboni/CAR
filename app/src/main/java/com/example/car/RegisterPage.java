@@ -20,15 +20,15 @@ import com.google.firebase.database.ValueEventListener;
 
 public class RegisterPage extends AppCompatActivity {
     private EditText fName,sName,mail,pass,cPass,userName;
-    private String s0 = "",s1 = "",s2 = "",s3 = "",s4 = "",s5 = "", fullName = "";
+    private String s0 = "",s1 = "",s2 = "",s3 = "",s4 = "",s5 = "", fullName = "";// TODO: 12/03/2020 fix
     //Firebase
     FirebaseDatabase db;
     DatabaseReference users;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_page);
-
 
         //Firebase
         db = FirebaseDatabase.getInstance();

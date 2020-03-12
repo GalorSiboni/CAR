@@ -28,9 +28,11 @@ public class AccidentReport extends AppCompatActivity {
     //Firebase
     FirebaseDatabase db;
     StorageReference storage;
-//    StorageReference accidentStorage;
+
+    //StorageReference accidentStorage;
     DatabaseReference users;
     DatabaseReference accidents;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

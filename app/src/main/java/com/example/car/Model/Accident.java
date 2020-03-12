@@ -27,6 +27,10 @@ public class Accident {
 //        this.location = new LatLng(latitude, longitude);
 //    }
 
+    public String getAccidentId() {
+        return accidentId;
+    }
+
     public Accident()
     {
         this.driver1 = driver1;
