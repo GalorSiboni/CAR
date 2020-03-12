@@ -46,7 +46,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
     private FusedLocationProviderClient fusedLocationProviderClient;
     @Override
     public void onCreate(Bundle state) {
-        super.onCreate(state);
+        super.onCreate(state);//
         setContentView(mScannerView);
 
         requestPermission();
