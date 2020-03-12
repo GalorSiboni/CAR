@@ -194,6 +194,7 @@
                     android:textStyle="bold"
                     android:layout_marginTop="10dp"
                     android:layout_gravity="center"
+                    android:gravity="center"
                     android:text="@string/fire_fighters_emergency_services">
                 </TextView>
                 <View
