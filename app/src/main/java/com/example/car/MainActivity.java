@@ -45,9 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
         //Firebase
         db = FirebaseDatabase.getInstance();
-        users = db.getReference("Profiles");// TODO: 19/02/2020 need to change to const path!!!
-
+        users = db.getReference(Constants.FIRE_BASE_DB_PROFILES_PATH);
         startGpsService();//TODO lucation
+
         if (broadcastReceiver == null) {//TODO lucation
             broadcastReceiver = new BroadcastReceiver() {
                 @Override
@@ -74,11 +74,11 @@ public class MainActivity extends AppCompatActivity {
                             if (!editUser.getText().toString().isEmpty()) {
                                 Profile login = dataSnapshot.child(editUser.getText().toString()).getValue(Profile.class);
                                 if (login.getPassword().equals(editPass.getText().toString())) {
-                                    Toast.makeText(MainActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();// TODO: 11/03/2020 change txt to const
                                     Intent intent = new Intent (MainActivity.this, Menu.class);
                                     Intent intentLocation = new Intent (MainActivity.this, QrCodeScanner.class);//TODO lucation
-                                    intent.putExtra("name", login.getFullName());
-                                    intent.putExtra("userName", login.getUsername());// TODO
+                                    intent.putExtra(Constants.INTENT_FULL_NAME, login.getFullName());
+                                    intent.putExtra(Constants.INTENT_USER_NAME, login.getUsername());//
                                     intentLocation.putExtra("latitude", latitude);//TODO lucation
                                     intentLocation.putExtra("longitude", longitude);//TODO lucation
 
@@ -86,11 +86,11 @@ public class MainActivity extends AppCompatActivity {
                                     finish();
                                      }
                                 else
-                                    Toast.makeText(MainActivity.this, "Password Is Wrong", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, "Password Is Wrong", Toast.LENGTH_SHORT).show();// TODO: 11/03/2020 change txt to const
                             }
                         }
                         else
-                            Toast.makeText(MainActivity.this,"Username Is Not Registered",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this,"Username Is Not Registered",Toast.LENGTH_SHORT).show();// TODO: 11/03/2020  change text to const
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {

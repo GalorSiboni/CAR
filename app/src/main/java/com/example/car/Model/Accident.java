@@ -1,27 +1,57 @@
 package com.example.car.Model;
 
+import com.example.car.Constants;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
-
-
 public class Accident {
 
-    private Date date = new Date();
+    private String accidentId;
+    private Date date;
     private String openDate;
-    private ArrayList<Profile> profiles = new ArrayList<>(  );
     private LatLng location;
-   // private double latitude,longitude;
+    private Profile driver1;
+    private Profile driver2;
 
-    public Accident(double latitude, double longitude)
+//    public Accident(double latitude, double longitude)
+//    {
+//        this.driver1 = driver1;
+//        this.driver2 = driver2;
+//        this.accidentId = driver1.getUsername() + "_" + driver2.getUsername();
+//        this.date = Calendar.getInstance().getTime();
+//        this.openDate = DateFormat.getDateInstance().format(date);
+//        this.location = new LatLng(latitude, longitude);
+//    }
+
+    public Accident()
     {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-        this.openDate = dateFormat.format(this.date);
-        this.location = new LatLng( latitude, longitude);
+        this.driver1 = driver1;
+        this.driver2 = driver2;
+        this.accidentId = driver1.getUsername() + "_" + driver2.getUsername();
+        this.date = Calendar.getInstance().getTime();
+        this.openDate = DateFormat.getDateInstance().format(date);
+//        this.location = new LatLng(latitude, longitude);
     }
+    public Profile getDriver1() {
+        return driver1;
+    }
+
+    public void setDriver1(Profile driver1) {
+        this.driver1 = driver1;
+    }
+
+    public Profile getDriver2() {
+        return driver2;
+    }
+
+    public void setDriver2(Profile driver2) {
+        this.driver2 = driver2;
+    }
+
     public String getOpenDate() {
         return openDate;
     }
@@ -30,17 +60,17 @@ public class Accident {
         this.openDate = openDate;
     }
 
-    public ArrayList<Profile> getProfiles() {
-        return profiles;
-    }
-
-    public void setProfiles(ArrayList<Profile> profiles) {
-        this.profiles = profiles;
-    }
-
-    public void addToProfilesList(Profile profile) {
-        this.profiles.add( profile );
-    }
+//    public ArrayList<Profile> getProfiles() {
+//        return profiles;
+//    }
+//
+//    public void setProfiles(ArrayList<Profile> profiles) {
+//        this.profiles = profiles;
+//    }
+//
+//    public void addToProfilesList(Profile profile) {
+//        this.profiles.add( profile );
+//    }
 
     public LatLng getLocation() {
         return location;

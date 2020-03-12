@@ -86,17 +86,17 @@ public class EditProfile extends AppCompatActivity {
         editMode( editTextsArr,false );
 
         Intent intent = getIntent();
-        userName = intent.getStringExtra( "userName" );
+        userName = intent.getStringExtra( Constants.INTENT_USER_NAME);
 
         //Firebase init
         db = FirebaseDatabase.getInstance();
-        users = db.getReference( "Profiles" );// TODO: 19/02/2020 need to change to const path!!!
-        storage = FirebaseStorage.getInstance().getReference().child( "ImageFolder" );
+        users = db.getReference( Constants.FIRE_BASE_DB_PROFILES_PATH);
+        storage = FirebaseStorage.getInstance().getReference().child(Constants.FIRE_BASE_STORAGE_PROFILE_IMAGE);
 
         users.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Profile myProfile = dataSnapshot.child( userName ).getValue( Profile.class );
+                Profile myProfile = dataSnapshot.child(userName).getValue(Profile.class);
                 assert myProfile != null;
                 password = myProfile.getPassword();
                 mail = myProfile.getMail();
@@ -116,9 +116,9 @@ public class EditProfile extends AppCompatActivity {
                 insuranceCompanyNameEdit.setText( myProfile.getInsuranceCompanyName() );
                 insuranceAgentNameEdit.setText( myProfile.getInsuranceAgentName() );
                 insuranceAgentPhoneNumEdit.setText( myProfile.getInsuranceAgentPhoneNum() );
-                if (dataSnapshot.child(userName).child( "imageUrl").exists()) {
-                    Picasso.get().load(Uri.parse(dataSnapshot.child(userName).child( "imageUrl" ).getValue().toString())).into( profilePicture );
-                    imageUrl = dataSnapshot.child(userName).child( "imageUrl" ).getValue().toString();
+                if (dataSnapshot.child(userName).child(Constants.IMAGE_URL).exists()) {
+                    Picasso.get().load(Uri.parse(dataSnapshot.child(userName).child(Constants.IMAGE_URL).getValue().toString())).into( profilePicture );
+                    imageUrl = dataSnapshot.child(userName).child(Constants.IMAGE_URL).getValue().toString();
                 }
             }
 
@@ -150,7 +150,7 @@ public class EditProfile extends AppCompatActivity {
                         insuranceAgentNameEdit.getText().toString(), insuranceAgentPhoneNumEdit.getText().toString(),imageUrl);
                 users.child( userName ).setValue( user );
                 Intent intent = new Intent (EditProfile.this, Menu.class);
-                intent.putExtra("name", user.getFullName());
+                intent.putExtra(Constants.INTENT_FULL_NAME, user.getFullName());
             }
         } );
         edit.setOnClickListener( new View.OnClickListener() {

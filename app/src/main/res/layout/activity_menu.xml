@@ -146,20 +146,27 @@
                     android:padding="10dp"
                     android:background="@drawable/circle_background_orange">
                 </ImageView>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:textStyle="bold"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:text="@string/scan_qr_code">
+                    android:paddingEnd="22dp"
+                    android:text="@string/scan_qr_code"
+                    android:paddingRight="21dp"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp">
                 </TextView>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="5dp"
-                    android:background="@color/lightGray"
-                    android:layout_margin="5dp">
-                </View>
+                    android:layout_margin="5dp"
+                    android:background="@color/lightGray"></View>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

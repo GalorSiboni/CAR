@@ -10,14 +10,14 @@ import android.view.View;
 import android.widget.ImageButton;
 
 public class EmergencyServices extends AppCompatActivity {
-    private CardView police,mada,firefighters;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emergancy_services);
-        police = findViewById(R.id.police);
-        mada = findViewById(R.id.mada);
-        firefighters = findViewById(R.id.fireFighters);
+        CardView police = findViewById(R.id.police);
+        CardView mada = findViewById(R.id.mada);
+        CardView firefighters = findViewById(R.id.fireFighters);
         police.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
