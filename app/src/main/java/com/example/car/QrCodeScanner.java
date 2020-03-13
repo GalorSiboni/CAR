@@ -52,7 +52,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
 
     @Override
     public void onCreate(Bundle state) {
-        super.onCreate(state);
+        super.onCreate(state);//
         setContentView(mScannerView);
 
         requestPermission();
