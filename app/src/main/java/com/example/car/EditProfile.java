@@ -30,11 +30,11 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import de.hdodenhof.circleimageview.CircleImageView;
-
 
 public class EditProfile extends AppCompatActivity {
     private EditText firstNameEdit, lastNameEdit, phoneNumberEdit, addressEdit, driverNameEdit, idEdit, carNumberEdit, carModelEdit, carColorEdit,
@@ -42,51 +42,42 @@ public class EditProfile extends AppCompatActivity {
     private CircleImageView profilePicture;
     private ImageView choose;
     private Button save, edit;
-    private String userName, password, mail, imageUrl = "";
+    private String userName, mail, imageUrl = "";
 
     private Uri filePath;
     private StorageTask uploadTask;
     private final int PICK_IMAGE_REQUEST = 71;
     private boolean editPhotoFlag = false;
+
     //Firebase
     FirebaseDatabase db;
     StorageReference storage;
     DatabaseReference users;
 
+    //Shared Preferences
+    MySharedPreferences pref;
+    String json;
+    Profile myProfile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        firstNameEdit = findViewById(R.id.firstNameEdit);
-        lastNameEdit = findViewById(R.id.lastNameEdit);
-        phoneNumberEdit = findViewById(R.id.phoneNumberEdit);
-        addressEdit = findViewById(R.id.addressEdit);
-        driverNameEdit = findViewById(R.id.driverNameEdit);
-        idEdit = findViewById(R.id.idEdit);
-        carNumberEdit = findViewById(R.id.carNumberEdit);
-        carModelEdit = findViewById(R.id.carModelEdit);
-        carColorEdit = findViewById(R.id.carColorEdit);
-        licenceNumberEdit = findViewById(R.id.licenceNumberEdit);
-        ownerAddressEdit = findViewById(R.id.ownerAddressEdit);
-        ownerPhoneNumberEdit = findViewById(R.id.ownerPhoneNumberEdit);
-        insuranceCompanyNameEdit = findViewById(R.id.insuranceCompanyNameEdit);
-        insurancePolicyNumberEdit = findViewById(R.id.insurancePolicyNumberEdit);
-        insuranceAgentNameEdit = findViewById(R.id.insuranceAgentNameEdit);
-        insuranceAgentPhoneNumEdit = findViewById(R.id.insuranceAgentPhoneNumEdit);
-        profilePicture = findViewById(R.id.profile_image);
 
-        // buttons
-        edit = findViewById(R.id.editProfile);
-        save = findViewById(R.id.save);
-        save.setVisibility(View.GONE);
-        choose = findViewById(R.id.editProfilePic);
-        choose.setVisibility(View.GONE);
+        setViews();
+
         final EditText[] editTextsArr = {firstNameEdit, lastNameEdit, phoneNumberEdit, addressEdit, driverNameEdit, idEdit, carNumberEdit, carModelEdit, carColorEdit,
                 licenceNumberEdit, ownerAddressEdit, ownerPhoneNumberEdit, insuranceCompanyNameEdit, insurancePolicyNumberEdit, insuranceAgentNameEdit, insuranceAgentPhoneNumEdit};
         editMode( editTextsArr,false );
 
-        Intent intent = getIntent();
-        userName = intent.getStringExtra( Constants.INTENT_USER_NAME);
+        pref = new MySharedPreferences(this);
+        json = pref.getString(Constants.KEY_SHARED_PREF_PROFILE, "");
+        myProfile = new Gson().fromJson(json, Profile.class);
+
+        userName = myProfile.getUsername();
+        imageUrl = myProfile.getImageUrl();
+//        Intent intent = getIntent();
+//        userName = intent.getStringExtra( Constants.INTENT_USER_NAME);
 
         //Firebase init
         db = FirebaseDatabase.getInstance();
@@ -96,30 +87,12 @@ public class EditProfile extends AppCompatActivity {
         users.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Profile myProfile = dataSnapshot.child(userName).getValue(Profile.class);
-                assert myProfile != null;
-                password = myProfile.getPassword();
-                mail = myProfile.getMail();
-                firstNameEdit.setText( myProfile.getFirstName() );
-                lastNameEdit.setText( myProfile.getLastName() );
-                carNumberEdit.setText( myProfile.getCarNumber() );
-                carModelEdit.setText( myProfile.getCarModel() );
-                carColorEdit.setText( myProfile.getCarColor() );
-                driverNameEdit.setText( myProfile.getDriverName() );
-                idEdit.setText( myProfile.getId() );
-                addressEdit.setText( myProfile.getAddress() );
-                licenceNumberEdit.setText( myProfile.getLicenceNumber() );
-                phoneNumberEdit.setText( myProfile.getPhoneNumber() );
-                ownerAddressEdit.setText( myProfile.getOwnerAddress() );
-                ownerPhoneNumberEdit.setText( myProfile.getOwnerPhoneNumber() );
-                insurancePolicyNumberEdit.setText( myProfile.getInsurancePolicyNumber() );
-                insuranceCompanyNameEdit.setText( myProfile.getInsuranceCompanyName() );
-                insuranceAgentNameEdit.setText( myProfile.getInsuranceAgentName() );
-                insuranceAgentPhoneNumEdit.setText( myProfile.getInsuranceAgentPhoneNum() );
-                if (dataSnapshot.child(userName).child(Constants.IMAGE_URL).exists()) {
-                    Picasso.get().load(Uri.parse(dataSnapshot.child(userName).child(Constants.IMAGE_URL).getValue().toString())).into( profilePicture );
-                    imageUrl = dataSnapshot.child(userName).child(Constants.IMAGE_URL).getValue().toString();
-                }
+////                Profile myProfile = dataSnapshot.child(userName).getValue(Profile.class);
+                getTextFromFields();
+//                if (dataSnapshot.child(userName).child(Constants.IMAGE_URL).exists()) {
+//                    Picasso.get().load(Uri.parse(dataSnapshot.child(userName).child(Constants.IMAGE_URL).getValue().toString())).into( profilePicture );
+//                    imageUrl = dataSnapshot.child(userName).child(Constants.IMAGE_URL).getValue().toString();
+//                }
             }
 
             @Override
@@ -138,19 +111,20 @@ public class EditProfile extends AppCompatActivity {
             public void onClick(View v) {
                 if(editPhotoFlag) {
                     if (uploadTask != null && uploadTask.isInProgress()) {
-                        Toast.makeText( EditProfile.this, "Upload in progress", Toast.LENGTH_SHORT ).show();
+                        Toast.makeText( EditProfile.this, "Upload in progress..", Toast.LENGTH_SHORT ).show();
                     } else {
                         uploadPhoto();
                     }
                 }
-                Profile user = new Profile( userName, password, mail, firstNameEdit.getText().toString(), lastNameEdit.getText().toString(), carNumberEdit.getText().toString(),
+               myProfile.updateProfile(firstNameEdit.getText().toString(), lastNameEdit.getText().toString(), mail,  carNumberEdit.getText().toString(),
                         carModelEdit.getText().toString(), carColorEdit.getText().toString(), driverNameEdit.getText().toString(), idEdit.getText().toString(),
                         addressEdit.getText().toString(), licenceNumberEdit.getText().toString(), phoneNumberEdit.getText().toString(), ownerAddressEdit.getText().toString(),
                         ownerPhoneNumberEdit.getText().toString(), insurancePolicyNumberEdit.getText().toString(), insuranceCompanyNameEdit.getText().toString(),
                         insuranceAgentNameEdit.getText().toString(), insuranceAgentPhoneNumEdit.getText().toString(),imageUrl);
-                users.child( userName ).setValue( user );
-                Intent intent = new Intent (EditProfile.this, Menu.class);
-                intent.putExtra(Constants.INTENT_FULL_NAME, user.getFullName());
+                users.child(userName).setValue(myProfile);
+                saveData();
+//                Intent intent = new Intent (EditProfile.this, Menu.class);
+//                intent.putExtra(Constants.INTENT_FULL_NAME, user.getFullName());
             }
         } );
         edit.setOnClickListener( new View.OnClickListener() {
@@ -184,7 +158,7 @@ public class EditProfile extends AppCompatActivity {
             filePath = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap( getContentResolver(),filePath );
-                profilePicture.setImageBitmap( bitmap );
+                profilePicture.setImageBitmap(bitmap);
             }
             catch (IOException e) {
                 e.printStackTrace();
@@ -192,6 +166,7 @@ public class EditProfile extends AppCompatActivity {
         }
 
     }
+
     private void uploadPhoto(){
         if(filePath != null){
             final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -208,6 +183,10 @@ public class EditProfile extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             String url = uri.toString();
+                            //new part
+                            myProfile.setImageUrl(url);
+                            saveData();
+                            //end new part
                             users.child(userName).child(Constants.IMAGE_URL).setValue(url);
                         }
                     } );
@@ -229,4 +208,59 @@ public class EditProfile extends AppCompatActivity {
         }
     }
 
+    private void saveData()
+    {
+        json = new Gson().toJson(myProfile);
+        pref.putString(Constants.KEY_SHARED_PREF_PROFILE, json);
+    }
+
+    private void setViews()
+    {
+        firstNameEdit = findViewById(R.id.firstNameEdit);
+        lastNameEdit = findViewById(R.id.lastNameEdit);
+        phoneNumberEdit = findViewById(R.id.phoneNumberEdit);
+        addressEdit = findViewById(R.id.addressEdit);
+        driverNameEdit = findViewById(R.id.driverNameEdit);
+        idEdit = findViewById(R.id.idEdit);
+        carNumberEdit = findViewById(R.id.carNumberEdit);
+        carModelEdit = findViewById(R.id.carModelEdit);
+        carColorEdit = findViewById(R.id.carColorEdit);
+        licenceNumberEdit = findViewById(R.id.licenceNumberEdit);
+        ownerAddressEdit = findViewById(R.id.ownerAddressEdit);
+        ownerPhoneNumberEdit = findViewById(R.id.ownerPhoneNumberEdit);
+        insuranceCompanyNameEdit = findViewById(R.id.insuranceCompanyNameEdit);
+        insurancePolicyNumberEdit = findViewById(R.id.insurancePolicyNumberEdit);
+        insuranceAgentNameEdit = findViewById(R.id.insuranceAgentNameEdit);
+        insuranceAgentPhoneNumEdit = findViewById(R.id.insuranceAgentPhoneNumEdit);
+        profilePicture = findViewById(R.id.profile_image);
+
+        // buttons
+        edit = findViewById(R.id.editProfile);
+        save = findViewById(R.id.save);
+        save.setVisibility(View.GONE);
+        choose = findViewById(R.id.editProfilePic);
+        choose.setVisibility(View.GONE);
+    }
+
+    private void getTextFromFields()
+    {
+        assert myProfile != null;
+        mail = myProfile.getMail();
+        firstNameEdit.setText( myProfile.getFirstName() );
+        lastNameEdit.setText( myProfile.getLastName() );
+        carNumberEdit.setText( myProfile.getCarNumber() );
+        carModelEdit.setText( myProfile.getCarModel() );
+        carColorEdit.setText( myProfile.getCarColor() );
+        driverNameEdit.setText( myProfile.getDriverName() );
+        idEdit.setText( myProfile.getId() );
+        addressEdit.setText( myProfile.getAddress() );
+        licenceNumberEdit.setText( myProfile.getLicenceNumber() );
+        phoneNumberEdit.setText( myProfile.getPhoneNumber() );
+        ownerAddressEdit.setText( myProfile.getOwnerAddress() );
+        ownerPhoneNumberEdit.setText( myProfile.getOwnerPhoneNumber() );
+        insurancePolicyNumberEdit.setText( myProfile.getInsurancePolicyNumber() );
+        insuranceCompanyNameEdit.setText( myProfile.getInsuranceCompanyName() );
+        insuranceAgentNameEdit.setText( myProfile.getInsuranceAgentName() );
+        insuranceAgentPhoneNumEdit.setText( myProfile.getInsuranceAgentPhoneNum() );
+    }
 }

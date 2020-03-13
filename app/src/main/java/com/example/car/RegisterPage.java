@@ -94,7 +94,7 @@ public class RegisterPage extends AppCompatActivity {
                 }
             }
             else{
-                    Toast.makeText(RegisterPage.this,"Pls fill all the slots",Toast.LENGTH_SHORT).show();// TODO: 11/03/2020 change to const
+                    Toast.makeText(RegisterPage.this,"Please fill all the slots",Toast.LENGTH_SHORT).show();// TODO: 11/03/2020 change to const
                 }
             }
         });

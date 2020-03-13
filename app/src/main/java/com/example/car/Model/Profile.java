@@ -1,8 +1,11 @@
 package com.example.car.Model;
 
-import java.util.ArrayList;
+import androidx.annotation.Nullable;
 
-public class Profile extends User{
+import java.util.ArrayList;
+import java.util.Objects;
+
+public class Profile extends User {
     private String carNumber = "";
     private String carModel = "";
     private String carColor = "";
@@ -18,12 +21,12 @@ public class Profile extends User{
     private String insuranceAgentName = "";
     private String insuranceAgentPhoneNum = "";
     private String imageUrl = "";
-    private ArrayList<Accident> accidentArrayList;
+//    private ArrayList<Accident> accidentArrayList;
 
 
     public Profile(String username,String password,String mail,String fName, String sName, String carNumber, String carModel, String carColor, String driverName, String id, String address, String licenceNumber, String phoneNumber, String ownerAddress, String ownerPhoneNumber, String insuranceCompanyName, String insurancePolicyNumber, String insuranceAgentName, String insuranceAgentPhoneNum, String imageUrl) {
         super(username, password, fName, sName, mail);
-        accidentArrayList = new ArrayList<>();
+//        accidentArrayList = new ArrayList<>();
         setFirstName(fName);
         setLastName(sName);
         this.carNumber = carNumber;
@@ -48,6 +51,26 @@ public class Profile extends User{
         super(username, password, fName, sName, mail);
     }
 
+    public void updateProfile(String firstName, String lastName, String mail,String carNumber, String carModel, String carColor, String driverName, String id, String address, String licenceNumber, String phoneNumber, String ownerAddress, String ownerPhoneNumber, String insuranceCompanyName, String insurancePolicyNumber, String insuranceAgentName, String insuranceAgentPhoneNum, String imageUrl)
+    {
+        super.updateUser(firstName,lastName, mail);
+        setCarNumber(carNumber);
+        setCarModel(carModel);
+        setDriverName(driverName);
+        setId(id);
+        setAddress(address);
+        setLicenceNumber(licenceNumber);
+        setPhoneNumber(phoneNumber);
+        setOwnerAddress(ownerAddress);
+        setCarColor(carColor);
+        setOwnerPhoneNumber(ownerPhoneNumber);
+        setInsuranceAgentName(insuranceAgentName);
+        setInsuranceAgentPhoneNum(insuranceAgentPhoneNum);
+        setInsuranceCompanyName(insuranceCompanyName);
+        setInsurancePolicyNumber(insurancePolicyNumber);
+        setImageUrl(imageUrl);
+
+    }
     public void setCarNumber(String carNumber) {
         this.carNumber = carNumber;//maybe to do strdup or copy in order to create new string in the memory
     }
@@ -167,4 +190,29 @@ public class Profile extends User{
     public String getInsuranceAgentPhoneNum() {
         return insuranceAgentPhoneNum;
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Profile profile = (Profile) o;
+        return carNumber.equals(profile.carNumber) &&
+                carModel.equals(profile.carModel) &&
+                carColor.equals(profile.carColor) &&
+                driverName.equals(profile.driverName) &&
+                id.equals(profile.id) &&
+                address.equals(profile.address) &&
+                licenceNumber.equals(profile.licenceNumber) &&
+                phoneNumber.equals(profile.phoneNumber) &&
+                ownerAddress.equals(profile.ownerAddress) &&
+                ownerPhoneNumber.equals(profile.ownerPhoneNumber) &&
+                insuranceCompanyName.equals(profile.insuranceCompanyName) &&
+                insurancePolicyNumber.equals(profile.insurancePolicyNumber) &&
+                insuranceAgentName.equals(profile.insuranceAgentName) &&
+                insuranceAgentPhoneNum.equals(profile.insuranceAgentPhoneNum) &&
+                imageUrl.equals(profile.imageUrl);
+    }
+
 }

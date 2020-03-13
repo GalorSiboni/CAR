@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button regBTN = findViewById(R.id.regBTN);
+        TextView regBTN = findViewById(R.id.regBTN);
         Button logBTN = findViewById(R.id.logBTN);
         editUser = findViewById(R.id.editUser);
         editPass = findViewById(R.id.editPassword);
@@ -45,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         users = db.getReference(Constants.FIRE_BASE_DB_PROFILES_PATH);
 
         pref = new MySharedPreferences(this);
-        json = pref.getString(Constants.KEY_SHARED_PREF_PROFILE,"");
         //load data
 //        profile = new Gson().fromJson(json, Profile.class);//converting profile info to gson
 
@@ -67,12 +67,10 @@ public class MainActivity extends AppCompatActivity {
                                 if (profile.getPassword().equals(editPass.getText().toString())) {
                                     Toast.makeText(MainActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();// TODO: 11/03/2020 change txt to const
                                     Intent intent = new Intent (MainActivity.this, Menu.class);
-//                                    intent.putExtra(Constants.INTENT_FULL_NAME, profile.getFullName());
-//                                    intent.putExtra(Constants.INTENT_USER_NAME, profile.getUsername());
                                     saveData();
                                     startActivity(intent);
                                     finish();
-                                     }
+                                }
                                 else
                                     Toast.makeText(MainActivity.this, "Password Is Wrong", Toast.LENGTH_SHORT).show();// TODO: 11/03/2020 change txt to const
                             }
@@ -91,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
     }
 
     private void saveData()

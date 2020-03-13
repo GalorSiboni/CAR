@@ -7,21 +7,25 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.car.Model.Profile;
+import com.google.gson.Gson;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
 public class Menu extends AppCompatActivity {
-    private String userName, fullName;
+    private ImageView qrCode;
+    private String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         CardView scanQR, showAccidents, emergencyServices;
-        ImageView qrCode, profile, home, logOut;
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
@@ -30,24 +34,30 @@ public class Menu extends AppCompatActivity {
         showAccidents = findViewById(R.id.allAccidents);
         emergencyServices = findViewById(R.id.emergencyCall);
         qrCode = findViewById(R.id.qrCode);
-        profile = findViewById(R.id.profileIcon);
-        home = findViewById(R.id.homeIcon);
-        logOut = findViewById(R.id.logOutIcon);
-
-
-        Intent intent = getIntent();
-        fullName = intent.getStringExtra(Constants.INTENT_FULL_NAME);
-        userName = intent.getStringExtra(Constants.INTENT_USER_NAME);
+        ImageView profile = findViewById(R.id.profileIcon);
+        ImageView home = findViewById(R.id.homeIcon);
+        ImageView logOut = findViewById(R.id.logOutIcon);
         TextView greeting = (TextView) findViewById(R.id.greeting);
-        greeting.setText(String.format("%s%s", Constants.GREETING_STR, fullName));
 
-//
+        //SharedPreferences
+        MySharedPreferences pref = new MySharedPreferences(this);
+        String json = pref.getString(Constants.KEY_SHARED_PREF_PROFILE, "");
+        Profile userProfile = new Gson().fromJson(json, Profile.class);
+        userName = userProfile.getUsername();
+        //   if (json.compareTo("") == 0) { // TODO: 12/03/2020  do we need to consider the case of json is empty?
+//        }
+//        else {
+//            = new Gson().fromJson(json, PersonList.class);
+//        }
+
+        greeting.setText(String.format("%s%s", Constants.GREETING_STR, userProfile.getFullName()));
+
         //icons events
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Menu.this, EditProfile.class);
-                intent.putExtra(Constants.INTENT_USER_NAME, userName);
+//                intent.putExtra(Constants.INTENT_USER_NAME, userName);
                 startActivity(intent);
             }
         });
@@ -77,21 +87,26 @@ public class Menu extends AppCompatActivity {
         scanQR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (Menu.this, QrCodeScanner.class);
-                intent.putExtra(Constants.INTENT_USER_NAME, userName);
-                startActivity(intent);}
-        });
-
-        showAccidents.setOnClickListener( new View.OnClickListener() {
-                        @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (Menu.this, AccidentReport.class);
-                intent.putExtra(Constants.INTENT_USER_NAME, userName);
+                Intent intent = new Intent(Menu.this, QrCodeScanner.class);
+//                intent.putExtra(Constants.INTENT_USER_NAME, userName);
                 startActivity(intent);
             }
-        } );
+        });
 
+        showAccidents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Menu.this, AccidentReport.class);
+//                intent.putExtra(Constants.INTENT_USER_NAME, userName);
+                startActivity(intent);
+            }
+        });
 
+        generateQrCode();
+    }
+
+    private void generateQrCode()
+    {
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         try {
             BitMatrix bitMatrix = qrCodeWriter.encode(userName, BarcodeFormat.QR_CODE, 200, 200, null);
@@ -105,6 +120,7 @@ public class Menu extends AppCompatActivity {
             qrCode.setImageBitmap(bitmap);
         } catch (Exception e) {
             e.printStackTrace();
+            Log.d("Menu Exception QR", e.getMessage());
         }
     }
 }

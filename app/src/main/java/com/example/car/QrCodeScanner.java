@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 import com.google.zxing.Result;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -42,8 +43,13 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
     private double latitude, longitude;
     private String userName;
 
+    //SharedPreferences
+    private MySharedPreferences pref;
+    private String json;
+
     //Location
     private FusedLocationProviderClient fusedLocationProviderClient;
+
     @Override
     public void onCreate(Bundle state) {
         super.onCreate(state);
@@ -56,6 +62,11 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         users = db.getReference(Constants.FIRE_BASE_DB_PROFILES_PATH);
         accidents = db.getReference(Constants.FIRE_BASE_ACCIDENT_PATH);
 
+        pref = new MySharedPreferences(this);
+        json = pref.getString(Constants.KEY_SHARED_PREF_PROFILE, "");
+        Profile userProfile = new Gson().fromJson(json, Profile.class);
+        userName = userProfile.getUsername();
+
         // Programmatically initialize the scanner view
         mScannerView = new ZXingScannerView(this);
         // Set the scanner view as the content view
@@ -64,17 +75,11 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         getLastKnownLocation();
 
-        Intent intentLocation = getIntent();//TODO location
-//        latitude = intentLocation.getDoubleExtra("latitude", 0.0);//TODO location
-//        longitude = intentLocation.getDoubleExtra("longitude", 0.0);//TODO location
-        userName = intentLocation.getStringExtra(Constants.INTENT_USER_NAME);
-
         users.addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 myProfile = dataSnapshot.child(userName).getValue(Profile.class);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
@@ -108,7 +113,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
             Intent intent = new Intent(QrCodeScanner.this, AccidentReport.class);
 //            intent.putExtra("driver1", rawResult.getText());// TODO: 12/03/2020 change name to const!
 //            intent.putExtra("accidentKey", key);// TODO: 12/03/2020 change name to const!
-            intent.putExtra(Constants.INTENT_USER_NAME, userName);
+//            intent.putExtra(Constants.INTENT_USER_NAME, userName);
             startActivity(intent);
             finish();
         }
@@ -154,24 +159,20 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case Constants.MY_PERMISSIONS_REQUEST_FINE_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                        @Override
-                        public void onSuccess(Location location) {
-                            if (location != null) {
-                                longitude = location.getLongitude();
-                                latitude = location.getLatitude();
-                            }
+        if (requestCode == Constants.MY_PERMISSIONS_REQUEST_FINE_LOCATION) {// If request is cancelled, the result arrays are empty.
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location != null) {
+                            longitude = location.getLongitude();
+                            latitude = location.getLatitude();
                         }
-                    });
-                } else {
-                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
-                }
-                break;
+                    }
+                });
+            } else {
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
             }
         }
     }

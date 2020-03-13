@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 public class Accident {
 
+    private static int counter = 0;//if the same two drivers had more then one accident -> the counter different between the cases
     private String accidentId;
     private Date date;
     private String openDate;
@@ -33,9 +34,10 @@ public class Accident {
 
     public Accident()
     {
-        this.driver1 = driver1;
-        this.driver2 = driver2;
-        this.accidentId = driver1.getUsername() + "_" + driver2.getUsername();
+//        this.driver1 = driver1;
+//        this.driver2 = driver2;
+        counter++;
+        this.accidentId = counter + driver1.getUsername() + "_" + driver2.getUsername();
         this.date = Calendar.getInstance().getTime();
         this.openDate = DateFormat.getDateInstance().format(date);
 //        this.location = new LatLng(latitude, longitude);

@@ -43,5 +43,11 @@
     <string name="accident_date_time">"Date and time: "</string>
     <string name="accident_profiles_details">Other driver info</string>
     <string name="accident_photos_txt">Images</string>
+    <string name="password_txt_main_page">Password</string>
+    <string name="username_hint">UserName</string>
+    <string name="main_activity_register_lbl">Register</string>
+    <string name="main_activity_log_in_lbl">Log in</string>
+    <string name="main_activity_log_in_text">Log In</string>
+    <string name="don_t_have_an_account_sign_up">Don\'t have an account? Sign up</string>
 
 </resources>
