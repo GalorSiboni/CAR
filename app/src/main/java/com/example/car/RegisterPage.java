@@ -51,7 +51,7 @@ public class RegisterPage extends AppCompatActivity {
                 s2 += fName.getText().toString().trim();
                 s3 += sName.getText().toString().trim();
 
-                if(mail.getText().toString().trim() != "" && mail.getText().toString().trim().contains(Constants.AT_SIGN)) {
+                if(!mail.getText().toString().trim().equals("") && mail.getText().toString().trim().contains(Constants.AT_SIGN)) {
                     s4 += mail.getText().toString().trim();
                     String[] str = s4.split(Constants.AT_SIGN);
                     s4 = str[0] + Constants.AT_SIGN + str[1].replace( ".", "_DOT_" );//email -> replace . to _dot_ because of firebase settings
@@ -59,7 +59,7 @@ public class RegisterPage extends AppCompatActivity {
 
                 s5 += cPass.getText().toString();//password check
 
-                if(s0 != "" && s1 != "" && s2 != "" && s3 != ""){
+                if(!s0.equals("") && !s1.equals("") && !s2.equals("") && !s3.equals("")){
                 if(s1.equals(s5)){
                     final Profile user = new Profile(s0,s1,s2,s3,s4);
 

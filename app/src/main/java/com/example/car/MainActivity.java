@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                         if(dataSnapshot.child(editUser.getText().toString()).exists()) {
                             if (!editUser.getText().toString().isEmpty()) {
                                 profile = dataSnapshot.child(editUser.getText().toString()).getValue(Profile.class);
+                                assert profile != null;
                                 if (profile.getPassword().equals(editPass.getText().toString())) {
                                     Toast.makeText(MainActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();// TODO: 11/03/2020 change txt to const
                                     Intent intent = new Intent (MainActivity.this, Menu.class);
