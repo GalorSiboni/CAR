@@ -1,6 +1,7 @@
 package com.example.car;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -11,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -58,6 +60,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
     //Location
     private FusedLocationProviderClient fusedLocationProviderClient;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onCreate(Bundle state) {
         // Programmatically initialize the scanner view
@@ -67,6 +70,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         super.onCreate(state);
         setContentView(mScannerView);
 
+        this.requestPermissions(new String[]{Manifest.permission.CAMERA}, 1011);
         //Firebase init
         db = FirebaseDatabase.getInstance();
         accidents = db.getReference(Constants.FIRE_BASE_ACCIDENT_PATH);
@@ -118,7 +122,6 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         }
     }
 
-
     private void getLastKnownLocation() {
         //permissions check:
         if (ActivityCompat.checkSelfPermission(
@@ -141,8 +144,6 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
             });
         }
     }
-
-
 
     private void saveAccidentData() {
         String json1 = new Gson().toJson(newAccident);
@@ -183,20 +184,36 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == Constants.MY_PERMISSIONS_REQUEST_FINE_LOCATION) {// If request is cancelled, the result arrays are empty.
-            if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        if (location != null) {
-                            longitude = location.getLongitude();
-                            latitude = location.getLatitude();
+        switch (requestCode) {
+            case Constants.MY_PERMISSIONS_REQUEST_FINE_LOCATION: {// If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            if (location != null) {
+                                longitude = location.getLongitude();
+                                latitude = location.getLatitude();
+                            }
                         }
-                    }
-                });
-            } else {
-                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+                    });
+                } else {
+                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+                }
+            }
+            case 1011: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // Here user granted the permission
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(QrCodeScanner.this, "Permission denied to read your Camera", Toast.LENGTH_SHORT).show();
+                }
+                return;
             }
         }
     }
