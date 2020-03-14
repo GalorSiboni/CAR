@@ -69,7 +69,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         // Set the scanner view as the content view
         setContentView(mScannerView);
 
-        this.requestPermissions(new String[]{Manifest.permission.CAMERA}, 1011);
+        this.requestPermissions(new String[]{Manifest.permission.CAMERA}, Constants.MY_PERMISSIONS_REQUEST_CAMERA);
         //Firebase init
         db = FirebaseDatabase.getInstance();
         accidents = db.getReference(Constants.FIRE_BASE_ACCIDENT_PATH);
@@ -200,7 +200,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
                     Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
                 }
             }
-            case 1011: {
+            case Constants.MY_PERMISSIONS_REQUEST_CAMERA: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

@@ -5,6 +5,7 @@ public class Constants {
     public static final String DATE_PATTERN = "dd-MMM-yyyy";
     static final String KEY_JSON = "KEY_JSON";
     static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 111;
+    static final int MY_PERMISSIONS_REQUEST_CAMERA = 1011;
     static final String KEY_SHARED_PREF = "KEY_SHARED_PREF";
     static final String KEY_SHARED_PREF_PROFILE = "KEY_SHARED_PREF_PROFILE";
     public static final String KEY_SHARED_PREF_ACCIDENT = "KEY_SHARED_PREF_ACCIDENT";
