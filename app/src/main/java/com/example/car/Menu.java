@@ -19,25 +19,17 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
 public class Menu extends AppCompatActivity {
-    private ImageView qrCode;
     private String userName, json;
+    private TextView greeting;
+    private  ImageView profile, logOut, qrCode;
+    private  CardView scanQR, showAccidents, emergencyServices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        CardView scanQR, showAccidents, emergencyServices;
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        scanQR = findViewById(R.id.scanQRCode);
-        showAccidents = findViewById(R.id.allAccidents);
-        emergencyServices = findViewById(R.id.emergencyCall);
-        qrCode = findViewById(R.id.qrCode);
-        ImageView profile = findViewById(R.id.profileIcon);
-        ImageView home = findViewById(R.id.homeIcon);
-        ImageView logOut = findViewById(R.id.logOutIcon);
-        TextView greeting = (TextView) findViewById(R.id.greeting);
+        getViews();
 
         //SharedPreferences
         MySharedPreferences pref = new MySharedPreferences(this);
@@ -116,5 +108,16 @@ public class Menu extends AppCompatActivity {
             e.printStackTrace();
             Log.d("Menu Exception QR", e.getMessage());
         }
+    }
+
+    private void getViews()
+    {
+        scanQR = findViewById(R.id.scanQRCode);
+        showAccidents = findViewById(R.id.allAccidents);
+        emergencyServices = findViewById(R.id.emergencyCall);
+        qrCode = findViewById(R.id.qrCode);
+        profile = findViewById(R.id.profileIcon);
+        logOut = findViewById(R.id.logOutIcon);
+        greeting = findViewById(R.id.greeting);
     }
 }

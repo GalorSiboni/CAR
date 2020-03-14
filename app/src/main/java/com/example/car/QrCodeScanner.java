@@ -207,7 +207,6 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
 
                     // Here user granted the permission
                 } else {
-
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                     Toast.makeText(QrCodeScanner.this, "Permission denied to read your Camera", Toast.LENGTH_SHORT).show();
