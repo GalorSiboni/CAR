@@ -38,7 +38,7 @@ import java.util.Locale;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView.ResultHandler {
-    
+
     private ZXingScannerView mScannerView;
 
     //Firebase
@@ -102,12 +102,14 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
     @Override
     public void handleResult(final Result rawResult) {
         onBackPressed();
-        if (rawResult.getText() != null){
+        if (rawResult.getText() != null) {
             final String otherDriverResult = rawResult.getText();//other driver info in json
             otherDriverProfile = new Gson().fromJson(otherDriverResult, Profile.class);//converting profile info to gson
 
             newAccident = new Accident(myProfile, otherDriverProfile);
-            newAccident.setLocation(new LatLng(latitude,longitude));
+            newAccident.setLocation(new LatLng(latitude, longitude));
+
+            newAccident.setLocationStr(saveLocationAsString(latitude, longitude));
 
             saveAccidentData();
             accidents.child(newAccident.getAccidentId()).setValue(newAccident);//adding to the fireBase
@@ -116,7 +118,6 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
             finish();
         }
     }
-
 
 
     private void getLastKnownLocation() {
@@ -132,11 +133,10 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
                         assert location != null;
                         longitude = location.getLongitude();
                         latitude = location.getLatitude();
-                        Log.d("QrScannerLong", " "+ longitude);
-                        Log.d("QrScannerLat", " " +latitude);
+                        Log.d("QrScannerLong", " " + longitude);
+                        Log.d("QrScannerLat", " " + latitude);
 //                        newAccident.setLocation(new LatLng(latitude,longitude));
-
-                        saveLocationAsString(latitude, longitude);
+//                        saveLocationAsString(latitude, longitude);
                     }
                 }
             });
@@ -179,17 +179,15 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         }
     }
 
-    private void saveAccidentData()
-    {
+    private void saveAccidentData() {
         String json1 = new Gson().toJson(newAccident);
         pref.putString(Constants.KEY_SHARED_PREF_ACCIDENT, json1);
     }
 
-    private void saveLocationAsString(double latitude, double longitude)
-    {
+    private String saveLocationAsString(double latitude, double longitude) {
         Geocoder geocoder;
         List<Address> addresses;
-        geocoder = new Geocoder(mScannerView.getContext(),Locale.getDefault());
+        geocoder = new Geocoder(mScannerView.getContext(), Locale.getDefault());
 
         try {
             addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
@@ -204,14 +202,15 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
                 if (knownName != null) {
                     locationStr = knownName + " ," + city + ", " + country;
                 } else {
-                    if(address != null)
+                    if (address != null)
                         locationStr = address + " ," + city + ", " + country;
                 }
                 Log.d("QrScanner", locationStr);
-                newAccident.setLocationStr(locationStr);
+                return locationStr;
             }
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
+        return "";//if not found
     }
 }
