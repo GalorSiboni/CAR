@@ -38,10 +38,10 @@ public class Accident {
         return accidentId;
     }
 
-    public Accident()
+    public Accident(Profile driver1, Profile driver2)
     {
-//        this.driver1 = driver1;
-//        this.driver2 = driver2;
+        this.driver1 = driver1;
+        this.driver2 = driver2;
         counter++;
         this.accidentId = counter + driver1.getUsername() + "_" + driver2.getUsername();
         this.date = Calendar.getInstance().getTime();

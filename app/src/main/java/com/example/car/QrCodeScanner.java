@@ -46,7 +46,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
     DatabaseReference users;
     DatabaseReference accidents;
     private Profile myProfile;//the driver who scan the barcode
-    private Accident newAccident = new Accident();
+    private Accident newAccident;
     private Profile otherDriverProfile;
     private double latitude, longitude;
     private String userName, locationStr;
@@ -118,9 +118,9 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
             final String otherDriverResult = rawResult.getText();//other driver info in json
             otherDriverProfile = new Gson().fromJson(otherDriverResult, Profile.class);//converting profile info to gson
 
-            newAccident.setDriver1(myProfile);
-            newAccident.setDriver2(otherDriverProfile);
-            newAccident.setOpenDate("");
+            newAccident = new Accident(myProfile, otherDriverProfile);
+//            newAccident.setDriver1(myProfile);
+//            newAccident.setDriver2(otherDriverProfile);
 
             saveAccidentData();
             accidents.child(newAccident.getAccidentId()).setValue(newAccident);//adding to the fireBase
