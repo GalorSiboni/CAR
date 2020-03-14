@@ -176,7 +176,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "";//if not found
+        return "No location is found";//if not found
     }
 
 
