@@ -5,16 +5,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.car.Model.Accident;
 import com.example.car.Model.Profile;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.StorageTask;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -25,18 +23,9 @@ public class PopWindowUserInfo extends Activity {
     private EditText firstNameEdit, lastNameEdit, phoneNumberEdit, addressEdit, driverNameEdit, idEdit, carNumberEdit, carModelEdit, carColorEdit,
             licenceNumberEdit, ownerAddressEdit, ownerPhoneNumberEdit, insuranceCompanyNameEdit, insurancePolicyNumberEdit, insuranceAgentNameEdit, insuranceAgentPhoneNumEdit;
     private CircleImageView profilePicture;
+    private ImageButton btn_close;
     private TextView profileLbl;
-    private String userName, mail, imageUrl = "";
-
-    private Uri filePath;
-    private StorageTask uploadTask;
-    private final int PICK_IMAGE_REQUEST = 71;
-    private boolean editPhotoFlag = false;
-
-    //Firebase
-    FirebaseDatabase db;
-    StorageReference storage;
-    DatabaseReference users;
+    private String mail;
 
     //Shared Preferences
     MySharedPreferences pref;
@@ -50,7 +39,6 @@ public class PopWindowUserInfo extends Activity {
         setContentView(R.layout.activity_pop_window_user_info);
 
         setDisplayAsPop();
-
         setViews();
 
         final EditText[] editTextsArr = {phoneNumberEdit, addressEdit, driverNameEdit, idEdit, carNumberEdit, carModelEdit, carColorEdit,
@@ -60,19 +48,28 @@ public class PopWindowUserInfo extends Activity {
         pref = new MySharedPreferences(this);
 
         if(isNewAccident)//if it is a new accident
-
+        {
             json = pref.getString(Constants.KEY_SHARED_PREF_NEW_ACCIDENT, "");
-        else
-
+            otherDriverProfile = new Gson().fromJson(json, Accident.class).getDriverWhoGotScanned();
+        }
+        else {
             json = pref.getString(Constants.KEY_SHARED_FREF_EXIST_ACCIDENT, "");
-
-        otherDriverProfile = new Gson().fromJson(json, Accident.class).getDriverWhoGotScanned();
-
+            // TODO: 14/03/2020 handle other case if it is not a new accident
+        }
+       
         profileLbl.setText(otherDriverProfile.getFullName());
 
         editMode( editTextsArr,false);//user can not edit!
         getTextFromFields();
+
         Picasso.get().load(Uri.parse(otherDriverProfile.getImageUrl())).into(profilePicture);
+
+        btn_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 
@@ -82,6 +79,7 @@ public class PopWindowUserInfo extends Activity {
             arr[i].setCursorVisible(visibilityFlag);
         }
     }
+
     private void setDisplayAsPop()
     {
         DisplayMetrics dm = new DisplayMetrics();
@@ -99,9 +97,11 @@ public class PopWindowUserInfo extends Activity {
 
         getWindow().setAttributes(params);
     }
+
     private void setViews()
     {
         profileLbl = findViewById(R.id.profileLabel);
+        btn_close = findViewById(R.id.closePop);
         firstNameEdit = findViewById(R.id.firstNameEdit);
         lastNameEdit = findViewById(R.id.lastNameEdit);
         phoneNumberEdit = findViewById(R.id.phoneNumberEdit);

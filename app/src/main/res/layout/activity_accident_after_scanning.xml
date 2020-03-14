@@ -33,22 +33,11 @@
     </TextView>
 
     <TextView
-        android:id="@+id/timeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="15dp"
-        android:layout_below="@id/dateTextView"
-        android:textSize="18sp"
-        android:textColor="@color/darkBlue"
-        android:text="@string/accident_after_scanning_time_lbl">
-    </TextView>
-
-    <TextView
         android:id="@+id/locationTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="15dp"
-        android:layout_below="@id/timeTextView"
+        android:layout_below="@id/dateTextView"
         android:textSize="18sp"
         android:textColor="@color/darkBlue"
         android:text="@string/aacident_after_scanning_location_lbl">

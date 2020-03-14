@@ -14,25 +14,21 @@ import com.google.gson.Gson;
 
 public class AccidentAfterScanning extends AppCompatActivity {
 
-    private Button btnOtherDriverInfo;
-    private TextView date, time, location;
+    private TextView date, location;
     private boolean isNewAccident;
-    private MySharedPreferences pref;
-    private String json;
-    private Accident accident;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accident_after_scanning);
 
-        btnOtherDriverInfo = findViewById(R.id.otherDriverInfoBtn);
+        Button btnOtherDriverInfo = findViewById(R.id.otherDriverInfoBtn);
         date = findViewById(R.id.dateTextView);
         location = findViewById(R.id.locationTextView);
-        time = findViewById(R.id.timeTextView);
 
         isNewAccident =  getIntent().getBooleanExtra(Constants.INTENT_IS_NEW_ACCIDENT, true);
-        pref = new MySharedPreferences(this);
+        MySharedPreferences pref = new MySharedPreferences(this);
+        String json;
         if(isNewAccident)//if it is a new accident
         {
             json = pref.getString(Constants.KEY_SHARED_PREF_NEW_ACCIDENT, "");
@@ -41,8 +37,12 @@ public class AccidentAfterScanning extends AppCompatActivity {
         {
             json = pref.getString(Constants.KEY_SHARED_FREF_EXIST_ACCIDENT, "");
         }
-        accident = new Gson().fromJson(json, Accident.class);
+        Accident accident = new Gson().fromJson(json, Accident.class);
 
+        date.setText(accident.getOpenDate());
+        location.setText(accident.getLocationStr());
+
+        // TODO: 14/03/2020 add new images and load current images to a gallery like form
 
                 btnOtherDriverInfo.setOnClickListener(new View.OnClickListener() {
             @Override

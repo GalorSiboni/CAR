@@ -67,4 +67,7 @@ public class Accident {
         this.location = location;
     }
 
+    public String getLocationStr() {
+        return locationStr;
+    }
 }
