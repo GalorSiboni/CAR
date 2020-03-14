@@ -24,16 +24,6 @@ public class Accident {
     private Profile driver1;
     private Profile driver2;
 
-//    public Accident(double latitude, double longitude)
-//    {
-//        this.driver1 = driver1;
-//        this.driver2 = driver2;
-//        this.accidentId = driver1.getUsername() + "_" + driver2.getUsername();
-//        this.date = Calendar.getInstance().getTime();
-//        this.openDate = DateFormat.getDateInstance().format(date);
-//        this.location = new LatLng(latitude, longitude);
-//    }
-
     public String getAccidentId() {
         return accidentId;
     }

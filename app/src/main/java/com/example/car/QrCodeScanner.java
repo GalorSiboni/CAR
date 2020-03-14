@@ -67,7 +67,6 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
 
         //Firebase init
         db = FirebaseDatabase.getInstance();
-        users = db.getReference(Constants.FIRE_BASE_DB_PROFILES_PATH);
         accidents = db.getReference(Constants.FIRE_BASE_ACCIDENT_PATH);
 
         pref = new MySharedPreferences(this);
@@ -119,19 +118,10 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
             otherDriverProfile = new Gson().fromJson(otherDriverResult, Profile.class);//converting profile info to gson
 
             newAccident = new Accident(myProfile, otherDriverProfile);
-//            newAccident.setDriver1(myProfile);
-//            newAccident.setDriver2(otherDriverProfile);
 
             saveAccidentData();
             accidents.child(newAccident.getAccidentId()).setValue(newAccident);//adding to the fireBase
-//            String key = accidents.push().getKey();
-//            accidents.child(key).setValue( newAccident );
-//            // TODO: 13/03/2020  why do we need the next line?
-////            users.child(userName).child(Constants.ACCIDENT_KEY_INTENT).setValue(newAccident.getAccidentId());
             Intent intent = new Intent(QrCodeScanner.this, AccidentReport.class);
-////            intent.putExtra("driver1", rawResult.getText());// TODO: 12/03/2020 change name to const!
-////            intent.putExtra("accidentKey", key);// TODO: 12/03/2020 change name to const!
-////            intent.putExtra(Constants.INTENT_USER_NAME, userName);
             startActivity(intent);
             finish();
         }
