@@ -63,11 +63,10 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onCreate(Bundle state) {
+        super.onCreate(state);
         // Programmatically initialize the scanner view
         mScannerView = new ZXingScannerView(this);
         // Set the scanner view as the content view
-
-        super.onCreate(state);
         setContentView(mScannerView);
 
         this.requestPermissions(new String[]{Manifest.permission.CAMERA}, 1011);
