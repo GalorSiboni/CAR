@@ -8,7 +8,7 @@
     tools:context=".AccidentHistoryScreen">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvPersons"
+        android:id="@+id/rvAccidents"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

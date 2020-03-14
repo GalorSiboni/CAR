@@ -125,8 +125,6 @@ public class PopWindowUserInfo extends Activity {
     {
         assert otherDriverProfile != null;
         mail = otherDriverProfile.getMail();
-        firstNameEdit.setText(otherDriverProfile.getFirstName());
-        lastNameEdit.setText(otherDriverProfile.getLastName());
         carNumberEdit.setText(otherDriverProfile.getCarNumber());
         carModelEdit.setText(otherDriverProfile.getCarModel());
         carColorEdit.setText(otherDriverProfile.getCarColor());

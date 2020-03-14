@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.car.Model.Accident;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -20,6 +22,11 @@ import java.util.ArrayList;
 public class AccidentHistoryScreen extends Fragment {
     private CallBackList callBackList;
     private ArrayList<Accident> accidentArrayList;
+    private Boolean isNewAccident = false;
+
+    //Firebase
+    FirebaseDatabase db;
+    DatabaseReference accidents;
 
     private View view = null;
     //need to get by intent user profile including accident history
@@ -37,7 +44,10 @@ public class AccidentHistoryScreen extends Fragment {
             view = inflater.inflate(R.layout.activity_accident_history_screen, container, false);
         }
 
-        RecyclerView recyclerView = view.findViewById(R.id.rvPersons);
+        // TODO: 14/03/2020 load accidents from firebase
+
+        
+        RecyclerView recyclerView = view.findViewById(R.id.rvAccidents);
         recyclerView.setLayoutManager(new LinearLayoutManager(inflater.getContext()));
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(accidentArrayList, inflater.getContext());
         adapter.setClickListener(itemClickListener);
@@ -49,9 +59,10 @@ public class AccidentHistoryScreen extends Fragment {
     public RecyclerViewAdapter.ItemClickListener itemClickListener = new RecyclerViewAdapter.ItemClickListener() {
         @Override
         public void onItemClick(View view, int position) {
-            double lat = accidentArrayList.get(position).getLocation().latitude;
-            double longi = accidentArrayList.get(position).getLocation().longitude;
-            setLocation(new LatLng(lat, longi));
+
+//            double lat = accidentArrayList.get(position).getLocation().latitude;
+//            double longi = accidentArrayList.get(position).getLocation().longitude;
+//            setLocation(new LatLng(lat, longi));
         }
     };
 
