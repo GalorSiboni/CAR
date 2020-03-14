@@ -84,20 +84,11 @@ public class EditProfile extends AppCompatActivity {
         users = db.getReference( Constants.FIRE_BASE_DB_PROFILES_PATH);
         storage = FirebaseStorage.getInstance().getReference().child(Constants.FIRE_BASE_STORAGE_PROFILE_IMAGE);
 
-        users.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-////                Profile myProfile = dataSnapshot.child(userName).getValue(Profile.class);
-                getTextFromFields();
-//                if (dataSnapshot.child(userName).child(Constants.IMAGE_URL).exists()) {
-//                    Picasso.get().load(Uri.parse(dataSnapshot.child(userName).child(Constants.IMAGE_URL).getValue().toString())).into( profilePicture );
-//                    imageUrl = dataSnapshot.child(userName).child(Constants.IMAGE_URL).getValue().toString();
-//                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}});
-
+        getTextFromFields();
+        if (!myProfile.getImageUrl().trim().isEmpty() || myProfile.getImageUrl() != null) {
+            Picasso.get().load( Uri.parse( myProfile.getImageUrl() ) ).into( profilePicture );
+            imageUrl = myProfile.getImageUrl();
+        }
         choose.setOnClickListener( new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
             @Override
