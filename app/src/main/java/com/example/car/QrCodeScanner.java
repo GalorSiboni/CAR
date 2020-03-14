@@ -67,8 +67,6 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         super.onCreate(state);
         setContentView(mScannerView);
 
-        requestPermission();//camera permission
-
         //Firebase init
         db = FirebaseDatabase.getInstance();
         accidents = db.getReference(Constants.FIRE_BASE_ACCIDENT_PATH);
@@ -144,41 +142,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         }
     }
 
-    public void requestPermission() {
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-            } else {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        Constants.MY_PERMISSIONS_REQUEST_FINE_LOCATION);
-            }
-        } else {
-        }
-    }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == Constants.MY_PERMISSIONS_REQUEST_FINE_LOCATION) {// If request is cancelled, the result arrays are empty.
-            if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        if (location != null) {
-                            longitude = location.getLongitude();
-                            latitude = location.getLatitude();
-                        }
-                    }
-                });
-            } else {
-                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
 
     private void saveAccidentData() {
         String json1 = new Gson().toJson(newAccident);
@@ -213,5 +177,27 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
             e.printStackTrace();
         }
         return "";//if not found
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == Constants.MY_PERMISSIONS_REQUEST_FINE_LOCATION) {// If request is cancelled, the result arrays are empty.
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location != null) {
+                            longitude = location.getLongitude();
+                            latitude = location.getLatitude();
+                        }
+                    }
+                });
+            } else {
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

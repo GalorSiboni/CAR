@@ -1,6 +1,9 @@
 package com.example.car;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,8 +14,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.car.Model.Profile;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,10 +39,15 @@ public class MainActivity extends AppCompatActivity {
     private String json;
     private Profile profile;
 
+    //Location
+    private FusedLocationProviderClient fusedLocationProviderClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        requestPermission();//camera permission
 
         TextView regBTN = findViewById(R.id.regBTN);
         Button logBTN = findViewById(R.id.logBTN);
@@ -99,4 +111,20 @@ public class MainActivity extends AppCompatActivity {
         json = new Gson().toJson(profile);
         pref.putString(Constants.KEY_SHARED_PREF_PROFILE, json);
     }
+
+    public void requestPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        Constants.MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+            }
+        } else {
+        }
+    }
+
 }
