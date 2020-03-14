@@ -114,6 +114,7 @@ public class EditProfile extends AppCompatActivity {
                         insuranceAgentNameEdit.getText().toString(), insuranceAgentPhoneNumEdit.getText().toString(),imageUrl);
                 users.child(userName).setValue(myProfile);
                 saveData();
+                // TODO: 14/03/2020 need to disable save btn and fields cannot be in edit mode
 //                Intent intent = new Intent (EditProfile.this, Menu.class);
 //                intent.putExtra(Constants.INTENT_FULL_NAME, user.getFullName());
             }
@@ -121,7 +122,7 @@ public class EditProfile extends AppCompatActivity {
         edit.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editMode( editTextsArr,true );
+                editMode( editTextsArr,true);
                 save.setVisibility(View.VISIBLE);
                 choose.setVisibility(View.VISIBLE);
                 edit.setVisibility(View.GONE);
