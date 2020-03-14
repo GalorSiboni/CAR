@@ -83,7 +83,7 @@ public class Menu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Menu.this, AccidentReport.class);
-//                intent.putExtra(Constants.INTENT_USER_NAME, userName);
+//                intent.putExtra(Constants.INTENT_IS_NEW_ACCIDENT, false);
                 startActivity(intent);
             }
         });

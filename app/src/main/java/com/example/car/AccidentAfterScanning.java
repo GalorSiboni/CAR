@@ -11,6 +11,7 @@ public class AccidentAfterScanning extends AppCompatActivity {
 
     private Button btnOtherDriverInfo;
     private TextView date, time, location;
+    private boolean isNewAccident;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +23,9 @@ public class AccidentAfterScanning extends AppCompatActivity {
         location = findViewById(R.id.locationTextView);
         time = findViewById(R.id.timeTextView);
 
-        btnOtherDriverInfo.setOnClickListener(new View.OnClickListener() {
+        isNewAccident =  getIntent().getBooleanExtra(Constants.INTENT_IS_NEW_ACCIDENT, true);
+
+                btnOtherDriverInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

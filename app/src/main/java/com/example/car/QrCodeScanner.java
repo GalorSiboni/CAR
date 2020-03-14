@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Intent;
@@ -25,11 +24,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.zxing.Result;
 
@@ -52,6 +48,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
     private Profile otherDriverProfile;
     private double latitude, longitude;
     private String userName, locationStr;
+    private boolean isNewAccident = true;
 
     //SharedPreferences
     private MySharedPreferences pref;
@@ -70,6 +67,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         setContentView(mScannerView);
 
         this.requestPermissions(new String[]{Manifest.permission.CAMERA}, Constants.MY_PERMISSIONS_REQUEST_CAMERA);
+        this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},Constants.MY_PERMISSIONS_REQUEST_FINE_LOCATION);
         //Firebase init
         db = FirebaseDatabase.getInstance();
         accidents = db.getReference(Constants.FIRE_BASE_ACCIDENT_PATH);
@@ -115,7 +113,8 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
 
             saveAccidentData();
             accidents.child(newAccident.getAccidentId()).setValue(newAccident);//adding to the fireBase
-            Intent intent = new Intent(QrCodeScanner.this, AccidentReport.class);
+            Intent intent = new Intent(QrCodeScanner.this, AccidentAfterScanning.class);
+            intent.putExtra(Constants.INTENT_IS_NEW_ACCIDENT, isNewAccident);//is new accident or previous accident -> required to know which accident to present
             startActivity(intent);
             finish();
         }
@@ -146,7 +145,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
 
     private void saveAccidentData() {
         String json1 = new Gson().toJson(newAccident);
-        pref.putString(Constants.KEY_SHARED_PREF_ACCIDENT, json1);
+        pref.putString(Constants.KEY_SHARED_PREF_NEW_ACCIDENT, json1);
     }
 
     private String saveLocationAsString(double latitude, double longitude) {
