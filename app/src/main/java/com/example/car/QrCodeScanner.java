@@ -83,17 +83,6 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         //location
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         getLastKnownLocation();
-
-        // TODO: 13/03/2020 do we need this to firebase after converting to json?
-        users.addListenerForSingleValueEvent( new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                myProfile = dataSnapshot.child(userName).getValue(Profile.class);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
     }
 
     @Override
