@@ -78,8 +78,6 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         myProfile = new Gson().fromJson(json, Profile.class);//my profile
         userName = myProfile.getUsername();
 
-
-
         //location
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         getLastKnownLocation();
@@ -109,6 +107,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
             otherDriverProfile = new Gson().fromJson(otherDriverResult, Profile.class);//converting profile info to gson
 
             newAccident = new Accident(myProfile, otherDriverProfile);
+            newAccident.setLocation(new LatLng(latitude,longitude));
 
             saveAccidentData();
             accidents.child(newAccident.getAccidentId()).setValue(newAccident);//adding to the fireBase
@@ -133,9 +132,9 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
                         assert location != null;
                         longitude = location.getLongitude();
                         latitude = location.getLatitude();
-                        Log.d("QrScannerLong", " "+ latitude);
+                        Log.d("QrScannerLong", " "+ longitude);
                         Log.d("QrScannerLat", " " +latitude);
-                        newAccident.setLocation(new LatLng(latitude,longitude));
+//                        newAccident.setLocation(new LatLng(latitude,longitude));
 
                         saveLocationAsString(latitude, longitude);
                     }
