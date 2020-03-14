@@ -60,6 +60,10 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
 
     @Override
     public void onCreate(Bundle state) {
+        // Programmatically initialize the scanner view
+        mScannerView = new ZXingScannerView(this);
+        // Set the scanner view as the content view
+
         super.onCreate(state);
         setContentView(mScannerView);
 
@@ -74,9 +78,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         myProfile = new Gson().fromJson(json, Profile.class);//my profile
         userName = myProfile.getUsername();
 
-        // Programmatically initialize the scanner view
-        mScannerView = new ZXingScannerView(this);
-        // Set the scanner view as the content view
+
 
         //location
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
