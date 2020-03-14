@@ -113,28 +113,28 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
 
     @Override
     public void handleResult(final Result rawResult) {
-        //onBackPressed();
-//        if (rawResult.getText() != null){
-//            final String otherDriverResult = rawResult.getText();//other driver info in json
-//            otherDriverProfile = new Gson().fromJson(otherDriverResult, Profile.class);//converting profile info to gson
-//
-//            newAccident.setDriver1(myProfile);
-//            newAccident.setDriver2(otherDriverProfile);
-//            newAccident.setOpenDate("");
-//
-//            saveAccidentData();
-//            accidents.child(newAccident.getAccidentId()).setValue(newAccident);//adding to the fireBase
-////            String key = accidents.push().getKey();
-////            accidents.child(key).setValue( newAccident );
+        onBackPressed();
+        if (rawResult.getText() != null){
+            final String otherDriverResult = rawResult.getText();//other driver info in json
+            otherDriverProfile = new Gson().fromJson(otherDriverResult, Profile.class);//converting profile info to gson
+
+            newAccident.setDriver1(myProfile);
+            newAccident.setDriver2(otherDriverProfile);
+            newAccident.setOpenDate("");
+
+            saveAccidentData();
+            accidents.child(newAccident.getAccidentId()).setValue(newAccident);//adding to the fireBase
+//            String key = accidents.push().getKey();
+//            accidents.child(key).setValue( newAccident );
 //            // TODO: 13/03/2020  why do we need the next line?
 ////            users.child(userName).child(Constants.ACCIDENT_KEY_INTENT).setValue(newAccident.getAccidentId());
-//            Intent intent = new Intent(QrCodeScanner.this, AccidentReport.class);
+            Intent intent = new Intent(QrCodeScanner.this, AccidentReport.class);
 ////            intent.putExtra("driver1", rawResult.getText());// TODO: 12/03/2020 change name to const!
 ////            intent.putExtra("accidentKey", key);// TODO: 12/03/2020 change name to const!
 ////            intent.putExtra(Constants.INTENT_USER_NAME, userName);
-//            startActivity(intent);
-//            finish();
-//        }
+            startActivity(intent);
+            finish();
+        }
     }
 
 
