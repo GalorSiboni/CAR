@@ -63,18 +63,6 @@ public class Accident {
         this.openDate = openDate;
     }
 
-//    public ArrayList<Profile> getProfiles() {
-//        return profiles;
-//    }
-//
-//    public void setProfiles(ArrayList<Profile> profiles) {
-//        this.profiles = profiles;
-//    }
-//
-//    public void addToProfilesList(Profile profile) {
-//        this.profiles.add( profile );
-//    }
-
     public LatLng getLocation() {
         return location;
     }
