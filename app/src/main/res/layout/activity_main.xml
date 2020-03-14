@@ -33,7 +33,7 @@
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:background="@color/lightGray2"
+            android:background="@color/cardview_light_background"
             android:paddingBottom="20dp"
             android:paddingTop="20dp"
             android:paddingRight="20dp"
@@ -43,7 +43,7 @@
             <EditText
                 android:id="@+id/editUser"
                 android:layout_width="250dp"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:background="#11000000"
                 android:inputType="textPersonName"
                 android:textColor="@android:color/black"
@@ -52,17 +52,19 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="40dp"
                 android:padding="10dp"
+                android:textSize="14sp"
                 android:hint="@string/username_hint"
                 android:autofillHints="UserName" />
 
             <EditText
                 android:id="@+id/editPassword"
                 android:layout_width="250dp"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:layout_below="@id/editUser"
                 android:layout_centerHorizontal="true"
                 android:background="#11000000"
                 android:padding="10dp"
+                android:textSize="14sp"
                 android:textColor="@android:color/black"
                 android:hint="@string/password_txt_main_page"
                 android:textColorHint="@android:color/darker_gray"
@@ -77,14 +79,14 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:textStyle="bold"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:background="@drawable/rec_gradient"
                 android:text="@string/main_activity_log_in_lbl"
                 android:textColor="@android:color/white"/>
 
             <TextView
                 android:id="@+id/regBTN"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/don_t_have_an_account_sign_up"
                 android:layout_below="@id/logBTN"
@@ -92,7 +94,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="20dp"
                 android:textStyle="bold"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textColor="@color/darkBlue"/>
 
         </RelativeLayout>

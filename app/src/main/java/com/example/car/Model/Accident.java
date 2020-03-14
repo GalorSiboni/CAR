@@ -13,6 +13,12 @@ public class Accident {
     private static int counter = 0;//if the same two drivers had more then one accident -> the counter different between the cases
     private String accidentId;
     private Date date;
+    private String locationStr;
+
+    public void setLocationStr(String locationStr) {
+        this.locationStr = locationStr;
+    }
+
     private String openDate;
     private LatLng location;
     private Profile driver1;
@@ -40,6 +46,7 @@ public class Accident {
         this.accidentId = counter + driver1.getUsername() + "_" + driver2.getUsername();
         this.date = Calendar.getInstance().getTime();
         this.openDate = DateFormat.getDateInstance().format(date);
+        this.locationStr = "";
 //        this.location = new LatLng(latitude, longitude);
     }
     public Profile getDriver1() {

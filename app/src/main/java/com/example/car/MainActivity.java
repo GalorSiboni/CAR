@@ -2,6 +2,7 @@ package com.example.car;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                                     Toast.makeText(MainActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();// TODO: 11/03/2020 change txt to const
                                     Intent intent = new Intent (MainActivity.this, Menu.class);
                                     saveData();
+                                    Log.d("Mainxxx", json);
                                     startActivity(intent);
                                     finish();
                                 }

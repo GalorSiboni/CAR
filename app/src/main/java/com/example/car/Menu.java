@@ -20,7 +20,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 public class Menu extends AppCompatActivity {
     private ImageView qrCode;
-    private String userName;
+    private String userName, json;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class Menu extends AppCompatActivity {
 
         //SharedPreferences
         MySharedPreferences pref = new MySharedPreferences(this);
-        String json = pref.getString(Constants.KEY_SHARED_PREF_PROFILE, "");
+        json = pref.getString(Constants.KEY_SHARED_PREF_PROFILE, "");
         Profile userProfile = new Gson().fromJson(json, Profile.class);
         userName = userProfile.getUsername();
         //   if (json.compareTo("") == 0) { // TODO: 12/03/2020  do we need to consider the case of json is empty?
@@ -109,7 +109,7 @@ public class Menu extends AppCompatActivity {
     {
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         try {
-            BitMatrix bitMatrix = qrCodeWriter.encode(userName, BarcodeFormat.QR_CODE, 200, 200, null);
+            BitMatrix bitMatrix = qrCodeWriter.encode(json, BarcodeFormat.QR_CODE, 200, 200, null);
             Bitmap bitmap = Bitmap.createBitmap(200, 200, Bitmap.Config.RGB_565);
 
             for (int x = 0; x < 200; x++) {

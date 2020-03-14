@@ -8,8 +8,11 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.car.Model.Accident;
@@ -28,9 +31,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.zxing.Result;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView.ResultHandler {
+    
     private ZXingScannerView mScannerView;
 
     //Firebase
@@ -41,7 +49,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
     private Accident newAccident = new Accident();
     private Profile otherDriverProfile;
     private double latitude, longitude;
-    private String userName;
+    private String userName, locationStr;
 
     //SharedPreferences
     private MySharedPreferences pref;
@@ -52,10 +60,10 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
 
     @Override
     public void onCreate(Bundle state) {
-        super.onCreate(state);//
+        super.onCreate(state);
         setContentView(mScannerView);
 
-        requestPermission();
+        requestPermission();//camera permission
 
         //Firebase init
         db = FirebaseDatabase.getInstance();
@@ -64,8 +72,8 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
 
         pref = new MySharedPreferences(this);
         json = pref.getString(Constants.KEY_SHARED_PREF_PROFILE, "");
-        Profile userProfile = new Gson().fromJson(json, Profile.class);
-        userName = userProfile.getUsername();
+        myProfile = new Gson().fromJson(json, Profile.class);//my profile
+        userName = myProfile.getUsername();
 
         // Programmatically initialize the scanner view
         mScannerView = new ZXingScannerView(this);
@@ -75,6 +83,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         getLastKnownLocation();
 
+        // TODO: 13/03/2020 do we need this to firebase after converting to json?
         users.addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -105,20 +114,30 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
     @Override
     public void handleResult(final Result rawResult) {
         //onBackPressed();
-        if (rawResult.getText() != null){
-            newAccident.setDriver1(myProfile);
-//            String key = accidents.push().getKey();
-//            accidents.child(key).setValue( newAccident );
-            users.child(userName).child(Constants.ACCIDENT_KEY_INTENT).setValue(newAccident.getAccidentId());
-            Intent intent = new Intent(QrCodeScanner.this, AccidentReport.class);
-//            intent.putExtra("driver1", rawResult.getText());// TODO: 12/03/2020 change name to const!
-//            intent.putExtra("accidentKey", key);// TODO: 12/03/2020 change name to const!
-//            intent.putExtra(Constants.INTENT_USER_NAME, userName);
-            startActivity(intent);
-            finish();
-        }
-
+//        if (rawResult.getText() != null){
+//            final String otherDriverResult = rawResult.getText();//other driver info in json
+//            otherDriverProfile = new Gson().fromJson(otherDriverResult, Profile.class);//converting profile info to gson
+//
+//            newAccident.setDriver1(myProfile);
+//            newAccident.setDriver2(otherDriverProfile);
+//            newAccident.setOpenDate("");
+//
+//            saveAccidentData();
+//            accidents.child(newAccident.getAccidentId()).setValue(newAccident);//adding to the fireBase
+////            String key = accidents.push().getKey();
+////            accidents.child(key).setValue( newAccident );
+//            // TODO: 13/03/2020  why do we need the next line?
+////            users.child(userName).child(Constants.ACCIDENT_KEY_INTENT).setValue(newAccident.getAccidentId());
+//            Intent intent = new Intent(QrCodeScanner.this, AccidentReport.class);
+////            intent.putExtra("driver1", rawResult.getText());// TODO: 12/03/2020 change name to const!
+////            intent.putExtra("accidentKey", key);// TODO: 12/03/2020 change name to const!
+////            intent.putExtra(Constants.INTENT_USER_NAME, userName);
+//            startActivity(intent);
+//            finish();
+//        }
     }
+
+
 
     private void getLastKnownLocation() {
         //permissions check:
@@ -133,8 +152,11 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
                         assert location != null;
                         longitude = location.getLongitude();
                         latitude = location.getLatitude();
-
+                        Log.d("QrScannerLong", " "+ latitude);
+                        Log.d("QrScannerLat", " " +latitude);
                         newAccident.setLocation(new LatLng(latitude,longitude));
+
+                        saveLocationAsString(latitude, longitude);
                     }
                 }
             });
@@ -177,4 +199,39 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         }
     }
 
+    private void saveAccidentData()
+    {
+        String json1 = new Gson().toJson(newAccident);
+        pref.putString(Constants.KEY_SHARED_PREF_ACCIDENT, json1);
+    }
+
+    private void saveLocationAsString(double latitude, double longitude)
+    {
+        Geocoder geocoder;
+        List<Address> addresses;
+        geocoder = new Geocoder(mScannerView.getContext(),Locale.getDefault());
+
+        try {
+            addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+            if (addresses != null) {
+                String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                String city = addresses.get(0).getLocality();
+                String state = addresses.get(0).getAdminArea();
+                String country = addresses.get(0).getCountryName();
+//                            String postalCode = addresses.get(0).getPostalCode();
+                String knownName = addresses.get(0).getFeatureName();
+
+                if (knownName != null) {
+                    locationStr = knownName + " ," + city + ", " + country;
+                } else {
+                    if(address != null)
+                        locationStr = address + " ," + city + ", " + country;
+                }
+                Log.d("QrScanner", locationStr);
+                newAccident.setLocationStr(locationStr);
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

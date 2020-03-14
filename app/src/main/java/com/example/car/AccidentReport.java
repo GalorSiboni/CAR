@@ -46,10 +46,10 @@ public class AccidentReport extends AppCompatActivity {
         storage = FirebaseStorage.getInstance().getReference().child(Constants.FIRE_BASE_STORAGE_PROFILE_IMAGE);
 //        accidentStorage =  storage.child("accidents/" + accidentID);
 
-        Intent intent = getIntent();
-        driver1 = intent.getStringExtra(Constants.DRIVER1_INTENT_DETAILS);
-        myUserName = intent.getStringExtra(Constants.INTENT_USER_NAME);
-        key = intent.getStringExtra(Constants.ACCIDENT_KEY_INTENT);
+//        Intent intent = getIntent();
+//        driver1 = intent.getStringExtra(Constants.DRIVER1_INTENT_DETAILS);
+//        myUserName = intent.getStringExtra(Constants.INTENT_USER_NAME);
+//        key = intent.getStringExtra(Constants.ACCIDENT_KEY_INTENT);
 //        users.addListenerForSingleValueEvent( new ValueEventListener() {
 //            @Override
 //            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

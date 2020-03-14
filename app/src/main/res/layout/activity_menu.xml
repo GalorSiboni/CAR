@@ -12,7 +12,7 @@
         android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="160dp"
-        android:background="@color/green">
+        android:background="@color/blue_for_list_view">
 
         <RelativeLayout
             android:id="@+id/toolBarIcons"
@@ -23,23 +23,12 @@
             android:layout_alignParentEnd="true">
 
             <ImageView
-                android:id="@+id/homeIcon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:padding="10dp"
-                android:layout_margin="5dp"
-                android:background="@drawable/home_btn">
-            </ImageView>
-
-            <ImageView
                 android:id="@+id/profileIcon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_toRightOf="@id/homeIcon"
                 android:padding="10dp"
                 android:layout_margin="5dp"
-                android:background="@drawable/profile_btn"
-                android:layout_toEndOf="@id/homeIcon">
+                android:background="@drawable/profile_btn">
             </ImageView>
 
             <ImageView
@@ -63,7 +52,7 @@
             android:fontFamily="@font/acme"
             android:gravity="center"
             android:text="@string/welcomeLbl"
-            android:textSize="40sp"
+            android:textSize="30sp"
             android:textStyle="bold">
         </TextView>
 
