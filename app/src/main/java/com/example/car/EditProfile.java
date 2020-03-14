@@ -75,9 +75,7 @@ public class EditProfile extends AppCompatActivity {
         myProfile = new Gson().fromJson(json, Profile.class);
 
         userName = myProfile.getUsername();
-        imageUrl = myProfile.getImageUrl();
-//        Intent intent = getIntent();
-//        userName = intent.getStringExtra( Constants.INTENT_USER_NAME);
+//        imageUrl = myProfile.getImageUrl();
 
         //Firebase init
         db = FirebaseDatabase.getInstance();

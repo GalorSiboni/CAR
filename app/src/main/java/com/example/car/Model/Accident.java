@@ -1,11 +1,8 @@
 package com.example.car.Model;
 
-import com.example.car.Constants;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 public class Accident {
@@ -14,45 +11,44 @@ public class Accident {
     private String accidentId;
     private Date date;
     private String locationStr;
+    private String openDate;
+    private LatLng location;
+    private Profile driverThatScan;
+    private Profile driverWhoGotScanned;
 
     public void setLocationStr(String locationStr) {
         this.locationStr = locationStr;
     }
 
-    private String openDate;
-    private LatLng location;
-    private Profile driver1;
-    private Profile driver2;
-
     public String getAccidentId() {
         return accidentId;
     }
 
-    public Accident(Profile driver1, Profile driver2)
+    public Accident(Profile driverThatScan, Profile driverWhoGotScanned)
     {
-        this.driver1 = driver1;
-        this.driver2 = driver2;
+        this.driverThatScan = driverThatScan;
+        this.driverWhoGotScanned = driverWhoGotScanned;
         counter++;
-        this.accidentId = counter + driver1.getUsername() + "_" + driver2.getUsername();
+        this.accidentId = counter + driverThatScan.getUsername() + "_" + driverWhoGotScanned.getUsername();
         this.date = Calendar.getInstance().getTime();
         this.openDate = DateFormat.getDateInstance().format(date);
         this.locationStr = "";
 //        this.location = new LatLng(latitude, longitude);
     }
-    public Profile getDriver1() {
-        return driver1;
+    public Profile getDriverThatScan() {
+        return driverThatScan;
     }
 
-    public void setDriver1(Profile driver1) {
-        this.driver1 = driver1;
+    public void setDriverThatScan(Profile driverThatScan) {
+        this.driverThatScan = driverThatScan;
     }
 
-    public Profile getDriver2() {
-        return driver2;
+    public Profile getDriverWhoGotScanned() {
+        return driverWhoGotScanned;
     }
 
-    public void setDriver2(Profile driver2) {
-        this.driver2 = driver2;
+    public void setDriverWhoGotScanned(Profile driverWhoGotScanned) {
+        this.driverWhoGotScanned = driverWhoGotScanned;
     }
 
     public String getOpenDate() {

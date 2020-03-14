@@ -68,6 +68,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
 
         this.requestPermissions(new String[]{Manifest.permission.CAMERA}, Constants.MY_PERMISSIONS_REQUEST_CAMERA);
         this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},Constants.MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+
         //Firebase init
         db = FirebaseDatabase.getInstance();
         accidents = db.getReference(Constants.FIRE_BASE_ACCIDENT_PATH);

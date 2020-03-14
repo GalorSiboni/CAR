@@ -35,10 +35,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="#FFF"
-        android:textAllCaps="true"
-        android:layout_marginBottom="40dp"
-        android:text="@string/profile_label"
-        android:textSize="30sp" />
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        android:textSize="26sp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -51,46 +50,9 @@
             android:orientation="vertical">
 
             <TableRow
-                android:id="@+id/firstNameRow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/firstNameLab"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/firstName_label" />
-
-                <EditText
-                    android:id="@+id/firstNameEdit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/lastNameRow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/firstNameRow">
-
-                <TextView
-                    android:id="@+id/lastNameLab"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lastName_label" />
-
-                <EditText
-                    android:id="@+id/lastNameEdit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </TableRow>
-
-
-            <TableRow
                 android:id="@+id/phoneNumberRow"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/lastNameRow">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/phoneNumberLab"
