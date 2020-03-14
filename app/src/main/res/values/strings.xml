@@ -49,5 +49,11 @@
     <string name="main_activity_log_in_lbl">Log in</string>
     <string name="main_activity_log_in_text">Log In</string>
     <string name="don_t_have_an_account_sign_up">Don\'t have an account? Sign up</string>
+    <string name="accident_information_lbl_after_scanning">Accident information</string>
+    <string name="aacident_after_scanning_date_lbl">Date</string>
+    <string name="accident_after_scanning_date_lbl">Date:</string>
+    <string name="accident_after_scanning_time_lbl">Time:</string>
+    <string name="aacident_after_scanning_location_lbl">Location:</string>
+    <string name="see_other_driver_s_details">See other driver\'s details</string>
 
 </resources>
