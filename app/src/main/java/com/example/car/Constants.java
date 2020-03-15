@@ -12,7 +12,9 @@ public class Constants {
     static final String KEY_SHARED_PREF_PROFILE = "KEY_SHARED_PREF_PROFILE";
     public static final String KEY_SHARED_PREF_NEW_ACCIDENT = "KEY_SHARED_PREF_ACCIDENT";
     static final String FIRE_BASE_STORAGE_PROFILE_IMAGE = "ImageFolder";
+    static final String FIRE_BASE_STORAGE_ACCIDENT_GALLERY = "AccidentGallery";
     static final String FIRE_BASE_DB_PROFILES_PATH = "Profiles";
+    static final String FIRE_BASE_DB_ACCIDENTS_PATH = "Accidents";
     static final String INTENT_USER_NAME = "userName";
     static final String INTENT_FULL_NAME = "fullName";
     static final String IMAGE_URL = "imageUrl";
