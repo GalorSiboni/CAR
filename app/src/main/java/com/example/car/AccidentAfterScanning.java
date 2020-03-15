@@ -150,18 +150,11 @@ public class AccidentAfterScanning extends AppCompatActivity {
             }
             if (accident.getGallery().size() > 3)
                 for (int i = counter; i < accident.getGallery().size() - 2; i++) {
-                    if (!accident.getGallery().get( i ).trim().isEmpty() || accident.getGallery().get( i ) != null) {
                         Picasso.get().load( Uri.parse( accident.getGallery().get( i ) ) ).into( image1 );
-                    }
-                    if(accident.getGallery().size() > 1)
-                        if (!accident.getGallery().get( i + 1 ).trim().isEmpty() || accident.getGallery().get( i + 1 ) != null) {
-                            Picasso.get().load( Uri.parse( accident.getGallery().get( i + 1 ) ) ).into( image2 );
+                        Picasso.get().load( Uri.parse( accident.getGallery().get( i + 1 ) ) ).into( image2 );
+                        Picasso.get().load( Uri.parse( accident.getGallery().get( i + 2  ) ) ).into( image3 );
                         }
-                    if(accident.getGallery().size() > 2)
-                        if (!accident.getGallery().get( i + 2 ).trim().isEmpty() || accident.getGallery().get( i + 2 ) != null) {
-                            Picasso.get().load( Uri.parse( accident.getGallery().get( i + 2 ) ) ).into( image3 );
-                        }
-                }
+
             }
     }
 
