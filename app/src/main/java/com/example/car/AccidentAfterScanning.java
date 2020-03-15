@@ -212,7 +212,7 @@ public class AccidentAfterScanning extends AppCompatActivity {
     }
     private void chooseImage(){
         Intent intent = new Intent();
-        intent.setType(accident.getAccidentId() + "/*");// TODO: 12/03/2020 change
+        intent.setType("image/*");// TODO: 12/03/2020 change
         intent.setAction( Intent.ACTION_GET_CONTENT );
         startActivityForResult( Intent.createChooser( intent,"SelectPicture"),PICK_IMAGE_REQUEST ); // TODO: 12/03/2020 change
     }
