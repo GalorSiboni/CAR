@@ -36,6 +36,7 @@ public class Menu extends AppCompatActivity {
         json = pref.getString(Constants.KEY_SHARED_PREF_PROFILE, "");
         Profile userProfile = new Gson().fromJson(json, Profile.class);
         userName = userProfile.getUsername();
+        Log.d("Mainxxx", json);
         //   if (json.compareTo("") == 0) { // TODO: 12/03/2020  do we need to consider the case of json is empty?
 //        }
 //        else {

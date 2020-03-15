@@ -42,7 +42,7 @@
         android:gravity="center"
         android:layout_gravity="center"
         android:textSize="14sp"
-        android:text="@string/more_details_btn_text"
+        android:text="@string/see_other_driver_s_details"
         android:layout_margin="8dp">
     </Button>
 
