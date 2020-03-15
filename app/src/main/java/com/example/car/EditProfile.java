@@ -154,7 +154,6 @@ public class EditProfile extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
     }
 
     private void uploadPhoto(){

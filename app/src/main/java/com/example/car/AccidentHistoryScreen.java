@@ -152,4 +152,5 @@ public class AccidentHistoryScreen extends AppCompatActivity {
         }
         return  accidentsForUser;
     }
+
 }

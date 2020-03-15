@@ -3,6 +3,7 @@ package com.example.car.Model;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 public class Accident {
@@ -15,6 +16,7 @@ public class Accident {
 //    private LatLng location;
     private Profile driverThatScan;
     private Profile driverWhoGotScanned;
+    private ArrayList<String> gallery;
 
     public void setLocationStr(String locationStr) {
         this.locationStr = locationStr;
@@ -80,4 +82,16 @@ public class Accident {
     public String getLocationStr() {
         return locationStr;
     }
+
+    public void setGallery(ArrayList<String> gallery) {
+        this.gallery = gallery;
+    }
+    public ArrayList<String> getGallery() {
+        return  this.gallery;
+    }
+
+    public void addToGallery(String imageUrl) {
+        this.gallery.add( imageUrl );
+    }
+
 }
