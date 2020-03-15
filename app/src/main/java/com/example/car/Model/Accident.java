@@ -35,6 +35,7 @@ public class Accident {
         this.date = Calendar.getInstance().getTime();
         this.openDate = DateFormat.getDateInstance().format(date);
         this.locationStr = "";
+        gallery = new ArrayList<>();
 //        this.location = new LatLng(latitude, longitude);
     }
 
@@ -46,6 +47,7 @@ public class Accident {
         this.openDate = DateFormat.getDateInstance().format(date);
 //        this.location = new LatLng(0,0) ;
         this.locationStr = "";
+        gallery = new ArrayList<>();
     }
     public Profile getDriverThatScan() {
         return driverThatScan;
