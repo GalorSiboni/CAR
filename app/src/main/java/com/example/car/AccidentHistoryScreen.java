@@ -132,10 +132,6 @@ public class AccidentHistoryScreen extends AppCompatActivity {
         this.callBackList = callback;
     }
 
-//    public void setLocation(LatLng location) {
-//        callBackList.setMapLocation(location);
-//    }
-
     private ArrayList<Accident> getAccidentArrayListForThisUser(ArrayList<Accident> accidents, Profile user)
     {
         ArrayList<Accident> accidentsForUser = new ArrayList<>();

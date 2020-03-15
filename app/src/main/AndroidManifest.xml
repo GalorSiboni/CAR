@@ -36,9 +36,6 @@
             android:name=".Menu"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name=".AccidentReport"
-            android:screenOrientation="fullSensor" />
-        <activity
             android:name=".EditProfile"
             android:screenOrientation="fullSensor" />
         <activity

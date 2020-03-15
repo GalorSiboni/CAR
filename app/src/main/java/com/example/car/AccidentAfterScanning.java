@@ -52,11 +52,11 @@ public class AccidentAfterScanning extends AppCompatActivity {
     String json;
     private Accident accident;
 
-
     //firebase
     FirebaseDatabase db;
     StorageReference storage;
     DatabaseReference accidentDB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,6 +142,7 @@ public class AccidentAfterScanning extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 chooseImage();
+                uploadPhoto();
             }
         });
     }
