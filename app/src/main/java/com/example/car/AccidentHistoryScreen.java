@@ -162,4 +162,5 @@ public class AccidentHistoryScreen extends Fragment {
         }
         return  accidentsForUser;
     }
+
 }

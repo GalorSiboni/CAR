@@ -46,7 +46,12 @@ public class AccidentAfterScanning extends AppCompatActivity {
     private StorageTask uploadTask;
     private final int PICK_IMAGE_REQUEST = 71;
     private boolean isNewAccident;
+
+    //Shared Preferences
+    MySharedPreferences pref;
+    String json;
     private Accident accident;
+
 
     //firebase
     FirebaseDatabase db;
@@ -79,8 +84,7 @@ public class AccidentAfterScanning extends AppCompatActivity {
         location = findViewById(R.id.locationTextView);
 
         isNewAccident =  getIntent().getBooleanExtra(Constants.INTENT_IS_NEW_ACCIDENT, true);
-        MySharedPreferences pref = new MySharedPreferences(this);
-        String json;
+        pref = new MySharedPreferences(this);
         if(isNewAccident)//if it is a new accident
         {
             json = pref.getString(Constants.KEY_SHARED_PREF_NEW_ACCIDENT, "");
@@ -96,15 +100,17 @@ public class AccidentAfterScanning extends AppCompatActivity {
         leftPic.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (counter !=0)
-                counter--;
+                if (accident.getGallery() != null)
+                    if (counter !=0)
+                        counter--;
             }
         });
         rightPic.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (counter < accident.getGallery().size())
-                counter++;
+                if (accident.getGallery() != null)
+                    if (counter < accident.getGallery().size())
+                        counter++;
             }
         });
         if (accident.getGallery() != null) {
@@ -139,6 +145,7 @@ public class AccidentAfterScanning extends AppCompatActivity {
             }
         });
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult( requestCode,resultCode,data );
@@ -171,6 +178,7 @@ public class AccidentAfterScanning extends AppCompatActivity {
             }
         }
     }
+
     private void uploadPhoto(){
         if(filePath != null){
             final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -190,6 +198,7 @@ public class AccidentAfterScanning extends AppCompatActivity {
                             //add new pic
                             accident.addToGallery( url );
                             //end new part
+                            saveData();
                             accidentDB.child(accident.getAccidentId()).child("" + accident.getGallery().size()).setValue(url);
                         }
                     } );
@@ -215,5 +224,11 @@ public class AccidentAfterScanning extends AppCompatActivity {
         intent.setType("image/*");// TODO: 12/03/2020 change
         intent.setAction( Intent.ACTION_GET_CONTENT );
         startActivityForResult( Intent.createChooser( intent,"SelectPicture"),PICK_IMAGE_REQUEST ); // TODO: 12/03/2020 change
+    }
+
+    private void saveData()
+    {
+        json = new Gson().toJson(accident);
+        pref.putString(Constants.KEY_SHARED_PREF_PROFILE, json);
     }
 }
