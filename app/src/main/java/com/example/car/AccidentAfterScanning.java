@@ -136,18 +136,33 @@ public class AccidentAfterScanning extends AppCompatActivity {
 
     private void updateImageViews() {
         if (accident.getGallery() != null) {
-            for (int i = counter; i < accident.getGallery().size(); i++) {
-                if (!accident.getGallery().get( i ).trim().isEmpty() || accident.getGallery().get( i ) != null) {
-                    Picasso.get().load( Uri.parse( accident.getGallery().get( i ) ) ).into( image1 );
-                }
-                if (!accident.getGallery().get( i + 1 ).trim().isEmpty() || accident.getGallery().get( i + 1 ) != null) {
-                    Picasso.get().load( Uri.parse( accident.getGallery().get( i ) ) ).into( image2 );
-                }
-                if (!accident.getGallery().get( i + 2 ).trim().isEmpty() || accident.getGallery().get( i + 2 ) != null) {
-                    Picasso.get().load( Uri.parse( accident.getGallery().get( i ) ) ).into( image3 );
+            switch (accident.getGallery().size()) {
+                case 1: Picasso.get().load( Uri.parse( accident.getGallery().get( 0 ) ) ).into( image1 );
+                break;
+                case 2: Picasso.get().load( Uri.parse( accident.getGallery().get( 0 ) ) ).into( image1 );
+                        Picasso.get().load( Uri.parse( accident.getGallery().get( 1 ) ) ).into( image2 );
+                break;
+                case 3: Picasso.get().load( Uri.parse( accident.getGallery().get( 0 ) ) ).into( image1 );
+                        Picasso.get().load( Uri.parse( accident.getGallery().get( 1 ) ) ).into( image2 );
+                        Picasso.get().load( Uri.parse( accident.getGallery().get( 2 ) ) ).into( image3 );
+                break;
+
+            }
+            if (accident.getGallery().size() > 3)
+                for (int i = counter; i < accident.getGallery().size() - 2; i++) {
+                    if (!accident.getGallery().get( i ).trim().isEmpty() || accident.getGallery().get( i ) != null) {
+                        Picasso.get().load( Uri.parse( accident.getGallery().get( i ) ) ).into( image1 );
+                    }
+                    if(accident.getGallery().size() > 1)
+                        if (!accident.getGallery().get( i + 1 ).trim().isEmpty() || accident.getGallery().get( i + 1 ) != null) {
+                            Picasso.get().load( Uri.parse( accident.getGallery().get( i + 1 ) ) ).into( image2 );
+                        }
+                    if(accident.getGallery().size() > 2)
+                        if (!accident.getGallery().get( i + 2 ).trim().isEmpty() || accident.getGallery().get( i + 2 ) != null) {
+                            Picasso.get().load( Uri.parse( accident.getGallery().get( i + 2 ) ) ).into( image3 );
+                        }
                 }
             }
-        }
     }
 
     @Override
