@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Display;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +33,8 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
 
 public class AccidentAfterScanning extends AppCompatActivity {
 
@@ -134,6 +138,38 @@ public class AccidentAfterScanning extends AppCompatActivity {
                 chooseImage();
             }
         });
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult( requestCode,resultCode,data );
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null)
+        {
+            filePath = data.getData();
+            if (image1 == null) {
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap( getContentResolver(), filePath );
+                    image1.setImageBitmap( bitmap );
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (image2 == null) {
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap( getContentResolver(), filePath );
+                    image2.setImageBitmap( bitmap );
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (image3 == null) {
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap( getContentResolver(), filePath );
+                    image3.setImageBitmap( bitmap );
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
     private void uploadPhoto(){
         if(filePath != null){
