@@ -108,7 +108,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
 
             otherDriverProfile = new Gson().fromJson(otherDriverResult, Profile.class);//converting profile info to gson
             newAccident = new Accident(myProfile, otherDriverProfile);
-            newAccident.setLocation(new LatLng(latitude, longitude));
+//            newAccident.setLocation(new LatLng(latitude, longitude));
 
             newAccident.setLocationStr(saveLocationAsString(latitude, longitude));
 

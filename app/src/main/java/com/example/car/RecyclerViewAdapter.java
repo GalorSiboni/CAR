@@ -36,9 +36,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Accident accident = accidentList.get(position);
-//        holder.accidentDate.setText();
-//        holder.personName.setText(person.getName());
-//        holder.personScore.setText(person.getScore()+"");
+        holder.accidentDate.setText(accident.getOpenDate());
+        holder.accidentLocation.setText(accident.getLocationStr());
+        holder.otherDriverInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
@@ -56,9 +61,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-//            personName = itemView.findViewById(R.id.personName);
-//            personScore = itemView.findViewById(R.id.personScore);
-//            parentLayout = itemView.findViewById(R.id.parentLayout);
+            accidentDate = itemView.findViewById(R.id.accidentDate);
+            accidentLocation = itemView.findViewById(R.id.accidentLocation);
+            otherDriverInfo = itemView.findViewById(R.id.moreInfo);
             itemView.setOnClickListener(this);
         }
 

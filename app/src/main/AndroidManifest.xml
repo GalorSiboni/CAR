@@ -30,6 +30,9 @@
             android:name=".EmergencyServices"
             android:screenOrientation="fullSensor" />
         <activity
+            android:name=".AccidentHistoryScreen"
+            android:screenOrientation="fullSensor" />
+        <activity
             android:name=".Menu"
             android:screenOrientation="fullSensor" />
         <activity

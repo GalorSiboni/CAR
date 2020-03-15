@@ -2,6 +2,7 @@ package com.example.car;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -23,11 +24,14 @@ public class Menu extends AppCompatActivity {
     private TextView greeting;
     private  ImageView profile, logOut, qrCode;
     private  CardView scanQR, showAccidents, emergencyServices;
+    private AccidentHistoryScreen accidentHistoryScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        accidentHistoryScreen = new AccidentHistoryScreen();
 
         getViews();
 
@@ -83,7 +87,11 @@ public class Menu extends AppCompatActivity {
         showAccidents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Menu.this, AccidentReport.class);
+//                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//                transaction.add(R.id.LAYOUT_TO_INFLATE, accidentHistoryScreen);
+//                transaction.show(accidentHistoryScreen);
+//                transaction.commit();
+                Intent intent = new Intent(Menu.this, AccidentHistoryScreen.class);
 //                intent.putExtra(Constants.INTENT_IS_NEW_ACCIDENT, false);
                 startActivity(intent);
             }

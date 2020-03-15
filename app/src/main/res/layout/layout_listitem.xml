@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:weightSum="3"
-    android:background="@color/bcg_for_list_view"
+    android:background="@color/lightGray"
     android:layout_margin="10dp">
 
     <TextView
@@ -42,7 +42,7 @@
         android:gravity="center"
         android:layout_gravity="center"
         android:textSize="14sp"
-        android:text="@string/see_other_driver_s_details"
+        android:text="see more info"
         android:layout_margin="8dp">
     </Button>
 

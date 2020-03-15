@@ -12,7 +12,7 @@ public class Accident {
     private Date date;
     private String locationStr;
     private String openDate;
-    private LatLng location;
+//    private LatLng location;
     private Profile driverThatScan;
     private Profile driverWhoGotScanned;
 
@@ -34,6 +34,16 @@ public class Accident {
         this.openDate = DateFormat.getDateInstance().format(date);
         this.locationStr = "";
 //        this.location = new LatLng(latitude, longitude);
+    }
+
+    public Accident()
+    {
+        this.driverThatScan = new Profile();
+        this.driverWhoGotScanned = new Profile();
+        this.date = Calendar.getInstance().getTime();
+        this.openDate = DateFormat.getDateInstance().format(date);
+//        this.location = new LatLng(0,0) ;
+        this.locationStr = "";
     }
     public Profile getDriverThatScan() {
         return driverThatScan;
@@ -59,13 +69,13 @@ public class Accident {
         this.openDate = openDate;
     }
 
-    public LatLng getLocation() {
-        return location;
-    }
+//    public LatLng getLocation() {
+//        return location;
+//    }
 
-    public void setLocation(LatLng location) {
-        this.location = location;
-    }
+//    public void setLocation(LatLng location) {
+//        this.location = location;
+//    }
 
     public String getLocationStr() {
         return locationStr;
