@@ -56,5 +56,6 @@
     <string name="aacident_after_scanning_location_lbl">Location:</string>
     <string name="see_other_driver_s_details">See other driver\'s details</string>
     <string name="more_details_btn_text">more details</string>
+    <string name="accidents_history">Accidents history</string>
 
 </resources>

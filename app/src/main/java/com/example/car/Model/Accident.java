@@ -3,6 +3,7 @@ package com.example.car.Model;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,7 +34,9 @@ public class Accident {
         counter++;
         this.accidentId = counter + driverThatScan.getUsername() + "_" + driverWhoGotScanned.getUsername();
         this.date = Calendar.getInstance().getTime();
-        this.openDate = DateFormat.getDateInstance().format(date);
+//        this.openDate = DateFormat.getDateInstance().format(date);
+        DateFormat df = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
+        String openDate = df.format(date);
         this.locationStr = "";
         gallery = new ArrayList<>();
 //        this.location = new LatLng(latitude, longitude);

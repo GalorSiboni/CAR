@@ -1,6 +1,7 @@
 package com.example.car;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,12 +37,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Accident accident = accidentList.get(position);
-        holder.accidentDate.setText(accident.getOpenDate());
-        holder.accidentLocation.setText(accident.getLocationStr());
+        holder.accidentDate.setText(String.format("Accident date:\n %s", accident.getOpenDate()));
+        holder.accidentLocation.setText(String.format("Accident location:\n %s", accident.getLocationStr()));
         holder.otherDriverInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(v.getContext(), PopWindowUserInfo.class);
+                v.getContext().startActivity(intent);
             }
         });
     }

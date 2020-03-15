@@ -92,7 +92,7 @@
 
         <ImageButton
             android:id="@+id/leftPic"
-            android:src="@drawable/leftpic"
+            android:src="@drawable/left_icon"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:scaleType="fitCenter">
@@ -100,7 +100,7 @@
 
         <ImageButton
             android:id="@+id/rightPic"
-            android:src="@drawable/rightpic"
+            android:src="@drawable/right_pic"
             android:adjustViewBounds="true"
             android:layout_width="60dp"
             android:layout_height="60dp"

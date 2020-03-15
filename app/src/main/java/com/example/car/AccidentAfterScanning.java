@@ -95,8 +95,8 @@ public class AccidentAfterScanning extends AppCompatActivity {
         }
         accident = new Gson().fromJson(json, Accident.class);
 
-        date.setText(accident.getOpenDate());
-        location.setText(accident.getLocationStr());
+        date.setText(String.format("%s%s", date.getText(), accident.getOpenDate()));
+        location.setText(String.format("%s%s", location.getText(), accident.getLocationStr()));
         leftPic.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
