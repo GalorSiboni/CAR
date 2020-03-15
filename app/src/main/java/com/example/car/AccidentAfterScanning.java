@@ -229,6 +229,6 @@ public class AccidentAfterScanning extends AppCompatActivity {
     private void saveData()
     {
         json = new Gson().toJson(accident);
-        pref.putString(Constants.KEY_SHARED_PREF_PROFILE, json);
+        pref.putString(Constants.KEY_SHARED_PREF_NEW_ACCIDENT, json);
     }
 }
