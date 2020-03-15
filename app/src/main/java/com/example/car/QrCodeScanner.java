@@ -136,8 +136,6 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
                         latitude = location.getLatitude();
                         Log.d("QrScannerLong", " " + longitude);
                         Log.d("QrScannerLat", " " + latitude);
-//                        newAccident.setLocation(new LatLng(latitude,longitude));
-//                        saveLocationAsString(latitude, longitude);
                     }
                 }
             });
@@ -179,7 +177,6 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         return "No location is found";//if not found
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -197,6 +194,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
                         }
                     });
                 } else {
+                    if (grantResults.length > 0)
                     Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -207,8 +205,8 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
 
                     // Here user granted the permission
                 } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
+                    if(grantResults.length > 0)
+                    // permission denied, boo! Disable the functionality that depends on this permission.
                     Toast.makeText(QrCodeScanner.this, "Permission denied to read your Camera", Toast.LENGTH_SHORT).show();
                 }
                 return;
