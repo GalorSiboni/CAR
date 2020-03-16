@@ -216,10 +216,10 @@
     </RelativeLayout>
     <ImageView
         android:id="@+id/qrCode"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:scaleType="fitXY"
         app:srcCompat="?attr/actionBarDivider"
         android:layout_below="@id/icons"
-        android:layout_marginTop="80dp"
         android:layout_centerHorizontal="true"/>
 </RelativeLayout>
