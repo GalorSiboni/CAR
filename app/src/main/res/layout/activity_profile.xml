@@ -12,7 +12,7 @@
         android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="#53d4df"
+        android:background="#46abbf"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -99,6 +99,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:fontFamily="@font/acme"
         android:paddingBottom="30dp"
         android:text="@string/profile_label"
         android:textSize="30sp" />
@@ -404,6 +405,8 @@
     </ScrollView>
     <Button
         android:id="@+id/editProfile"
+        android:layout_margin="8dp"
+        android:background="#DEF0F3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/edit_lbl">
@@ -412,6 +415,8 @@
     <Button
         android:id="@+id/save"
         android:layout_below="@id/editProfile"
+        android:layout_margin="8dp"
+        android:background="#DEF0F3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/save">

@@ -46,7 +46,7 @@ public class EditProfile extends AppCompatActivity {
 
     private Uri filePath;
     private StorageTask uploadTask;
-    private final int PICK_IMAGE_REQUEST = 71;
+    private final int PICK_IMAGE_REQUEST = 71;// TODO: 16/03/2020 consider make it const
     private boolean editPhotoFlag = false;
 
     //Firebase
@@ -105,13 +105,13 @@ public class EditProfile extends AppCompatActivity {
                         uploadPhoto();
                     }
                 }
-               myProfile.updateProfile(firstNameEdit.getText().toString(), lastNameEdit.getText().toString(), mail,  carNumberEdit.getText().toString(),
+               json = MyFirebase.updateUserDetails(myProfile,userName,firstNameEdit.getText().toString(), lastNameEdit.getText().toString(), mail,  carNumberEdit.getText().toString(),
                         carModelEdit.getText().toString(), carColorEdit.getText().toString(), driverNameEdit.getText().toString(), idEdit.getText().toString(),
                         addressEdit.getText().toString(), licenceNumberEdit.getText().toString(), phoneNumberEdit.getText().toString(), ownerAddressEdit.getText().toString(),
                         ownerPhoneNumberEdit.getText().toString(), insurancePolicyNumberEdit.getText().toString(), insuranceCompanyNameEdit.getText().toString(),
                         insuranceAgentNameEdit.getText().toString(), insuranceAgentPhoneNumEdit.getText().toString(),imageUrl);
-                users.child(userName).setValue(myProfile);
-                saveData();
+                pref.putString(Constants.KEY_SHARED_PREF_PROFILE, json);
+                //saveData();
                 // TODO: 14/03/2020 need to disable save btn and fields cannot be in edit mode
 //                Intent intent = new Intent (EditProfile.this, Menu.class);
 //                intent.putExtra(Constants.INTENT_FULL_NAME, user.getFullName());
@@ -162,6 +162,7 @@ public class EditProfile extends AppCompatActivity {
             progressDialog.setTitle( "Uploading..." );
             progressDialog.show();
 
+            // TODO: 16/03/2020 try to add this to updateUserDetails in MyFirebase
             final StorageReference ref = storage.child("image/" + userName );
             uploadTask = ref.putFile(filePath).addOnSuccessListener( new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -199,6 +200,7 @@ public class EditProfile extends AppCompatActivity {
 
     private void saveData()
     {
+        // TODO: 16/03/2020 change syntax due to new function in MyFirebase 
         json = new Gson().toJson(myProfile);
         pref.putString(Constants.KEY_SHARED_PREF_PROFILE, json);
     }

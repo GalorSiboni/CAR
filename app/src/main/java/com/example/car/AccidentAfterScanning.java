@@ -39,7 +39,7 @@ import java.io.IOException;
 public class AccidentAfterScanning extends AppCompatActivity {
 
     private TextView date, location;
-    private ImageView image1,image2,image3;
+    private ImageView profileIcon, logOut,image1,image2,image3;
     private ImageButton newImage, leftPic, rightPic;
     private int width, hight, counter = 0;
     private Uri filePath;
@@ -61,11 +61,14 @@ public class AccidentAfterScanning extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accident_after_scanning);
+
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         width = size.x;
         hight = size.y;
+        profileIcon = findViewById(R.id.profileIcon);
+        logOut = findViewById(R.id.logOutIcon);
         image1 = findViewById(R.id.image1);
         image2 = findViewById(R.id.image2);
         image3 = findViewById(R.id.image3);
@@ -74,6 +77,7 @@ public class AccidentAfterScanning extends AppCompatActivity {
         rightPic = findViewById(R.id.rightPic);
         image1.getLayoutParams().width = image2.getLayoutParams().width = image3.getLayoutParams().width = width/3;
 
+        // TODO: 16/03/2020 change all of the init to init void function later
         //Firebase init
         db = FirebaseDatabase.getInstance();
         accidentDB = db.getReference( Constants.FIRE_BASE_DB_ACCIDENTS_PATH);
@@ -85,18 +89,34 @@ public class AccidentAfterScanning extends AppCompatActivity {
 
         isNewAccident =  getIntent().getBooleanExtra(Constants.INTENT_IS_NEW_ACCIDENT, true);
         pref = new MySharedPreferences(this);
-        if(isNewAccident)//if it is a new accident
-        {
+        if(isNewAccident){
+            //if it s a new accident that just got scanned
             json = pref.getString(Constants.KEY_SHARED_PREF_NEW_ACCIDENT, "");
         }
-        else
-        {
+        else {
             json = pref.getString(Constants.KEY_SHARED_FREF_EXIST_ACCIDENT, "");
         }
         accident = new Gson().fromJson(json, Accident.class);
 
-        date.setText(accident.getOpenDate());
-        location.setText(accident.getLocationStr());
+        date.setText(String.format("%s%s", date.getText(), accident.getOpenDate()));
+        location.setText(String.format("%s%s", location.getText(), accident.getLocationStr()));
+
+        profileIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AccidentAfterScanning.this, EditProfile.class);
+                startActivity(intent);
+            }
+        });
+
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AccidentAfterScanning.this, MainActivity.class));
+                finish();
+            }
+        });
+
         leftPic.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,7 +133,19 @@ public class AccidentAfterScanning extends AppCompatActivity {
                         counter++;
             }
         });
-
+        if (accident.getGallery() != null) {
+            for (int i = counter; i < accident.getGallery().size(); i++) {
+                if (!accident.getGallery().get( i ).trim().isEmpty() || accident.getGallery().get( i ) != null) {
+                    Picasso.get().load( Uri.parse( accident.getGallery().get( i ) ) ).into( image1 );
+                }
+                if (!accident.getGallery().get( i + 1 ).trim().isEmpty() || accident.getGallery().get( i + 1 ) != null) {
+                    Picasso.get().load( Uri.parse( accident.getGallery().get( i ) ) ).into( image2 );
+                }
+                if (!accident.getGallery().get( i + 2 ).trim().isEmpty() || accident.getGallery().get( i + 2 ) != null) {
+                    Picasso.get().load( Uri.parse( accident.getGallery().get( i ) ) ).into( image3 );
+                }
+            }
+        }
         // TODO: 14/03/2020 add new images and load current images to a gallery like form
 
                 btnOtherDriverInfo.setOnClickListener(new View.OnClickListener() {
@@ -122,7 +154,6 @@ public class AccidentAfterScanning extends AppCompatActivity {
                 Intent intent = new Intent(AccidentAfterScanning.this, PopWindowUserInfo.class);
                 intent.putExtra(Constants.INTENT_IS_NEW_ACCIDENT, isNewAccident);//is new accident or previous accident -> required to know which accident to present
                 startActivity(intent);
-                //finish();
             }
         });
         newImage.setOnClickListener( new View.OnClickListener() {
@@ -232,6 +263,7 @@ public class AccidentAfterScanning extends AppCompatActivity {
                     } );
         }
     }
+
     private void chooseImage(){
         Intent intent = new Intent();
         intent.setType("image/*");// TODO: 12/03/2020 change

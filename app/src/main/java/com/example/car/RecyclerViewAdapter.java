@@ -1,6 +1,7 @@
 package com.example.car;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.car.Model.Accident;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private List<Accident> accidentList;
     private ItemClickListener mClickListener;
     private LayoutInflater mInflater;
+    private  MySharedPreferences pref;
 
     public RecyclerViewAdapter(List<Accident> accidentList, Context mContext) {
         this.accidentList = accidentList;
@@ -29,6 +32,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.layout_listitem,parent,false);
+        pref =  new MySharedPreferences(parent.getContext());
         return new ViewHolder(view);
     }
 
@@ -36,12 +40,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Accident accident = accidentList.get(position);
-        holder.accidentDate.setText(accident.getOpenDate());
-        holder.accidentLocation.setText(accident.getLocationStr());
+        String json1 = new Gson().toJson(accident);
+
+        pref.putString(Constants.KEY_SHARED_FREF_EXIST_ACCIDENT, json1);
+        holder.accidentDate.setText(String.format("Accident date:\n %s", accident.getOpenDate()));
+        holder.accidentLocation.setText(String.format("Accident location:\n %s", accident.getLocationStr()));
         holder.otherDriverInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(v.getContext(), PopWindowUserInfo.class);
+                intent.putExtra(Constants.INTENT_IS_NEW_ACCIDENT, false);
+                v.getContext().startActivity(intent);
             }
         });
     }

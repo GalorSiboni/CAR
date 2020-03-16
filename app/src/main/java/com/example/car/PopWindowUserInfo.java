@@ -50,12 +50,13 @@ public class PopWindowUserInfo extends Activity {
         if(isNewAccident)//if it is a new accident
         {
             json = pref.getString(Constants.KEY_SHARED_PREF_NEW_ACCIDENT, "");
-            otherDriverProfile = new Gson().fromJson(json, Accident.class).getDriverWhoGotScanned();
         }
         else {
             json = pref.getString(Constants.KEY_SHARED_FREF_EXIST_ACCIDENT, "");
+
             // TODO: 14/03/2020 handle other case if it is not a new accident
         }
+        otherDriverProfile = new Gson().fromJson(json, Accident.class).getDriverWhoGotScanned();
        
         profileLbl.setText(otherDriverProfile.getFullName());
 

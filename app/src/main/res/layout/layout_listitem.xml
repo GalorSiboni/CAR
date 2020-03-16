@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:weightSum="3"
-    android:background="@color/lightGray"
+    android:background="#EFF5F4"
     android:layout_margin="10dp">
 
     <TextView
         android:id="@+id/accidentDate"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_gravity="center"
         android:gravity="center"
@@ -22,8 +22,8 @@
 
     <TextView
         android:id="@+id/accidentLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_gravity="center"
         android:gravity="center"
@@ -38,11 +38,12 @@
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_weight="1"
-        android:background="#ABE5D1"
+        android:background="#3F8984"
         android:gravity="center"
         android:layout_gravity="center"
         android:textSize="14sp"
-        android:text="see more info"
+        android:textColor="@color/white"
+        android:text="@string/see_other_driver_s_details"
         android:layout_margin="8dp">
     </Button>
 

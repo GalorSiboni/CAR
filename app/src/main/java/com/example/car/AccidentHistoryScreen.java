@@ -1,8 +1,12 @@
 package com.example.car;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,20 +26,12 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 public class AccidentHistoryScreen extends AppCompatActivity {
-    private CallBackAccidentsReady callBackList;
-    private ArrayList<Accident> accidentArrayList = new ArrayList<>();
     private ArrayList<Accident> accidentArrayListForThisUser;
-    private Boolean isNewAccident = false;
-
-    //Firebase
-    FirebaseDatabase db;
-    DatabaseReference accidents;
+    private ImageView profileIcon, logOut;
 
     //Shared Pref and json
     private MySharedPreferences pref;
     private String json;
-
-    private Accident accident;
 
     private Profile userProfile;
     private RecyclerView recyclerView;
@@ -46,39 +42,44 @@ public class AccidentHistoryScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accident_history_screen);
 
+        profileIcon = findViewById(R.id.profileIcon);
+        logOut = findViewById(R.id.logOutIcon);
+
         pref = new MySharedPreferences(this);
 
         //getting the user profile info
         json = pref.getString(Constants.KEY_SHARED_PREF_PROFILE, "");
         userProfile = new Gson().fromJson(json, Profile.class);
-        // TODO: 15/03/2020 test, delete later
-//        ArrayList<Accident> testAccidents = new ArrayList<>();
-//        testAccidents.add(new Accident(userProfile,userProfile));
-
-//        accidents.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                for(DataSnapshot ds: dataSnapshot.getChildren())
-//                {
-//                    accident = dataSnapshot.getValue(Accident.class);
-////                    Log.d("AccidentHistoryxx", accident.getAccidentId());
-//                    accidentArrayList.add(accident);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
 
         MyFirebase.getAccidents(new CallBackAccidentsReady() {
             @Override
             public void accidentsReady(ArrayList<Accident> accidents) {
                 createAccidentsRecycler(accidents);
             }
+
+            @Override
+            public void error() {
+                Toast.makeText(AccidentHistoryScreen.this, "You are a careful driver! there is no accidents", Toast.LENGTH_SHORT).show();
+                ArrayList<Accident> accidents = new ArrayList<>();
+                createAccidentsRecycler(accidents);//for now is empty
+            }
         });
 
+        profileIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AccidentHistoryScreen.this, EditProfile.class);
+                startActivity(intent);
+            }
+        });
+
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AccidentHistoryScreen.this, MainActivity.class));
+                finish();
+            }
+        });
     }
 
     private void createAccidentsRecycler(ArrayList<Accident> accidents) {
@@ -90,47 +91,15 @@ public class AccidentHistoryScreen extends AppCompatActivity {
         recyclerView.setAdapter(recyclerViewAdapter);
     }
 
-//    @Nullable
-//    @Override
-//    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        if (view == null) {
-//            view = inflater.inflate(R.layout.activity_accident_history_screen, container, false);
-//        }
-//
-//        // TODO: 14/03/2020 load accidents from firebase
-//        db = FirebaseDatabase.getInstance();
-//        accidents = db.getReference(Constants.FIRE_BASE_ACCIDENT_PATH);
-//        pref = new MySharedPreferences(view.getContext());
-//
-//        //getting the user profile info
-//        json = pref.getString(Constants.KEY_SHARED_PREF_PROFILE, "");
-//        Profile userProfile = new Gson().fromJson(json, Profile.class);
-//
-//        accidentArrayListForThisUser = getAccidentArrayListForThisUser(accidentArrayList,userProfile);
-//
-//        RecyclerView recyclerView = view.findViewById(R.id.rvAccidents);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(inflater.getContext()));
-//        RecyclerViewAdapter adapter = new RecyclerViewAdapter(accidentArrayListForThisUser, inflater.getContext());
-//        adapter.setClickListener(itemClickListener);
-//        recyclerView.setAdapter(adapter);
-//
-//        return view;
-//    }
-
     public RecyclerViewAdapter.ItemClickListener itemClickListener = new RecyclerViewAdapter.ItemClickListener() {
         @Override
         public void onItemClick(View view, int position) {
-            // TODO: 14/03/2020 need to open accident after scanning with NO new accident
-            //need somehow pass the specific accident id or something
-//            double lat = accidentArrayList.get(position).getLocation().latitude;
-//            double longi = accidentArrayList.get(position).getLocation().longitude;
-//            setLocation(new LatLng(lat, longi));
+            saveSingleAccidentToJson(accidentArrayListForThisUser.get(position));
+            Intent intent = new Intent(AccidentHistoryScreen.this, AccidentAfterScanning.class);
+            intent.putExtra(Constants.INTENT_IS_NEW_ACCIDENT, false);//is new accident or previous accident -> required to know which accident to present
+            startActivity(intent);
         }
     };
-
-    public void setCallback(CallBackAccidentsReady callback) {
-        this.callBackList = callback;
-    }
 
     private ArrayList<Accident> getAccidentArrayListForThisUser(ArrayList<Accident> accidents, Profile user)
     {
@@ -147,6 +116,12 @@ public class AccidentHistoryScreen extends AppCompatActivity {
             }
         }
         return  accidentsForUser;
+    }
+
+    private void saveSingleAccidentToJson(Accident accident)//existing accident
+    {
+        String json1 = new Gson().toJson(accident);
+        pref.putString(Constants.KEY_SHARED_FREF_EXIST_ACCIDENT, json1);
     }
 
 }
