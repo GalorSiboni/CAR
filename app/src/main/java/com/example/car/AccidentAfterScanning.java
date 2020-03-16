@@ -61,7 +61,7 @@ public class AccidentAfterScanning extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accident_after_scanning);
-        
+
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -120,7 +120,7 @@ public class AccidentAfterScanning extends AppCompatActivity {
         leftPic.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (accident.getGallery() != null)
+                if (accident.getGallery() != null && accident.getGallery().size() > 3)
                     if (counter !=0)
                         counter--;
             }
@@ -128,24 +128,24 @@ public class AccidentAfterScanning extends AppCompatActivity {
         rightPic.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (accident.getGallery() != null)
+                if (accident.getGallery() != null && accident.getGallery().size() > 3)
                     if (counter < accident.getGallery().size())
                         counter++;
             }
         });
-//        if (accident.getGallery() != null) {
-//            for (int i = counter; i < accident.getGallery().size(); i++) {
-//                if (!accident.getGallery().get( i ).trim().isEmpty() || accident.getGallery().get( i ) != null) {
-//                    Picasso.get().load( Uri.parse( accident.getGallery().get( i ) ) ).into( image1 );
-//                }
-//                if (!accident.getGallery().get( i + 1 ).trim().isEmpty() || accident.getGallery().get( i + 1 ) != null) {
-//                    Picasso.get().load( Uri.parse( accident.getGallery().get( i ) ) ).into( image2 );
-//                }
-//                if (!accident.getGallery().get( i + 2 ).trim().isEmpty() || accident.getGallery().get( i + 2 ) != null) {
-//                    Picasso.get().load( Uri.parse( accident.getGallery().get( i ) ) ).into( image3 );
-//                }
-//            }
-//        }
+        if (accident.getGallery() != null) {
+            for (int i = counter; i < accident.getGallery().size(); i++) {
+                if (!accident.getGallery().get( i ).trim().isEmpty() || accident.getGallery().get( i ) != null) {
+                    Picasso.get().load( Uri.parse( accident.getGallery().get( i ) ) ).into( image1 );
+                }
+                if (!accident.getGallery().get( i + 1 ).trim().isEmpty() || accident.getGallery().get( i + 1 ) != null) {
+                    Picasso.get().load( Uri.parse( accident.getGallery().get( i ) ) ).into( image2 );
+                }
+                if (!accident.getGallery().get( i + 2 ).trim().isEmpty() || accident.getGallery().get( i + 2 ) != null) {
+                    Picasso.get().load( Uri.parse( accident.getGallery().get( i ) ) ).into( image3 );
+                }
+            }
+        }
         // TODO: 14/03/2020 add new images and load current images to a gallery like form
 
                 btnOtherDriverInfo.setOnClickListener(new View.OnClickListener() {
@@ -161,9 +161,39 @@ public class AccidentAfterScanning extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 chooseImage();
-                uploadPhoto();
             }
         });
+    }
+
+    private void updateImageViews() {
+        if (accident.getGallery() != null) {
+            switch (accident.getGallery().size()) {
+                case 1: Picasso.get().load( Uri.parse( accident.getGallery().get( 0 ) ) ).into( image1 );
+                break;
+                case 2: Picasso.get().load( Uri.parse( accident.getGallery().get( 0 ) ) ).into( image1 );
+                        Picasso.get().load( Uri.parse( accident.getGallery().get( 1 ) ) ).into( image2 );
+                break;
+                case 3: Picasso.get().load( Uri.parse( accident.getGallery().get( 0 ) ) ).into( image1 );
+                        Picasso.get().load( Uri.parse( accident.getGallery().get( 1 ) ) ).into( image2 );
+                        Picasso.get().load( Uri.parse( accident.getGallery().get( 2 ) ) ).into( image3 );
+                break;
+
+            }
+            if (accident.getGallery().size() > 3)
+                for (int i = counter; i < accident.getGallery().size() - 2; i++) {
+                    if (!accident.getGallery().get( i ).trim().isEmpty() || accident.getGallery().get( i ) != null) {
+                        Picasso.get().load( Uri.parse( accident.getGallery().get( i ) ) ).into( image1 );
+                    }
+                    if(accident.getGallery().size() > 1)
+                        if (!accident.getGallery().get( i + 1 ).trim().isEmpty() || accident.getGallery().get( i + 1 ) != null) {
+                            Picasso.get().load( Uri.parse( accident.getGallery().get( i + 1 ) ) ).into( image2 );
+                        }
+                    if(accident.getGallery().size() > 2)
+                        if (!accident.getGallery().get( i + 2 ).trim().isEmpty() || accident.getGallery().get( i + 2 ) != null) {
+                            Picasso.get().load( Uri.parse( accident.getGallery().get( i + 2 ) ) ).into( image3 );
+                        }
+                }
+            }
     }
 
     @Override
@@ -180,7 +210,7 @@ public class AccidentAfterScanning extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-            if (image2 == null) {
+            else if (image2 == null) {
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap( getContentResolver(), filePath );
                     image2.setImageBitmap( bitmap );
@@ -188,7 +218,7 @@ public class AccidentAfterScanning extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-            if (image3 == null) {
+            else if (image3 == null) {
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap( getContentResolver(), filePath );
                     image3.setImageBitmap( bitmap );
@@ -219,7 +249,8 @@ public class AccidentAfterScanning extends AppCompatActivity {
                             accident.addToGallery( url );
                             //end new part
                             saveData();
-                            accidentDB.child(accident.getAccidentId()).child("" + accident.getGallery().size()).setValue(url);
+                            accidentDB.child(accident.getAccidentId()).setValue( accident );
+                            updateImageViews();
                         }
                     } );
                 }})
@@ -245,6 +276,7 @@ public class AccidentAfterScanning extends AppCompatActivity {
         intent.setType("image/*");// TODO: 12/03/2020 change
         intent.setAction( Intent.ACTION_GET_CONTENT );
         startActivityForResult( Intent.createChooser( intent,"SelectPicture"),PICK_IMAGE_REQUEST ); // TODO: 12/03/2020 change
+        uploadPhoto();
     }
 
     private void saveData()
