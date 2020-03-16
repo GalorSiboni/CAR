@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,6 +56,13 @@ public class AccidentHistoryScreen extends AppCompatActivity {
             public void accidentsReady(ArrayList<Accident> accidents) {
                 createAccidentsRecycler(accidents);
             }
+
+            @Override
+            public void error() {
+                Toast.makeText(AccidentHistoryScreen.this, "You are a careful driver! there is no accidents", Toast.LENGTH_SHORT).show();
+                ArrayList<Accident> accidents = new ArrayList<>();
+                createAccidentsRecycler(accidents);//for now is empty
+            }
         });
 
         profileIcon.setOnClickListener(new View.OnClickListener() {
@@ -73,8 +81,6 @@ public class AccidentHistoryScreen extends AppCompatActivity {
             }
         });
     }
-
-
 
     private void createAccidentsRecycler(ArrayList<Accident> accidents) {
         accidentArrayListForThisUser = getAccidentArrayListForThisUser(accidents, userProfile);

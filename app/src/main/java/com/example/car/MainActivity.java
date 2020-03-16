@@ -71,32 +71,31 @@ public class MainActivity extends AppCompatActivity {
         });
         logBTN.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                users.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.child(editUser.getText().toString()).exists()) {
-                            if (!editUser.getText().toString().isEmpty()) {
-                                profile = dataSnapshot.child(editUser.getText().toString()).getValue(Profile.class);
-                                assert profile != null;
-                                if (profile.getPassword().equals(editPass.getText().toString())) {
-                                    Toast.makeText(MainActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();// TODO: 11/03/2020 change txt to const
-                                    Intent intent = new Intent (MainActivity.this, Menu.class);
-                                    saveData();
-                                    Log.d("Mainxxx", json);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                                else
-                                    Toast.makeText(MainActivity.this, "Password Is Wrong", Toast.LENGTH_SHORT).show();// TODO: 11/03/2020 change txt to const
+                if (!editUser.getText().toString().isEmpty()) {
+                    MyFirebase.getUser(new CallBackUsersReady() {
+                        @Override
+                        public void userReady(Profile user) {
+                            assert user != null;
+                            if (user.getPassword().equals(editPass.getText().toString())) {
+                                Toast.makeText(MainActivity.this, "Login Successfully!", Toast.LENGTH_SHORT).show();// TODO: 11/03/2020 change txt to const
+                                Intent intent = new Intent(MainActivity.this, Menu.class);
+                                saveData(user);
+                                Log.d("Mainxxx", json);
+                                startActivity(intent);
+                                finish();
                             }
+                                else
+                                 Toast.makeText(MainActivity.this, "Password Is Wrong", Toast.LENGTH_SHORT).show();// TODO: 11/03/2020 change txt to const
+                            }
+
+                        @Override
+                        public void error() {
+                            Toast.makeText(MainActivity.this, "Having trouble finding your account..", Toast.LENGTH_SHORT).show();
                         }
-                        else
-                            Toast.makeText(MainActivity.this,"Username Is Not Registered",Toast.LENGTH_SHORT).show();// TODO: 11/03/2020  change text to const
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                    }
-                });
+                    }, editUser.getText().toString());
+                }
+                else
+                    Toast.makeText(MainActivity.this,"This user is not registered",Toast.LENGTH_SHORT).show();// TODO: 11/03/2020  change text to const
             }
         });
     }
@@ -106,9 +105,9 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    private void saveData()
+    private void saveData(Profile user)
     {
-        json = new Gson().toJson(profile);
+        json = new Gson().toJson(user);
         pref.putString(Constants.KEY_SHARED_PREF_PROFILE, json);
     }
 

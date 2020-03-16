@@ -35,7 +35,8 @@ package com.example.car.Model; public class User {
     }
 
     public void setFirstName(String fName) {
-        this.fName = fName;
+        if(!this.fName.equals(fName))
+            this.fName = fName;
     }
 
     public String getFirstName() {
@@ -43,7 +44,8 @@ package com.example.car.Model; public class User {
     }
 
     public void setLastName(String sName) {
-        this.sName = sName;
+        if(!this.sName.equals(sName))
+            this.sName = sName;
     }
 
     public String getLastName() {
@@ -55,7 +57,8 @@ package com.example.car.Model; public class User {
     }
 
     public void setMail(String mail) {
-        this.mail = mail;
+        if(!this.mail.equals(mail))
+            this.mail = mail;
     }
 
     public String getFullName() {

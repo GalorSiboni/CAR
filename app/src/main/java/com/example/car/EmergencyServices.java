@@ -20,6 +20,23 @@ public class EmergencyServices extends AppCompatActivity {
         CardView police = findViewById(R.id.police);
         CardView mada = findViewById(R.id.mada);
         CardView firefighters = findViewById(R.id.fireFighters);
+        profile = findViewById(R.id.profileIcon);
+        logOut = findViewById(R.id.logOutIcon);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EmergencyServices.this, EditProfile.class);
+                startActivity(intent);
+            }
+        });
+
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(EmergencyServices.this, MainActivity.class));
+                finish();
+            }
+        });
 
         police.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,20 +66,6 @@ public class EmergencyServices extends AppCompatActivity {
             }
         });
 
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(EmergencyServices.this, EditProfile.class);
-                startActivity(intent);
-            }
-        });
 
-        logOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(EmergencyServices.this, MainActivity.class));
-                finish();
-            }
-        });
         }
 }
