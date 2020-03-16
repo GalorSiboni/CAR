@@ -40,7 +40,7 @@ public class AccidentAfterScanning extends AppCompatActivity {
 
     private TextView date, location;
     private ImageView profileIcon, logOut,image1,image2,image3;
-    private ImageButton newImage, leftPic, rightPic;
+    private ImageButton newImage, saveImage, leftPic, rightPic;
     private int width, hight, counter = 0;
     private Uri filePath;
     private StorageTask uploadTask;
@@ -73,9 +73,11 @@ public class AccidentAfterScanning extends AppCompatActivity {
         image2 = findViewById(R.id.image2);
         image3 = findViewById(R.id.image3);
         newImage = findViewById(R.id.new_images);
+        saveImage = findViewById(R.id.saveImage);
         leftPic = findViewById(R.id.leftPic);
         rightPic = findViewById(R.id.rightPic);
         image1.getLayoutParams().width = image2.getLayoutParams().width = image3.getLayoutParams().width = width/3;
+        saveImage.setVisibility( View.GONE );
 
         // TODO: 16/03/2020 change all of the init to init void function later
         //Firebase init
@@ -152,8 +154,17 @@ public class AccidentAfterScanning extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 chooseImage();
-                for (int i = 0 ;i<64000; i++);
+                saveImage.setVisibility( View.VISIBLE );
+                newImage.setVisibility( View.GONE );
+            }
+        });
+        saveImage.setOnClickListener( new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
+            @Override
+            public void onClick(View v) {
                 uploadPhoto();
+                newImage.setVisibility( View.VISIBLE );
+                saveImage.setVisibility( View.GONE );
             }
         });
     }
