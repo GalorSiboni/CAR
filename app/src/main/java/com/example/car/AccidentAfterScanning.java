@@ -100,9 +100,8 @@ public class AccidentAfterScanning extends AppCompatActivity {
 
         date.setText(String.format("%s%s", date.getText(), accident.getOpenDate()));
         location.setText(String.format("%s%s", location.getText(), accident.getLocationStr()));
-        if (accident.getGallery().size() < 3) updateImageViews();
-        else setAllImages(accident.getGallery().size() - 3);
-
+        if (accident.getGallery().size() > 3) setAllImages(0);
+        else updateImageViews();
         profileIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,6 +127,7 @@ public class AccidentAfterScanning extends AppCompatActivity {
                 }
             }
         });
+
         rightPic.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,6 +137,7 @@ public class AccidentAfterScanning extends AppCompatActivity {
                     }
             }
         });
+
         btnOtherDriverInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,27 +146,16 @@ public class AccidentAfterScanning extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         newImage.setOnClickListener( new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
             @Override
             public void onClick(View v) {
                 chooseImage();
+                for (int i = 0 ;i<64000; i++);
+                uploadPhoto();
             }
         });
-    }
-
-    private void updateImageViews() {
-        if (accident.getGallery() != null) {
-            switch (accident.getGallery().size()) {
-                case 1: Picasso.get().load( Uri.parse( accident.getGallery().get( 0 ) ) ).into( image1 );
-                break;
-                case 2: Picasso.get().load( Uri.parse( accident.getGallery().get( 0 ) ) ).into( image1 );
-                        Picasso.get().load( Uri.parse( accident.getGallery().get( 1 ) ) ).into( image2 );
-                break;
-                case 3: setAllImages(0);
-                break;
-            }
-        }
     }
 
     @Override
@@ -250,11 +240,9 @@ public class AccidentAfterScanning extends AppCompatActivity {
         intent.setType("image/*");// TODO: 12/03/2020 change
         intent.setAction( Intent.ACTION_GET_CONTENT );
         startActivityForResult( Intent.createChooser( intent,"SelectPicture"),PICK_IMAGE_REQUEST ); // TODO: 12/03/2020 change
-        uploadPhoto();
     }
 
-    private void saveData()
-    {
+    private void saveData() {
         json = new Gson().toJson(accident);
         pref.putString(Constants.KEY_SHARED_PREF_NEW_ACCIDENT, json);
     }
@@ -262,5 +250,18 @@ public class AccidentAfterScanning extends AppCompatActivity {
         Picasso.get().load( Uri.parse( accident.getGallery().get( num ) ) ).into( image1 );
         Picasso.get().load( Uri.parse( accident.getGallery().get( num + 1 ) ) ).into( image2 );
         Picasso.get().load( Uri.parse( accident.getGallery().get( num + 2 ) ) ).into( image3 );
+    }
+    private void updateImageViews() {
+        if (accident.getGallery() != null) {
+            switch (accident.getGallery().size()) {
+                case 1: Picasso.get().load( Uri.parse( accident.getGallery().get( 0 ) ) ).into( image1 );
+                    break;
+                case 2: Picasso.get().load( Uri.parse( accident.getGallery().get( 0 ) ) ).into( image1 );
+                    Picasso.get().load( Uri.parse( accident.getGallery().get( 1 ) ) ).into( image2 );
+                    break;
+                case 3: setAllImages(0);
+                    break;
+            }
+        }
     }
 }
