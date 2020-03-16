@@ -120,35 +120,22 @@ public class AccidentAfterScanning extends AppCompatActivity {
         leftPic.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (accident.getGallery() != null && accident.getGallery().size() > 3)
-                    if (counter !=0)
-                        counter--;
+                if (counter > 0 && accident.getGallery().size() > 3){
+                    counter--;
+                    setAllImages(counter);
+                }
             }
         });
         rightPic.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (accident.getGallery() != null && accident.getGallery().size() > 3)
-                    if (counter < accident.getGallery().size())
-                        counter++;
+                if (accident.getGallery() != null && counter + 3 < accident.getGallery().size()) {
+                    counter++;
+                    setAllImages(counter);
+                    }
             }
         });
-        if (accident.getGallery() != null) {
-            for (int i = counter; i < accident.getGallery().size(); i++) {
-                if(accident.getGallery().size() > i)
-                    if (!accident.getGallery().get( i ).trim().isEmpty() || accident.getGallery().get( i ) != null) {
-                        Picasso.get().load( Uri.parse( accident.getGallery().get( i ) ) ).into( image1 );
-                    }
-                if(accident.getGallery().size() > i + 1 )
-                    if (!accident.getGallery().get( i + 1 ).trim().isEmpty() || accident.getGallery().get( i + 1 ) != null) {
-                        Picasso.get().load( Uri.parse( accident.getGallery().get( i ) ) ).into( image2 );
-                    }
-                if(accident.getGallery().size() > i + 2 )
-                    if (!accident.getGallery().get( i + 2 ).trim().isEmpty() || accident.getGallery().get( i + 2 ) != null) {
-                        Picasso.get().load( Uri.parse( accident.getGallery().get( i ) ) ).into( image3 );
-                    }
-            }
-        }
+        updateImageViews();
         // TODO: 14/03/2020 add new images and load current images to a gallery like form
 
                 btnOtherDriverInfo.setOnClickListener(new View.OnClickListener() {
@@ -176,20 +163,10 @@ public class AccidentAfterScanning extends AppCompatActivity {
                 case 2: Picasso.get().load( Uri.parse( accident.getGallery().get( 0 ) ) ).into( image1 );
                         Picasso.get().load( Uri.parse( accident.getGallery().get( 1 ) ) ).into( image2 );
                 break;
-                case 3: Picasso.get().load( Uri.parse( accident.getGallery().get( 0 ) ) ).into( image1 );
-                        Picasso.get().load( Uri.parse( accident.getGallery().get( 1 ) ) ).into( image2 );
-                        Picasso.get().load( Uri.parse( accident.getGallery().get( 2 ) ) ).into( image3 );
+                case 3: setAllImages(0);
                 break;
-
             }
-            if (accident.getGallery().size() > 3)
-                for (int i = counter; i < accident.getGallery().size() - 2; i++) {
-                        Picasso.get().load( Uri.parse( accident.getGallery().get( i ) ) ).into( image1 );
-                        Picasso.get().load( Uri.parse( accident.getGallery().get( i + 1 ) ) ).into( image2 );
-                        Picasso.get().load( Uri.parse( accident.getGallery().get( i + 2  ) ) ).into( image3 );
-                        }
-
-            }
+        }
     }
 
     @Override
@@ -246,8 +223,7 @@ public class AccidentAfterScanning extends AppCompatActivity {
                             //end new part
                             saveData();
                             accidentDB.child(accident.getAccidentId()).setValue( accident );
-                            updateImageViews();
-                        }
+                            setAllImages(accident.getGallery().size() - 3);                        }
                     } );
                 }})
                     .addOnFailureListener( new OnFailureListener() {
@@ -279,5 +255,10 @@ public class AccidentAfterScanning extends AppCompatActivity {
     {
         json = new Gson().toJson(accident);
         pref.putString(Constants.KEY_SHARED_PREF_NEW_ACCIDENT, json);
+    }
+    private void setAllImages(int num){
+        Picasso.get().load( Uri.parse( accident.getGallery().get( num ) ) ).into( image1 );
+        Picasso.get().load( Uri.parse( accident.getGallery().get( num + 1 ) ) ).into( image2 );
+        Picasso.get().load( Uri.parse( accident.getGallery().get( num + 2 ) ) ).into( image3 );
     }
 }
