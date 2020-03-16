@@ -111,6 +111,10 @@ public class EditProfile extends AppCompatActivity {
                         ownerPhoneNumberEdit.getText().toString(), insurancePolicyNumberEdit.getText().toString(), insuranceCompanyNameEdit.getText().toString(),
                         insuranceAgentNameEdit.getText().toString(), insuranceAgentPhoneNumEdit.getText().toString(),imageUrl);
                 pref.putString(Constants.KEY_SHARED_PREF_PROFILE, json);
+                editMode( editTextsArr,false );
+                edit.setVisibility(View.VISIBLE);
+                save.setVisibility(View.GONE);
+                choose.setVisibility(View.GONE);
                 //saveData();
                 // TODO: 14/03/2020 need to disable save btn and fields cannot be in edit mode
 //                Intent intent = new Intent (EditProfile.this, Menu.class);
