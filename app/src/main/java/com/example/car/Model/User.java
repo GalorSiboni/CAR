@@ -1,4 +1,5 @@
-package com.example.car.Model; public class User {
+package com.example.car.Model;
+public class User {
     private String username;
     private String password;
     private String fName;
@@ -35,7 +36,6 @@ package com.example.car.Model; public class User {
     }
 
     public void setFirstName(String fName) {
-        if(!this.fName.equals(fName))
             this.fName = fName;
     }
 
@@ -44,7 +44,6 @@ package com.example.car.Model; public class User {
     }
 
     public void setLastName(String sName) {
-        if(!this.sName.equals(sName))
             this.sName = sName;
     }
 
@@ -57,7 +56,6 @@ package com.example.car.Model; public class User {
     }
 
     public void setMail(String mail) {
-        if(!this.mail.equals(mail))
             this.mail = mail;
     }
 
