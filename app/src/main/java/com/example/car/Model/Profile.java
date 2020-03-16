@@ -84,58 +84,48 @@ public class Profile extends User {
     }
 
     public void setDriverName(String driverName) {
-        if(!this.driverName.equals(driverName))
-            this.driverName = driverName;
+            if(!this.driverName.equals(driverName))
+        this.driverName = driverName;
     }
 
     public void setId(String id) {
-        if(!this.id.equals(id))
-            this.id = id;
+        this.id = id;
     }
 
     public void setAddress(String address) {
-        if(!this.address.equals(address))
-            this.address = address;
+        this.address = address;
     }
 
     public void setLicenceNumber(String licenceNumber) {
-        if(!this.licenceNumber.equals(licenceNumber))
-            this.licenceNumber = licenceNumber;
+        this.licenceNumber = licenceNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        if(!this.phoneNumber.equals(phoneNumber))
-            this.phoneNumber = phoneNumber;
+        this.phoneNumber = phoneNumber;
     }
 
     public void setOwnerAddress(String ownerAddress) {
-        if(!this.ownerAddress.equals(ownerAddress))
-            this.ownerAddress = ownerAddress;
+        this.ownerAddress = ownerAddress;
     }
 
     public void setOwnerPhoneNumber(String ownerPhoneNumber) {
-        if(!this.ownerPhoneNumber.equals(ownerPhoneNumber))
-            this.ownerPhoneNumber = ownerPhoneNumber;
+        this.ownerPhoneNumber = ownerPhoneNumber;
     }
 
     public void setInsuranceCompanyName(String insuranceCompanyName) {
-        if(!this.insuranceCompanyName.equals(insuranceCompanyName))
-            this.insuranceCompanyName = insuranceCompanyName;
+        this.insuranceCompanyName = insuranceCompanyName;
     }
 
     public void setInsurancePolicyNumber(String insurancePolicyNumber) {
-        if(!this.insurancePolicyNumber.equals(insurancePolicyNumber))
-            this.insurancePolicyNumber = insurancePolicyNumber;
+        this.insurancePolicyNumber = insurancePolicyNumber;
     }
 
     public void setInsuranceAgentName(String insuranceAgentName) {
-        if(!this.insuranceAgentName.equals(insuranceAgentName))
-            this.insuranceAgentName = insuranceAgentName;
+        this.insuranceAgentName = insuranceAgentName;
     }
 
     public void setInsuranceAgentPhoneNum(String insuranceAgentPhoneNum) {
-        if(!this.insuranceAgentPhoneNum.equals(insuranceAgentPhoneNum))
-            this.insuranceAgentPhoneNum = insuranceAgentPhoneNum;
+        this.insuranceAgentPhoneNum = insuranceAgentPhoneNum;
     }
 
     public String getImageUrl() {
@@ -143,7 +133,6 @@ public class Profile extends User {
     }
 
     public void setImageUrl(String imageUrl) {
-        if(!this.imageUrl.equals(imageUrl))
         this.imageUrl = imageUrl;
     }
 
@@ -202,6 +191,7 @@ public class Profile extends User {
     public String getInsuranceAgentPhoneNum() {
         return insuranceAgentPhoneNum;
     }
+
 
     @Override
     public boolean equals(Object o) {
