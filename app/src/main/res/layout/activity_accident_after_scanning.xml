@@ -92,28 +92,30 @@
         android:textAllCaps="false"
         android:textColor="@color/white">
     </Button>
-
+<RelativeLayout
+    android:id="@+id/bottoms"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/otherDriverInfoBtn"
+    android:layout_marginTop="130dp">
     <ImageButton
         android:id="@+id/new_images"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/add_image_icon"
-        android:layout_below="@id/otherDriverInfoBtn"
-        android:layout_marginTop="130dp">
+        android:src="@drawable/add_image_icon" >
     </ImageButton>
     <ImageButton
         android:id="@+id/saveImage"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/save_image"
-        android:layout_below="@id/otherDriverInfoBtn"
-        android:layout_toRightOf="@id/new_images"
-        android:layout_marginTop="130dp">
+        android:layout_toRightOf="@id/new_images">
     </ImageButton>
+</RelativeLayout>
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/new_images">
+        android:layout_below="@+id/bottoms">
 
         <LinearLayout
             android:layout_width="match_parent"
