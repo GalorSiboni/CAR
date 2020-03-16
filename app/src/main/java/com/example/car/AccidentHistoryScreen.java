@@ -60,8 +60,8 @@ public class AccidentHistoryScreen extends AppCompatActivity {
             @Override
             public void error() {
                 Toast.makeText(AccidentHistoryScreen.this, "You are a careful driver! there is no accidents", Toast.LENGTH_SHORT).show();
-                ArrayList<Accident> accidents = new ArrayList<>();
-                createAccidentsRecycler(accidents);//for now is empty
+//                ArrayList<Accident> accidents = new ArrayList<>();
+//                createAccidentsRecycler(accidents);//for now is empty
             }
         });
 
@@ -106,6 +106,7 @@ public class AccidentHistoryScreen extends AppCompatActivity {
         ArrayList<Accident> accidentsForUser = new ArrayList<>();
         for(int i=0; i<accidents.size(); i++)
         {
+            Log.d("AccidentHistoryxx1", accidents.get(i).getAccidentId());
             if(accidents.get(i).getAccidentId().contains(user.getUsername()))
             {
                 Log.d("AccidentHistoryxx", accidents.get(i).getAccidentId());

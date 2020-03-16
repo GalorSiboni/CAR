@@ -64,9 +64,12 @@ public class User {
     }
 
     public void updateUser(String fName, String lName, String mail) {
-        setFirstName(fName);
-        setLastName(lName);
-        setMail(mail);
+        if(!this.fName.equals(fName))
+            setFirstName(fName);
+        if(!this.sName.equals(lName))
+            setLastName(lName);
+        if(!this.mail.equals(mail))
+            setMail(mail);
     }
 
     @Override

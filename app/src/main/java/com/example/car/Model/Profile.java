@@ -51,21 +51,36 @@ public class Profile extends User {
     public void updateProfile(String firstName, String lastName, String mail,String carNumber, String carModel, String carColor, String driverName, String id, String address, String licenceNumber, String phoneNumber, String ownerAddress, String ownerPhoneNumber, String insuranceCompanyName, String insurancePolicyNumber, String insuranceAgentName, String insuranceAgentPhoneNum, String imageUrl)
     {
         super.updateUser(firstName,lastName, mail);
-        setCarNumber(carNumber);
-        setCarModel(carModel);
-        setDriverName(driverName);
-        setId(id);
-        setAddress(address);
-        setLicenceNumber(licenceNumber);
-        setPhoneNumber(phoneNumber);
-        setOwnerAddress(ownerAddress);
-        setCarColor(carColor);
-        setOwnerPhoneNumber(ownerPhoneNumber);
+        if(!this.carNumber.equals(carNumber))
+            setCarNumber(carNumber);
+        if(!this.carModel.equals(carModel))
+            setCarModel(carModel);
+        if(!this.driverName.equals(driverName))
+            setDriverName(driverName);
+        if(!this.id.equals(id))
+            setId(id);
+        if(!this.address.equals(address))
+            setAddress(address);
+        if(!this.licenceNumber.equals(licenceNumber))
+            setLicenceNumber(licenceNumber);
+        if(!this.phoneNumber.equals(phoneNumber))
+            setPhoneNumber(phoneNumber);
+        if(!this.ownerAddress.equals(ownerAddress))
+            setOwnerAddress(ownerAddress);
+        if(!this.carColor.equals(carColor))
+            setCarColor(carColor);
+        if(!this.ownerPhoneNumber.equals(ownerPhoneNumber))
+            setOwnerPhoneNumber(ownerPhoneNumber);
+        if(!this.insuranceAgentName.equals(insuranceAgentName))
         setInsuranceAgentName(insuranceAgentName);
-        setInsuranceAgentPhoneNum(insuranceAgentPhoneNum);
-        setInsuranceCompanyName(insuranceCompanyName);
-        setInsurancePolicyNumber(insurancePolicyNumber);
-        setImageUrl(imageUrl);
+        if(!this.insuranceAgentPhoneNum.equals(insuranceAgentPhoneNum))
+            setInsuranceAgentPhoneNum(insuranceAgentPhoneNum);
+        if(!this.insuranceCompanyName.equals(insuranceCompanyName))
+            setInsuranceCompanyName(insuranceCompanyName);
+        if(!this.insurancePolicyNumber.equals(insurancePolicyNumber))
+            setInsurancePolicyNumber(insurancePolicyNumber);
+        if(!this.imageUrl.equals(imageUrl))
+            setImageUrl(imageUrl);
 
     }
     public void setCarNumber(String carNumber) {

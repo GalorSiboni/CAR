@@ -83,7 +83,7 @@ public class MyFirebase {
         myRef.child(userName).setValue(profile);
 
         //update the profiles in the accidents as well
-        getAccidents(new CallBackAccidentsReady() {
+        MyFirebase.getAccidents(new CallBackAccidentsReady() {
             @Override
             public void accidentsReady(ArrayList<Accident> accidents) {
                for(int i=0; i<accidents.size(); i++) {
@@ -91,11 +91,11 @@ public class MyFirebase {
                     {
                         if(accidents.get(i).getDriverThatScan().getUsername().equals(userName))
                         {
-                            accidentsRef.child(accidents.get(i).getAccidentId()).setValue(profile);
+                            accidentsRef.child(accidents.get(i).getAccidentId()).child(accidents.get(i).getDriverThatScan().getUsername()).setValue(profile);
                         }
                         else if(accidents.get(i).getDriverWhoGotScanned().getUsername().equals(userName))
                         {
-                            accidentsRef.child(accidents.get(i).getAccidentId()).setValue(profile);
+                            accidentsRef.child(accidents.get(i).getAccidentId()).child(accidents.get(i).getDriverWhoGotScanned().getUsername()).setValue(profile);
                         }
                     }
                }
