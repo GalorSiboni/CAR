@@ -100,6 +100,8 @@ public class AccidentAfterScanning extends AppCompatActivity {
 
         date.setText(String.format("%s%s", date.getText(), accident.getOpenDate()));
         location.setText(String.format("%s%s", location.getText(), accident.getLocationStr()));
+        if (accident.getGallery().size() < 3) updateImageViews();
+        else setAllImages(accident.getGallery().size() - 3);
 
         profileIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,10 +137,7 @@ public class AccidentAfterScanning extends AppCompatActivity {
                     }
             }
         });
-        updateImageViews();
-        // TODO: 14/03/2020 add new images and load current images to a gallery like form
-
-                btnOtherDriverInfo.setOnClickListener(new View.OnClickListener() {
+        btnOtherDriverInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AccidentAfterScanning.this, PopWindowUserInfo.class);
@@ -223,7 +222,10 @@ public class AccidentAfterScanning extends AppCompatActivity {
                             //end new part
                             saveData();
                             accidentDB.child(accident.getAccidentId()).setValue( accident );
-                            setAllImages(accident.getGallery().size() - 3);                        }
+                            if(accident.getGallery().size() > 3)
+                                setAllImages(accident.getGallery().size() - 3);
+                            else updateImageViews();
+                        }
                     } );
                 }})
                     .addOnFailureListener( new OnFailureListener() {
