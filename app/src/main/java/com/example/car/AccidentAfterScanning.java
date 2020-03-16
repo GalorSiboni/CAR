@@ -135,15 +135,15 @@ public class AccidentAfterScanning extends AppCompatActivity {
         });
         if (accident.getGallery() != null) {
             for (int i = counter; i < accident.getGallery().size(); i++) {
-                if(accident.getGallery().get( i  ) != null)
+                if(accident.getGallery().size() > i)
                     if (!accident.getGallery().get( i ).trim().isEmpty() || accident.getGallery().get( i ) != null) {
                         Picasso.get().load( Uri.parse( accident.getGallery().get( i ) ) ).into( image1 );
                     }
-                if(accident.getGallery().get( i + 1 ) != null)
+                if(accident.getGallery().size() > i + 1 )
                     if (!accident.getGallery().get( i + 1 ).trim().isEmpty() || accident.getGallery().get( i + 1 ) != null) {
                         Picasso.get().load( Uri.parse( accident.getGallery().get( i ) ) ).into( image2 );
                     }
-                if(accident.getGallery().get( i + 2 ) != null)
+                if(accident.getGallery().size() > i + 2 )
                     if (!accident.getGallery().get( i + 2 ).trim().isEmpty() || accident.getGallery().get( i + 2 ) != null) {
                         Picasso.get().load( Uri.parse( accident.getGallery().get( i ) ) ).into( image3 );
                     }
