@@ -20,7 +20,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PopWindowUserInfo extends Activity {
 
-    private TextView firstNameEdit, lastNameEdit, phoneNumberEdit, addressEdit, driverNameEdit, idEdit, carNumberEdit, carModelEdit, carColorEdit,
+    private TextView phoneNumberEdit, addressEdit, driverNameEdit, idEdit, carNumberEdit, carModelEdit, carColorEdit,
             licenceNumberEdit, ownerAddressEdit, ownerPhoneNumberEdit, insuranceCompanyNameEdit, insurancePolicyNumberEdit, insuranceAgentNameEdit, insuranceAgentPhoneNumEdit;
     private CircleImageView profilePicture;
     private ImageButton btn_close;
@@ -60,6 +60,7 @@ public class PopWindowUserInfo extends Activity {
         String jsonProfile = pref.getString(Constants.KEY_SHARED_PREF_PROFILE, "");
         Profile userProfile = new Gson().fromJson(jsonProfile, Profile.class);
 
+        //checks which one of the profile is the userName profile
         if(accident.getDriverWhoGotScanned().getUsername().equals(userProfile.getUsername())) {
             otherDriverProfile = new Gson().fromJson(json, Accident.class).getDriverThatScan();
         }
@@ -67,8 +68,7 @@ public class PopWindowUserInfo extends Activity {
             otherDriverProfile = new Gson().fromJson(json, Accident.class).getDriverWhoGotScanned();
         }
 
-
-        profileLbl.setText(otherDriverProfile.getFullName());
+        profileLbl.setText(String.format("%s %s", otherDriverProfile.getFirstName(), otherDriverProfile.getLastName()));
 
 //        editMode( editTextsArr,false);//user can not edit!
         getTextFromFields();
@@ -113,8 +113,6 @@ public class PopWindowUserInfo extends Activity {
     {
         profileLbl = findViewById(R.id.profileLabel);
         btn_close = findViewById(R.id.closePop);
-        firstNameEdit = findViewById(R.id.firstNameEdit);
-        lastNameEdit = findViewById(R.id.lastNameEdit);
         phoneNumberEdit = findViewById(R.id.phoneNumberEdit);
         addressEdit = findViewById(R.id.addressEdit);
         driverNameEdit = findViewById(R.id.driverNameEdit);
