@@ -263,7 +263,6 @@ public class AccidentAfterScanning extends AppCompatActivity {
         intent.setAction( Intent.ACTION_GET_CONTENT );
         startActivityForResult( Intent.createChooser( intent,"SelectPicture"),PICK_IMAGE_REQUEST );
     }
-
     private void saveData() {
         json = new Gson().toJson(accident);
         pref.putString(Constants.KEY_SHARED_PREF_NEW_ACCIDENT, json);

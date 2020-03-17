@@ -2,7 +2,6 @@ package com.example.car;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -60,8 +59,6 @@ public class AccidentHistoryScreen extends AppCompatActivity {
             @Override
             public void error() {
                 Toast.makeText(AccidentHistoryScreen.this, "You are a careful driver! there is no accidents", Toast.LENGTH_SHORT).show();
-//                ArrayList<Accident> accidents = new ArrayList<>();
-//                createAccidentsRecycler(accidents);//for now is empty
             }
         });
 
@@ -106,14 +103,10 @@ public class AccidentHistoryScreen extends AppCompatActivity {
         ArrayList<Accident> accidentsForUser = new ArrayList<>();
         for(int i=0; i<accidents.size(); i++)
         {
-            Log.d("AccidentHistoryxx1", accidents.get(i).getAccidentId());
             if(accidents.get(i).getAccidentId().contains(user.getUsername()))
             {
-                Log.d("AccidentHistoryxx", accidents.get(i).getAccidentId());
                 if(accidents.get(i) != null)
                     accidentsForUser.add(accidents.get(i));
-                else
-                    Log.d("AccidentHistoryxx", "Cannot resolve adding accident by user's accidents");
             }
         }
         return accidentsForUser;
