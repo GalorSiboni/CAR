@@ -56,6 +56,7 @@ public class PopWindowUserInfo extends Activity {
 
             // TODO: 14/03/2020 handle other case if it is not a new accident
         }
+
         otherDriverProfile = new Gson().fromJson(json, Accident.class).getDriverWhoGotScanned();
        
         profileLbl.setText(otherDriverProfile.getFullName());
