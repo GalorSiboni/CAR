@@ -25,6 +25,7 @@ public class Constants {
     static final String FIRE_BASE_ACCIDENT_PATH = "Accidents";
     static final String DRIVER1_INTENT_DETAILS = "driver1";
     static final String ACCIDENT_KEY_INTENT = "accidentKey";
+    static final String IS_SCANNED_USER_OPENED = "scannedUserOpened";
     static final String AT_SIGN = "@";
 
 }

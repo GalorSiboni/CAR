@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.example.car.Model.Accident;
 import com.example.car.Model.Profile;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.common.BitMatrix;
@@ -30,15 +32,12 @@ public class Menu extends AppCompatActivity{
     private TextView greeting;
     private  ImageView profile, logOut, qrCode;
     private  CardView scanQR, showAccidents, emergencyServices;
-    private AccidentHistoryScreen accidentHistoryScreen;
     private MySharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-
-        accidentHistoryScreen = new AccidentHistoryScreen();
 
         getViews();
 
@@ -130,11 +129,9 @@ public class Menu extends AppCompatActivity{
             @Override
             public void accidentsReady(ArrayList<Accident> accidents) {
                 for(int i=0; i< accidents.size(); i++){
-                    Log.d("Menuxxx", accidents.get(i).getAccidentId());
                     if(accidents.get(i).getDriverWhoGotScanned().getUsername().equals(userName)) {
                         if(!accidents.get(i).isScannedUserOpened()) {
                             showAlertDialogNewAccident(accidents.get(i));
-                            saveAccidentData(accidents.get(i));
                         }
                     }
                 }
@@ -142,7 +139,7 @@ public class Menu extends AppCompatActivity{
 
             @Override
             public void error() {
-                Toast.makeText(accidentHistoryScreen, "There is error loading the accidents", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Menu.this, "There is error loading the accidents", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -156,6 +153,8 @@ public class Menu extends AppCompatActivity{
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 accident.setScannedUserOpened(true);//the user has opened the new accident
+                saveNewStateForAccidentForScannedUser(true, accident);
+                saveAccidentData(accident);
                 Intent intent = new Intent(Menu.this, AccidentAfterScanning.class);
                 intent.putExtra(Constants.INTENT_IS_NEW_ACCIDENT, true);//is new accident or previous accident -> required to know which accident to present
                 startActivity(intent);
@@ -164,8 +163,10 @@ public class Menu extends AppCompatActivity{
         alert.setNegativeButton("It's okay, i'll stay here", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                accident.setScannedUserOpened(true);//the user has not opened the accident but has not interest in it so we will change the status to true
-                Toast.makeText(accidentHistoryScreen, "You can see your new accident later in the accidents history", Toast.LENGTH_SHORT).show();
+                accident.setScannedUserOpened(false);
+                saveNewStateForAccidentForScannedUser(false, accident);
+                saveAccidentData(accident);
+                Toast.makeText(Menu.this, "You can see your new accident later in the accidents history", Toast.LENGTH_SHORT).show();
             }
         });
         alert.show();
@@ -173,6 +174,13 @@ public class Menu extends AppCompatActivity{
     private void saveAccidentData(Accident accident) {
         String json1 = new Gson().toJson(accident);
         pref.putString(Constants.KEY_SHARED_PREF_NEW_ACCIDENT, json1);
+    }
+
+    private void saveNewStateForAccidentForScannedUser(Boolean isUserOpened, Accident accident) {
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = db.getReference(Constants.FIRE_BASE_ACCIDENT_PATH);
+        myRef.child(accident.getAccidentId()).child(Constants.IS_SCANNED_USER_OPENED).setValue(isUserOpened);
+
     }
 
 }
