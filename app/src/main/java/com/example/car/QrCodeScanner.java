@@ -2,10 +2,12 @@ package com.example.car;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -14,6 +16,7 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.car.Model.Accident;
@@ -35,7 +38,7 @@ import java.util.Locale;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView.ResultHandler, NewAccidentObserver {
+public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
     private ZXingScannerView mScannerView;
 
@@ -214,10 +217,5 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
                 return;
             }
         }
-    }
-
-    @Override
-    public void update() {
-
     }
 }
