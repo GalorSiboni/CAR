@@ -39,7 +39,7 @@ public class Menu extends AppCompatActivity{
         setContentView(R.layout.activity_menu);
 
         accidentHistoryScreen = new AccidentHistoryScreen();
-//        showAlertDialogNewAccident();
+
         getViews();
 
         //SharedPreferences
@@ -133,7 +133,7 @@ public class Menu extends AppCompatActivity{
                     Log.d("Menuxxx", accidents.get(i).getAccidentId());
                     if(accidents.get(i).getDriverWhoGotScanned().getUsername().equals(userName)) {
                         if(!accidents.get(i).isScannedUserOpened()) {
-//                            showAlertDialogNewAccident(accidents.get(i));
+                            showAlertDialogNewAccident(accidents.get(i));
                             saveAccidentData(accidents.get(i));
                         }
                     }
