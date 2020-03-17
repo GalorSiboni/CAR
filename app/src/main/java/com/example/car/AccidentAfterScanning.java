@@ -20,6 +20,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import android.view.WindowManager;
+import android.view.ViewGroup;
+
 import com.example.car.Model.Accident;
 import com.example.car.Model.Profile;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -78,6 +81,25 @@ public class AccidentAfterScanning extends AppCompatActivity {
         rightPic = findViewById(R.id.rightPic);
         image1.getLayoutParams().width = image2.getLayoutParams().width = image3.getLayoutParams().width = width/3;
         saveImage.setVisibility( View.GONE );
+
+        image1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageClick( v );
+            }
+        });
+        image2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageClick( v );
+            }
+        });
+        image3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageClick( v );
+            }
+        });
 
         // TODO: 16/03/2020 change all of the init to init void function later
         //Firebase init
@@ -275,4 +297,27 @@ public class AccidentAfterScanning extends AppCompatActivity {
             }
         }
     }
+    private void fullScreen(ImageView image){
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        image.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
+        image.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+        image.setAdjustViewBounds(false);
+        image.setScaleType(ImageView.ScaleType.FIT_XY);
+
+    }
+    private void imageClick(View v){
+            switch(v.getId()) {
+                case R.id.image1:
+                    fullScreen(image1);
+                    break;
+                case R.id.image2:
+                    fullScreen(image2);
+                    break;
+                case R.id.image3:
+                    fullScreen(image3);
+                    break;
+            }
+        }
 }
