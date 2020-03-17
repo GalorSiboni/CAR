@@ -91,11 +91,11 @@ public class MyFirebase {
                     {
                         if(accidents.get(i).getDriverThatScan().getUsername().equals(userName))
                         {
-                            accidentsRef.child(accidents.get(i).getAccidentId()).child(accidents.get(i).getDriverThatScan().getUsername()).setValue(profile);
+                            accidentsRef.child(accidents.get(i).getAccidentId()).child("driverThatScan").setValue(profile);
                         }
                         else if(accidents.get(i).getDriverWhoGotScanned().getUsername().equals(userName))
                         {
-                            accidentsRef.child(accidents.get(i).getAccidentId()).child(accidents.get(i).getDriverWhoGotScanned().getUsername()).setValue(profile);
+                            accidentsRef.child(accidents.get(i).getAccidentId()).child("driverWhoGotScanned").setValue(profile);
                         }
                     }
                }
