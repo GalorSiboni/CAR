@@ -41,21 +41,16 @@ public class PopWindowUserInfo extends Activity {
         setDisplayAsPop();
         setViews();
 
-        final TextView[] editTextsArr = {phoneNumberEdit, addressEdit, driverNameEdit, idEdit, carNumberEdit, carModelEdit, carColorEdit,
-                licenceNumberEdit, ownerAddressEdit, ownerPhoneNumberEdit, insuranceCompanyNameEdit, insurancePolicyNumberEdit, insuranceAgentNameEdit, insuranceAgentPhoneNumEdit};
-
         isNewAccident =  getIntent().getBooleanExtra(Constants.INTENT_IS_NEW_ACCIDENT, true);
         pref = new MySharedPreferences(this);
 
-        if(isNewAccident)//if it is a new accident
-        {
+        if(isNewAccident){//if it is a new accident
             json = pref.getString(Constants.KEY_SHARED_PREF_NEW_ACCIDENT, "");
         }
         else {
             json = pref.getString(Constants.KEY_SHARED_FREF_EXIST_ACCIDENT, "");
-
-            // TODO: 14/03/2020 handle other case if it is not a new accident
         }
+
         Accident accident = new Gson().fromJson(json, Accident.class);
         String jsonProfile = pref.getString(Constants.KEY_SHARED_PREF_PROFILE, "");
         Profile userProfile = new Gson().fromJson(jsonProfile, Profile.class);
@@ -70,7 +65,6 @@ public class PopWindowUserInfo extends Activity {
 
         profileLbl.setText(String.format("%s %s", otherDriverProfile.getFirstName(), otherDriverProfile.getLastName()));
 
-//        editMode( editTextsArr,false);//user can not edit!
         getTextFromFields();
 
         Picasso.get().load(Uri.parse(otherDriverProfile.getImageUrl())).into(profilePicture);
@@ -82,13 +76,6 @@ public class PopWindowUserInfo extends Activity {
             }
         });
 
-    }
-
-    private void editMode(EditText[] arr,boolean visibilityFlag) {
-        for (int i = 0; i < arr.length - 1; i++) {
-            arr[i].setEnabled(visibilityFlag);
-            arr[i].setCursorVisible(visibilityFlag);
-        }
     }
 
     private void setDisplayAsPop()
