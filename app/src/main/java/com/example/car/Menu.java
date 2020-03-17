@@ -1,11 +1,9 @@
 package com.example.car;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -15,16 +13,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.car.Model.Accident;
 import com.example.car.Model.Profile;
 import com.google.gson.Gson;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
-import java.util.ArrayList;
-
-public class Menu extends AppCompatActivity implements NewAccidentObserver {
+public class Menu extends AppCompatActivity {
     private String userName, json;
     private TextView greeting;
     private  ImageView profile, logOut, qrCode;
@@ -133,36 +128,5 @@ public class Menu extends AppCompatActivity implements NewAccidentObserver {
         profile = findViewById(R.id.profileIcon);
         logOut = findViewById(R.id.logOutIcon);
         greeting = findViewById(R.id.greeting);
-    }
-
-    @Override
-    public void update() {
-        MyFirebase.getAccidents(new CallBackAccidentsReady() {
-            @Override
-            public void accidentsReady(ArrayList<Accident> accidents) {
-
-            }
-
-            @Override
-            public void error() {
-            }
-        });
-    }
-
-    public void showAlertDialogNewAccident(View view)
-    {
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("New accident alert");
-        alert.setMessage("There is a new accident involving you, do you want to see more details about it?");
-        alert.setPositiveButton("Take me there", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                accidents.child(newAccident.getAccidentId()).setValue(newAccident);//adding to the fireBase
-                Intent intent = new Intent(QrCodeScanner.this, AccidentAfterScanning.class);
-                intent.putExtra(Constants.INTENT_IS_NEW_ACCIDENT, isNewAccident);//is new accident or previous accident -> required to know which accident to present
-                startActivity(intent);
-                finish();
-            }
-        });
     }
 }
