@@ -13,6 +13,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.car.Model.Accident;
@@ -151,15 +152,14 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
                 String city = addresses.get(0).getLocality();
                 String state = addresses.get(0).getAdminArea();
                 String country = addresses.get(0).getCountryName();
-//                            String postalCode = addresses.get(0).getPostalCode();
                 String knownName = addresses.get(0).getFeatureName();
 
-                if (knownName != null) {
-                    locationStr = knownName + " ," + city + ", " + country;
-                } else {
-                    if (address != null)
-                        locationStr = address + " ," + city + ", " + country;
-                }
+                if (address != null)
+                    locationStr = address;
+                else if(knownName != null)
+                    locationStr = knownName + ", " + city +", " + country;
+                else
+                    locationStr = state + ", " + city +", " + country;
                 return locationStr;
             }
         } catch (IOException e) {
