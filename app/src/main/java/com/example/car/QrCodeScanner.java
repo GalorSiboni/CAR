@@ -2,12 +2,10 @@ package com.example.car;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -15,15 +13,12 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.car.Model.Accident;
 import com.example.car.Model.Profile;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -107,14 +102,8 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         onBackPressed();
         if (rawResult.getText() != null) {
             final String otherDriverResult = rawResult.getText();//other driver info in json
-            Log.d("QrCodexxx", otherDriverResult);
-
             otherDriverProfile = new Gson().fromJson(otherDriverResult, Profile.class);//converting profile info to gson
             newAccident = new Accident(myProfile, otherDriverProfile);
-            //new accident. update("new") ->
-            //need to create new class that extends Accident and implement observer
-//            newAccident.setLocation(new LatLng(latitude, longitude));
-
             newAccident.setLocationStr(saveLocationAsString(latitude, longitude));
 
             saveAccidentData();
@@ -139,8 +128,6 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
                         assert location != null;
                         longitude = location.getLongitude();
                         latitude = location.getLatitude();
-                        Log.d("QrScannerLong", " " + longitude);
-                        Log.d("QrScannerLat", " " + latitude);
                     }
                 }
             });
@@ -173,7 +160,6 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
                     if (address != null)
                         locationStr = address + " ," + city + ", " + country;
                 }
-                Log.d("QrScanner", locationStr);
                 return locationStr;
             }
         } catch (IOException e) {

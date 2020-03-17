@@ -3,28 +3,21 @@ package com.example.car;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.car.Model.Profile;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 public class MainActivity extends AppCompatActivity {
@@ -59,9 +52,6 @@ public class MainActivity extends AppCompatActivity {
         users = db.getReference(Constants.FIRE_BASE_DB_PROFILES_PATH);
 
         pref = new MySharedPreferences(this);
-        //load data
-//        profile = new Gson().fromJson(json, Profile.class);//converting profile info to gson
-
 
         regBTN.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -80,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this, "Login Successfully!", Toast.LENGTH_SHORT).show();// TODO: 11/03/2020 change txt to const
                                 Intent intent = new Intent(MainActivity.this, Menu.class);
                                 saveData(user);
-                                Log.d("Mainxxx", json);
                                 startActivity(intent);
                                 finish();
                             }
@@ -105,8 +94,7 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    private void saveData(Profile user)
-    {
+    private void saveData(Profile user) {
         json = new Gson().toJson(user);
         pref.putString(Constants.KEY_SHARED_PREF_PROFILE, json);
     }
@@ -122,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         Constants.MY_PERMISSIONS_REQUEST_FINE_LOCATION);
             }
-        } else {
         }
     }
 
