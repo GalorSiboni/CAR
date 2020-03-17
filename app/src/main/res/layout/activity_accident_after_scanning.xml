@@ -123,16 +123,19 @@
             android:orientation="horizontal">
             <ImageButton
                 android:id="@+id/image1"
+                android:scaleType="fitXY"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"/>
             <ImageButton
                 android:id="@+id/image2"
+                android:scaleType="fitXY"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"/>
             <ImageButton
                 android:id="@+id/image3"
+                android:scaleType="fitXY"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"/>
