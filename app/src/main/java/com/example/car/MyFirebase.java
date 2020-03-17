@@ -70,7 +70,6 @@ public class MyFirebase {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         DatabaseReference myRef = db.getReference( Constants.FIRE_BASE_DB_PROFILES_PATH);
         final DatabaseReference accidentsRef = db.getReference(Constants.FIRE_BASE_ACCIDENT_PATH);
-        StorageReference storage = FirebaseStorage.getInstance().getReference().child(Constants.FIRE_BASE_STORAGE_PROFILE_IMAGE);
 
         profile.updateProfile(firstName, lastName, mail, carNumber, carModel, carColor, driverName, id, address, licenceNumber, phoneNumber, ownerAddress, ownerPhoneNumber, insuranceCompanyName, insurancePolicyNumber, insuranceAgentName, insuranceAgentPhoneNum, imageUrl);
         myRef.child(userName).setValue(profile);
