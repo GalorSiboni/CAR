@@ -30,10 +30,6 @@ public class MainActivity extends AppCompatActivity {
     //Shared Pref and json
     private MySharedPreferences pref;
     private String json;
-    private Profile profile;
-
-    //Location
-    private FusedLocationProviderClient fusedLocationProviderClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
