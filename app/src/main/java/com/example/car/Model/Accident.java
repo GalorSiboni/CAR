@@ -13,7 +13,6 @@ public class Accident {
     private String accidentId;
     private Date date;
     private String locationStr;
-
     private boolean isScannedUserOpened;//if the scanned user has opened the new accident
     private String openDate;
     private Profile driverThatScan;
@@ -28,23 +27,19 @@ public class Accident {
         return accidentId;
     }
 
-    public Accident(Profile driverThatScan, Profile driverWhoGotScanned)
-    {
+    public Accident(Profile driverThatScan, Profile driverWhoGotScanned) {
         setDriverThatScan(driverThatScan);
         setDriverWhoGotScanned(driverWhoGotScanned);
         setScannedUserOpened(false);
         this.accidentId = ++counter + driverThatScan.getUsername() + "_" + driverWhoGotScanned.getUsername();
         this.date = Calendar.getInstance().getTime();
-//        this.openDate = DateFormat.getDateInstance().format(date);
         DateFormat df = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
         openDate = df.format(date);
         this.locationStr = "";
         gallery = new ArrayList<>();
-//        this.location = new LatLng(latitude, longitude);
     }
 
-    public Accident()
-    {
+    public Accident() {
         this.driverThatScan = new Profile();
         this.driverWhoGotScanned = new Profile();
         this.date = Calendar.getInstance().getTime();
