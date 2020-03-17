@@ -1,9 +1,11 @@
 package com.example.car;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -12,19 +14,24 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.car.Model.Accident;
 import com.example.car.Model.Profile;
 import com.google.gson.Gson;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
-public class Menu extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class Menu extends AppCompatActivity implements NewAccidentObserver{
     private String userName, json;
     private TextView greeting;
     private  ImageView profile, logOut, qrCode;
     private  CardView scanQR, showAccidents, emergencyServices;
     private AccidentHistoryScreen accidentHistoryScreen;
+    private MySharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +43,7 @@ public class Menu extends AppCompatActivity {
         getViews();
 
         //SharedPreferences
-        MySharedPreferences pref = new MySharedPreferences(this);
+        pref = new MySharedPreferences(this);
         json = pref.getString(Constants.KEY_SHARED_PREF_PROFILE, "");
         Profile userProfile = new Gson().fromJson(json, Profile.class);
         userName = userProfile.getUsername();
@@ -129,4 +136,54 @@ public class Menu extends AppCompatActivity {
         logOut = findViewById(R.id.logOutIcon);
         greeting = findViewById(R.id.greeting);
     }
+
+    @Override
+    public void update() {
+        MyFirebase.getAccidents(new CallBackAccidentsReady() {
+            @Override
+            public void accidentsReady(ArrayList<Accident> accidents) {
+                for(int i=0; i< accidents.size(); i++){
+                    if(accidents.get(i).getDriverWhoGotScanned().getUsername().equals(userName)) {
+                        if(!accidents.get(i).isScannedUserOpened()) {
+                            showAlertDialogNewAccident(accidents.get(i));
+                            saveAccidentData(accidents.get(i));
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void error() {
+                Toast.makeText(accidentHistoryScreen, "There is error loading the accidents", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void showAlertDialogNewAccident(final Accident accident)
+    {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("New accident alert");
+        alert.setMessage("There is a new accident involving you, do you want to see more details about it?");
+        alert.setPositiveButton("Take me there", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                accident.setScannedUserOpened(true);//the user has opened the new accident
+                Intent intent = new Intent(Menu.this, AccidentAfterScanning.class);
+                intent.putExtra(Constants.INTENT_IS_NEW_ACCIDENT, true);//is new accident or previous accident -> required to know which accident to present
+                startActivity(intent);
+            }
+        });
+        alert.setNegativeButton("It's okay, i'll stay here", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                accident.setScannedUserOpened(true);//the user has not opened the accident but has not interest in it so we will change the status to true
+                Toast.makeText(accidentHistoryScreen, "You can see your new accident later in the accidents history", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void saveAccidentData(Accident accident) {
+        String json1 = new Gson().toJson(accident);
+        pref.putString(Constants.KEY_SHARED_PREF_NEW_ACCIDENT, json1);
+    }
+
 }

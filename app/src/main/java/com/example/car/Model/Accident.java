@@ -13,9 +13,9 @@ public class Accident {
     private String accidentId;
     private Date date;
     private String locationStr;
+
     private boolean isScannedUserOpened;//if the scanned user has opened the new accident
     private String openDate;
-//    private LatLng location;
     private Profile driverThatScan;
     private Profile driverWhoGotScanned;
     private ArrayList<String> gallery;
@@ -30,9 +30,9 @@ public class Accident {
 
     public Accident(Profile driverThatScan, Profile driverWhoGotScanned)
     {
-        this.driverThatScan = driverThatScan;
-        this.driverWhoGotScanned = driverWhoGotScanned;
-        this.isScannedUserOpened = false;
+        setDriverThatScan(driverThatScan);
+        setDriverWhoGotScanned(driverWhoGotScanned);
+        setScannedUserOpened(false);
         this.accidentId = ++counter + driverThatScan.getUsername() + "_" + driverWhoGotScanned.getUsername();
         this.date = Calendar.getInstance().getTime();
 //        this.openDate = DateFormat.getDateInstance().format(date);
@@ -77,14 +77,6 @@ public class Accident {
         this.openDate = openDate;
     }
 
-//    public LatLng getLocation() {
-//        return location;
-//    }
-
-//    public void setLocation(LatLng location) {
-//        this.location = location;
-//    }
-
     public String getLocationStr() {
         return locationStr;
     }
@@ -92,6 +84,7 @@ public class Accident {
     public void setGallery(ArrayList<String> gallery) {
         this.gallery = gallery;
     }
+
     public ArrayList<String> getGallery() {
         return  this.gallery;
     }
@@ -100,4 +93,11 @@ public class Accident {
         this.gallery.add( imageUrl );
     }
 
+    public boolean isScannedUserOpened() {
+        return isScannedUserOpened;
+    }
+
+    public void setScannedUserOpened(boolean scannedUserOpened) {
+        isScannedUserOpened = scannedUserOpened;
+    }
 }
