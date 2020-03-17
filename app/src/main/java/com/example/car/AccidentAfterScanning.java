@@ -20,11 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import android.view.WindowManager;
-import android.view.ViewGroup;
-
 import com.example.car.Model.Accident;
-import com.example.car.Model.Profile;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
