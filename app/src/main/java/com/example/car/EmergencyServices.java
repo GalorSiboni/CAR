@@ -42,7 +42,7 @@ public class EmergencyServices extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Intent.ACTION_DIAL);
-                String p = "tel:100";
+                String p = Constants.CALL_POLICE;
                 i.setData(Uri.parse(p));
                 startActivity(i);
             }
@@ -51,7 +51,7 @@ public class EmergencyServices extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Intent.ACTION_DIAL);
-                String p = "tel:101";
+                String p = Constants.CALL_MADA;
                 i.setData(Uri.parse(p));
                 startActivity(i);
             }
@@ -60,7 +60,7 @@ public class EmergencyServices extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Intent.ACTION_DIAL);
-                String p = "tel:102";
+                String p = Constants.CALL_FIRE;
                 i.setData(Uri.parse(p));
                 startActivity(i);
             }

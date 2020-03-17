@@ -116,7 +116,7 @@ public class AccidentHistoryScreen extends AppCompatActivity {
                     Log.d("AccidentHistoryxx", "Cannot resolve adding accident by user's accidents");
             }
         }
-        return  accidentsForUser;
+        return accidentsForUser;
     }
 
     private void saveSingleAccidentToJson(Accident accident)//existing accident

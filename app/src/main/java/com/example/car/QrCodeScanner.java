@@ -35,7 +35,7 @@ import java.util.Locale;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView.ResultHandler {
+public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView.ResultHandler, NewAccidentObserver {
 
     private ZXingScannerView mScannerView;
 
@@ -108,6 +108,8 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
 
             otherDriverProfile = new Gson().fromJson(otherDriverResult, Profile.class);//converting profile info to gson
             newAccident = new Accident(myProfile, otherDriverProfile);
+            //new accident. update("new") ->
+            //need to create new class that extends Accident and implement observer
 //            newAccident.setLocation(new LatLng(latitude, longitude));
 
             newAccident.setLocationStr(saveLocationAsString(latitude, longitude));
@@ -212,5 +214,10 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
                 return;
             }
         }
+    }
+
+    @Override
+    public void update() {
+
     }
 }

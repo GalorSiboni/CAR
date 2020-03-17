@@ -13,6 +13,7 @@ public class Accident {
     private String accidentId;
     private Date date;
     private String locationStr;
+    private boolean isScannedUserOpened;//if the scanned user has opened the new accident
     private String openDate;
 //    private LatLng location;
     private Profile driverThatScan;
@@ -31,12 +32,12 @@ public class Accident {
     {
         this.driverThatScan = driverThatScan;
         this.driverWhoGotScanned = driverWhoGotScanned;
-        counter++;
-        this.accidentId = counter + driverThatScan.getUsername() + "_" + driverWhoGotScanned.getUsername();
+        this.isScannedUserOpened = false;
+        this.accidentId = ++counter + driverThatScan.getUsername() + "_" + driverWhoGotScanned.getUsername();
         this.date = Calendar.getInstance().getTime();
 //        this.openDate = DateFormat.getDateInstance().format(date);
         DateFormat df = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
-        String openDate = df.format(date);
+        openDate = df.format(date);
         this.locationStr = "";
         gallery = new ArrayList<>();
 //        this.location = new LatLng(latitude, longitude);
@@ -48,7 +49,7 @@ public class Accident {
         this.driverWhoGotScanned = new Profile();
         this.date = Calendar.getInstance().getTime();
         this.openDate = DateFormat.getDateInstance().format(date);
-//        this.location = new LatLng(0,0) ;
+        this.isScannedUserOpened = false;
         this.locationStr = "";
         gallery = new ArrayList<>();
     }

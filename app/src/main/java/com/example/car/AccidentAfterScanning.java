@@ -70,46 +70,39 @@ public class AccidentAfterScanning extends AppCompatActivity {
         display.getSize(size);
         width = size.x;
         hight = size.y;
-        profileIcon = findViewById(R.id.profileIcon);
-        logOut = findViewById(R.id.logOutIcon);
-        image1 = findViewById(R.id.image1);
-        image2 = findViewById(R.id.image2);
-        image3 = findViewById(R.id.image3);
-        newImage = findViewById(R.id.new_images);
-        saveImage = findViewById(R.id.saveImage);
-        leftPic = findViewById(R.id.leftPic);
-        rightPic = findViewById(R.id.rightPic);
+
+        findViews();
         image1.getLayoutParams().width = image2.getLayoutParams().width = image3.getLayoutParams().width = width/3;
-        saveImage.setVisibility( View.GONE );
+        saveImage.setVisibility(View.GONE);
 
-        image1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                imageClick( v );
-            }
-        });
-        image2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                imageClick( v );
-            }
-        });
-        image3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                imageClick( v );
-            }
-        });
-
-        // TODO: 16/03/2020 change all of the init to init void function later
         //Firebase init
         db = FirebaseDatabase.getInstance();
-        accidentDB = db.getReference( Constants.FIRE_BASE_DB_ACCIDENTS_PATH);
+        accidentDB = db.getReference(Constants.FIRE_BASE_DB_ACCIDENTS_PATH);
         storage = FirebaseStorage.getInstance().getReference().child(Constants.FIRE_BASE_STORAGE_ACCIDENT_GALLERY);
 
         Button btnOtherDriverInfo = findViewById(R.id.otherDriverInfoBtn);
         date = findViewById(R.id.dateTextView);
         location = findViewById(R.id.locationTextView);
+
+        image1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageClick(v);
+            }
+        });
+        image2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageClick(v);
+            }
+        });
+        image3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageClick(v);
+            }
+        });
+
 
         isNewAccident =  getIntent().getBooleanExtra(Constants.INTENT_IS_NEW_ACCIDENT, true);
         pref = new MySharedPreferences(this);
@@ -124,8 +117,12 @@ public class AccidentAfterScanning extends AppCompatActivity {
 
         date.setText(String.format("%s%s", date.getText(), accident.getOpenDate()));
         location.setText(String.format("%s%s", location.getText(), accident.getLocationStr()));
-        if (accident.getGallery().size() > 3) setAllImages(0);
-        else updateImageViews();
+
+        if (accident.getGallery().size() > 3)
+            setAllImages(0);
+        else
+            updateImageViews();
+
         profileIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,6 +186,18 @@ public class AccidentAfterScanning extends AppCompatActivity {
                 saveImage.setVisibility( View.GONE );
             }
         });
+    }
+
+    private void findViews() {
+        profileIcon = findViewById(R.id.profileIcon);
+        logOut = findViewById(R.id.logOutIcon);
+        image1 = findViewById(R.id.image1);
+        image2 = findViewById(R.id.image2);
+        image3 = findViewById(R.id.image3);
+        newImage = findViewById(R.id.new_images);
+        saveImage = findViewById(R.id.saveImage);
+        leftPic = findViewById(R.id.leftPic);
+        rightPic = findViewById(R.id.rightPic);
     }
 
     @Override
