@@ -67,14 +67,14 @@ public class MainActivity extends AppCompatActivity {
                         public void userReady(Profile user) {
                             assert user != null;
                             if (user.getPassword().equals(editPass.getText().toString())) {
-                                Toast.makeText(MainActivity.this, "Login Successfully!", Toast.LENGTH_SHORT).show();// TODO: 11/03/2020 change txt to const
+                                Toast.makeText(MainActivity.this, "Login Successfully!", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(MainActivity.this, Menu.class);
                                 saveData(user);
                                 startActivity(intent);
                                 finish();
                             }
                                 else
-                                 Toast.makeText(MainActivity.this, "Password Is Wrong", Toast.LENGTH_SHORT).show();// TODO: 11/03/2020 change txt to const
+                                 Toast.makeText(MainActivity.this, "Password Is Wrong", Toast.LENGTH_SHORT).show();
                             }
 
                         @Override
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                     }, editUser.getText().toString());
                 }
                 else
-                    Toast.makeText(MainActivity.this,"This user is not registered",Toast.LENGTH_SHORT).show();// TODO: 11/03/2020  change text to const
+                    Toast.makeText(MainActivity.this,"This user is not registered",Toast.LENGTH_SHORT).show();
             }
         });
     }

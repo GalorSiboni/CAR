@@ -20,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class RegisterPage extends AppCompatActivity {
     private EditText fName,sName,mail,pass,cPass,userName;
-    private String s0 = "",s1 = "",s2 = "",s3 = "",s4 = "",s5 = "", fullName = "";// TODO: 12/03/2020 fix
+    private String s0 = "",s1 = "",s2 = "",s3 = "",s4 = "",s5 = "", fullName = "";
     //Firebase
     FirebaseDatabase db;
     DatabaseReference users;
@@ -67,14 +67,14 @@ public class RegisterPage extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if(dataSnapshot.child(user.getUsername()).exists())
-                                Toast.makeText(RegisterPage.this,"The Username Is Already Exist!",Toast.LENGTH_SHORT).show();// TODO: 11/03/2020
+                                Toast.makeText(RegisterPage.this,"The Username Is Already Exist!",Toast.LENGTH_SHORT).show();
                             else if(dataSnapshot.child(user.getMail()).exists())
-                                Toast.makeText(RegisterPage.this,"This Mail Is Already Exist!",Toast.LENGTH_SHORT).show();// TODO: 11/03/2020
+                                Toast.makeText(RegisterPage.this,"This Mail Is Already Exist!",Toast.LENGTH_SHORT).show();
                             else if(dataSnapshot.child(user.getFullName()).exists())
-                                Toast.makeText(RegisterPage.this,"This Full Name Is Already Exist!",Toast.LENGTH_SHORT).show();// TODO: 11/03/2020
+                                Toast.makeText(RegisterPage.this,"This Full Name Is Already Exist!",Toast.LENGTH_SHORT).show();
                             else{
                                 users.child(user.getUsername()).setValue(user);
-                                Toast.makeText(RegisterPage.this,"Register Success!",Toast.LENGTH_SHORT).show();// TODO: 11/03/2020
+                                Toast.makeText(RegisterPage.this,"Register Success!",Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent (RegisterPage.this, Menu.class);
                                 intent.putExtra(Constants.INTENT_FULL_NAME, user.getFullName());
                                 intent.putExtra(Constants.INTENT_FULL_NAME, user.getUsername());
@@ -85,16 +85,15 @@ public class RegisterPage extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-
                         }
                     });
                 }
                 else {
-                    Toast.makeText(RegisterPage.this,"Password Confirmation Failed!",Toast.LENGTH_SHORT).show();// TODO: 11/03/2020 change to const 
+                    Toast.makeText(RegisterPage.this,"Password Confirmation Failed!",Toast.LENGTH_SHORT).show();
                 }
             }
             else{
-                    Toast.makeText(RegisterPage.this,"Please fill all the slots",Toast.LENGTH_SHORT).show();// TODO: 11/03/2020 change to const
+                    Toast.makeText(RegisterPage.this,"Please fill all the slots",Toast.LENGTH_SHORT).show();
                 }
             }
         });

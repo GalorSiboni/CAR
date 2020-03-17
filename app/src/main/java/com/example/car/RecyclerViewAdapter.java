@@ -51,7 +51,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Intent intent = new Intent(v.getContext(), PopWindowUserInfo.class);
                 intent.putExtra(Constants.INTENT_IS_NEW_ACCIDENT, false);
                 v.getContext().startActivity(intent);
-                // TODO: 17/03/2020 need to pass in json the current profile
             }
         });
     }

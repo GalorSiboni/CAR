@@ -43,7 +43,7 @@ public class EditProfile extends AppCompatActivity {
 
     private Uri filePath;
     private StorageTask uploadTask;
-    private final int PICK_IMAGE_REQUEST = 71;// TODO: 16/03/2020 consider make it const
+    private final int PICK_IMAGE_REQUEST = Constants.PICK_IMAGE_REQUEST;
     private boolean editPhotoFlag = false;
 
     //Firebase
@@ -111,10 +111,6 @@ public class EditProfile extends AppCompatActivity {
                 edit.setVisibility(View.VISIBLE);
                 save.setVisibility(View.GONE);
                 choose.setVisibility(View.GONE);
-                //saveData();
-                // TODO: 14/03/2020 need to disable save btn and fields cannot be in edit mode
-//                Intent intent = new Intent (EditProfile.this, Menu.class);
-//                intent.putExtra(Constants.INTENT_FULL_NAME, user.getFullName());
             }
         } );
         edit.setOnClickListener( new View.OnClickListener() {
@@ -136,9 +132,9 @@ public class EditProfile extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
     private void chooseImage(){
         Intent intent = new Intent();
-        intent.setType("image/*");// TODO: 12/03/2020 change 
+        intent.setType(Constants.CHOSE_IMAGE_TYPE);
         intent.setAction( Intent.ACTION_GET_CONTENT );
-        startActivityForResult( Intent.createChooser( intent,"SelectPicture"),PICK_IMAGE_REQUEST ); // TODO: 12/03/2020 change
+        startActivityForResult( Intent.createChooser( intent,"SelectPicture"),PICK_IMAGE_REQUEST );
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
