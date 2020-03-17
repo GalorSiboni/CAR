@@ -20,30 +20,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-        <activity android:name=".PopWindowUserInfo"
-            android:theme="@style/AppTheme.PopMe">
+        <activity
+            android:name=".PopWindowUserInfo"
+            android:theme="@style/AppTheme.PopMe"
+            android:configChanges="orientation|screenSize">
 
         </activity>
-        <activity android:name=".AccidentAfterScanning" />
-        <activity android:name=".QrCodeScanner" />
+        <activity
+            android:name=".AccidentAfterScanning"
+            android:configChanges="orientation|screenSize"/>
+        <activity android:name=".QrCodeScanner"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".EmergencyServices"
-            android:screenOrientation="fullSensor" />
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".AccidentHistoryScreen"
-            android:screenOrientation="fullSensor" />
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".Menu"
-            android:screenOrientation="fullSensor" />
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".EditProfile"
-            android:screenOrientation="fullSensor" />
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".RegisterPage"
-            android:screenOrientation="fullSensor" />
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="fullSensor">
+            android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
