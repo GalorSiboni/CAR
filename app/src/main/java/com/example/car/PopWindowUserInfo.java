@@ -20,7 +20,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PopWindowUserInfo extends Activity {
 
-    private EditText firstNameEdit, lastNameEdit, phoneNumberEdit, addressEdit, driverNameEdit, idEdit, carNumberEdit, carModelEdit, carColorEdit,
+    private TextView firstNameEdit, lastNameEdit, phoneNumberEdit, addressEdit, driverNameEdit, idEdit, carNumberEdit, carModelEdit, carColorEdit,
             licenceNumberEdit, ownerAddressEdit, ownerPhoneNumberEdit, insuranceCompanyNameEdit, insurancePolicyNumberEdit, insuranceAgentNameEdit, insuranceAgentPhoneNumEdit;
     private CircleImageView profilePicture;
     private ImageButton btn_close;
@@ -41,7 +41,7 @@ public class PopWindowUserInfo extends Activity {
         setDisplayAsPop();
         setViews();
 
-        final EditText[] editTextsArr = {phoneNumberEdit, addressEdit, driverNameEdit, idEdit, carNumberEdit, carModelEdit, carColorEdit,
+        final TextView[] editTextsArr = {phoneNumberEdit, addressEdit, driverNameEdit, idEdit, carNumberEdit, carModelEdit, carColorEdit,
                 licenceNumberEdit, ownerAddressEdit, ownerPhoneNumberEdit, insuranceCompanyNameEdit, insurancePolicyNumberEdit, insuranceAgentNameEdit, insuranceAgentPhoneNumEdit};
 
         isNewAccident =  getIntent().getBooleanExtra(Constants.INTENT_IS_NEW_ACCIDENT, true);
@@ -60,7 +60,7 @@ public class PopWindowUserInfo extends Activity {
        
         profileLbl.setText(otherDriverProfile.getFullName());
 
-        editMode( editTextsArr,false);//user can not edit!
+//        editMode( editTextsArr,false);//user can not edit!
         getTextFromFields();
 
         Picasso.get().load(Uri.parse(otherDriverProfile.getImageUrl())).into(profilePicture);

@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/phoneNumber_label" />
 
-                <EditText
+                <TextView
                     android:id="@+id/phoneNumberEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -86,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/address_label" />
 
-                <EditText
+                <TextView
                     android:id="@+id/addressEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -104,7 +104,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/driverName_label" />
 
-                <EditText
+                <TextView
                     android:id="@+id/driverNameEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -122,7 +122,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/id_label" />
 
-                <EditText
+                <TextView
                     android:id="@+id/idEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -140,7 +140,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/carNumber_label" />
 
-                <EditText
+                <TextView
                     android:id="@+id/carNumberEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -158,7 +158,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/carModel_label" />
 
-                <EditText
+                <TextView
                     android:id="@+id/carModelEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -176,7 +176,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/carColor_label" />
 
-                <EditText
+                <TextView
                     android:id="@+id/carColorEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -194,7 +194,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/licenceNumber_label" />
 
-                <EditText
+                <TextView
                     android:id="@+id/licenceNumberEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -212,7 +212,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/ownerAddress_label" />
 
-                <EditText
+                <TextView
                     android:id="@+id/ownerAddressEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -230,7 +230,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/ownerPhoneNumber_label" />
 
-                <EditText
+                <TextView
                     android:id="@+id/ownerPhoneNumberEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -248,7 +248,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/insuranceCompanyName_label" />
 
-                <EditText
+                <TextView
                     android:id="@+id/insuranceCompanyNameEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -266,7 +266,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/insurancePolicyNumber_label" />
 
-                <EditText
+                <TextView
                     android:id="@+id/insurancePolicyNumberEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -284,7 +284,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/insuranceAgentName_label" />
 
-                <EditText
+                <TextView
                     android:id="@+id/insuranceAgentNameEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -302,7 +302,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/insuranceAgentPhoneNum_label" />
 
-                <EditText
+                <TextView
                     android:id="@+id/insuranceAgentPhoneNumEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
