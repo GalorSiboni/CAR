@@ -129,4 +129,18 @@ public class Menu extends AppCompatActivity {
         logOut = findViewById(R.id.logOutIcon);
         greeting = findViewById(R.id.greeting);
     }
+
+    public void onResume() {
+        super.onResume();
+        getIntent();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    public void onPause() {
+        super.onPause();
+    }
 }
