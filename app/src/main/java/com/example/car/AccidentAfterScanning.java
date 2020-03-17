@@ -84,26 +84,6 @@ public class AccidentAfterScanning extends AppCompatActivity {
         date = findViewById(R.id.dateTextView);
         location = findViewById(R.id.locationTextView);
 
-        image1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                imageClick(v);
-            }
-        });
-        image2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                imageClick(v);
-            }
-        });
-        image3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                imageClick(v);
-            }
-        });
-
-
         isNewAccident =  getIntent().getBooleanExtra(Constants.INTENT_IS_NEW_ACCIDENT, true);
         pref = new MySharedPreferences(this);
         if(isNewAccident){
@@ -279,9 +259,9 @@ public class AccidentAfterScanning extends AppCompatActivity {
 
     private void chooseImage(){
         Intent intent = new Intent();
-        intent.setType("image/*");// TODO: 12/03/2020 change
+        intent.setType("image/*"); //evry image type
         intent.setAction( Intent.ACTION_GET_CONTENT );
-        startActivityForResult( Intent.createChooser( intent,"SelectPicture"),PICK_IMAGE_REQUEST ); // TODO: 12/03/2020 change
+        startActivityForResult( Intent.createChooser( intent,"SelectPicture"),PICK_IMAGE_REQUEST );
     }
 
     private void saveData() {
@@ -306,27 +286,4 @@ public class AccidentAfterScanning extends AppCompatActivity {
             }
         }
     }
-    private void fullScreen(ImageView image){
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        image.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
-        image.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
-        image.setAdjustViewBounds(false);
-        image.setScaleType(ImageView.ScaleType.FIT_XY);
-
-    }
-    private void imageClick(View v){
-            switch(v.getId()) {
-                case R.id.image1:
-                    fullScreen(image1);
-                    break;
-                case R.id.image2:
-                    fullScreen(image2);
-                    break;
-                case R.id.image3:
-                    fullScreen(image3);
-                    break;
-            }
-        }
 }

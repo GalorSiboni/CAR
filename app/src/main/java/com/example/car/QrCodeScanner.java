@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.gson.Gson;
 import com.google.zxing.Result;
 
@@ -107,14 +108,8 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         onBackPressed();
         if (rawResult.getText() != null) {
             final String otherDriverResult = rawResult.getText();//other driver info in json
-            Log.d("QrCodexxx", otherDriverResult);
-
             otherDriverProfile = new Gson().fromJson(otherDriverResult, Profile.class);//converting profile info to gson
             newAccident = new Accident(myProfile, otherDriverProfile);
-            //new accident. update("new") ->
-            //need to create new class that extends Accident and implement observer
-//            newAccident.setLocation(new LatLng(latitude, longitude));
-
             newAccident.setLocationStr(saveLocationAsString(latitude, longitude));
 
             saveAccidentData();
@@ -139,8 +134,6 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
                         assert location != null;
                         longitude = location.getLongitude();
                         latitude = location.getLatitude();
-                        Log.d("QrScannerLong", " " + longitude);
-                        Log.d("QrScannerLat", " " + latitude);
                     }
                 }
             });
@@ -173,7 +166,6 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
                     if (address != null)
                         locationStr = address + " ," + city + ", " + country;
                 }
-                Log.d("QrScanner", locationStr);
                 return locationStr;
             }
         } catch (IOException e) {

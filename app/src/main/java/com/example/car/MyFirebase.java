@@ -1,7 +1,5 @@
 package com.example.car;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.example.car.Model.Accident;
@@ -56,7 +54,6 @@ public class MyFirebase {
                     callBackUsersReady.error();
                 else {
                     if (dataSnapshot.child(userName).exists()) {
-                        Log.d("MyFirebaseXXX", dataSnapshot.child(userName).getKey());
                         user[0] = dataSnapshot.child(userName).getValue(Profile.class);
                     }
                     callBackUsersReady.userReady(user[0]);

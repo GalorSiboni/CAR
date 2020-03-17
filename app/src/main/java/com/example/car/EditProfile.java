@@ -165,7 +165,6 @@ public class EditProfile extends AppCompatActivity {
             progressDialog.setTitle( "Uploading..." );
             progressDialog.show();
 
-            // TODO: 16/03/2020 try to add this to updateUserDetails in MyFirebase
             final StorageReference ref = storage.child("image/" + userName );
             uploadTask = ref.putFile(filePath).addOnSuccessListener( new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -201,15 +200,13 @@ public class EditProfile extends AppCompatActivity {
         }
     }
 
-    private void saveData()
-    {
-        // TODO: 16/03/2020 change syntax due to new function in MyFirebase 
+    private void saveData() {
+        //change syntax due to new function in MyFirebase
         json = new Gson().toJson(myProfile);
         pref.putString(Constants.KEY_SHARED_PREF_PROFILE, json);
     }
 
-    private void setViews()
-    {
+    private void setViews() {
         firstNameEdit = findViewById(R.id.firstNameEdit);
         lastNameEdit = findViewById(R.id.lastNameEdit);
         phoneNumberEdit = findViewById(R.id.phoneNumberEdit);
@@ -236,8 +233,7 @@ public class EditProfile extends AppCompatActivity {
         choose.setVisibility(View.GONE);
     }
 
-    private void getTextFromFields()
-    {
+    private void getTextFromFields() {
         assert myProfile != null;
         mail = myProfile.getMail();
         firstNameEdit.setText( myProfile.getFirstName() );
