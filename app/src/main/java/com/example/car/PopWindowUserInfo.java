@@ -56,9 +56,18 @@ public class PopWindowUserInfo extends Activity {
 
             // TODO: 14/03/2020 handle other case if it is not a new accident
         }
+        Accident accident = new Gson().fromJson(json, Accident.class);
+        String jsonProfile = pref.getString(Constants.KEY_SHARED_PREF_PROFILE, "");
+        Profile userProfile = new Gson().fromJson(jsonProfile, Profile.class);
 
-        otherDriverProfile = new Gson().fromJson(json, Accident.class).getDriverWhoGotScanned();
-       
+        if(accident.getDriverWhoGotScanned().getUsername().equals(userProfile.getUsername())) {
+            otherDriverProfile = new Gson().fromJson(json, Accident.class).getDriverThatScan();
+        }
+        else if(accident.getDriverThatScan().getUsername().equals(userProfile.getUsername())) {
+            otherDriverProfile = new Gson().fromJson(json, Accident.class).getDriverWhoGotScanned();
+        }
+
+
         profileLbl.setText(otherDriverProfile.getFullName());
 
 //        editMode( editTextsArr,false);//user can not edit!
