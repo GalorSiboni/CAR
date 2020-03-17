@@ -37,7 +37,7 @@ public class RegisterPage extends AppCompatActivity {
         userName = findViewById(R.id.regUserName);
         fName = findViewById(R.id.FirstName);
         sName = findViewById(R.id.SecondName);
-        mail = findViewById(R.id.Email);
+        mail = findViewById(R.id.mail);
         pass = findViewById(R.id.Password);
         cPass = findViewById(R.id.PasswordConfrim);
         Button submit = findViewById(R.id.regOnPageBTN);

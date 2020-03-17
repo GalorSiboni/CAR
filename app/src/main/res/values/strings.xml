@@ -57,5 +57,14 @@
     <string name="see_other_driver_s_details">Click me to see the other driver\'s details</string>
     <string name="more_details_btn_text">more details</string>
     <string name="accidents_history">Accidents history</string>
+    <string name="hint_enter_user_name">Enter: User Name</string>
+    <string name="hint_enter_first_name">Enter: First Name</string>
+    <string name="hint_enter_last_name">Enter: Last Name</string>
+    <string name="hint_enter_mail_abc_gmail_com">Enter mail: abc@gmail.com</string>
+    <string name="hint_enter_password">Enter: Password</string>
+    <string name="hint_enter_password_again">Enter: Password Again</string>
+    <string name="lbl_submit_register">Submit</string>
+    <string name="regiser_txt_log_in">Log In</string>
+    <string name="welcome_to_car_application_n_create_an_account">Welcome to CAR application \n Create an Account.</string>
 
 </resources>

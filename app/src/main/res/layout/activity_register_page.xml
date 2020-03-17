@@ -1,58 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
     android:gravity="center_horizontal"
     tools:context=".RegisterPage">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="30sp"
-            android:src="@drawable/app_logo"
-            android:layout_gravity="center_horizontal">
 
-        </ImageView>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Welcome to CAR application \n     Create an Account."
-            android:textAlignment="center"
-            android:textSize="15sp"
-            android:textColor="@android:color/white"
-            android:layout_gravity="center_horizontal"
-            android:fontFamily="serif"
-            tools:ignore="HardcodedText" />
+    <RelativeLayout
+        android:id="@+id/viewToFixPos"
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/editTextLayout"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@color/lightGray2"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:layout_below="@+id/viewToFixPos">
 
         <EditText
             android:id="@+id/regUserName"
             android:layout_width="250dp"
             android:layout_height="40dp"
             android:background="#11000000"
-            android:hint="Enter: User Name"
+            android:padding="10dp"
+            android:hint="@string/hint_enter_user_name"
             android:textColor="@android:color/white"
             android:inputType="textPersonName"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30sp"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:textColorHint="@android:color/darker_gray"/>
         <EditText
             android:id="@+id/FirstName"
             android:layout_width="250dp"
             android:layout_height="40dp"
+            android:padding="10dp"
             android:background="#11000000"
             android:textColor="@android:color/white"
-            android:hint="Enter: First Name"
+            android:hint="@string/hint_enter_first_name"
+            android:layout_below="@+id/regUserName"
             android:inputType="textPersonName"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30sp"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:textColorHint="@android:color/darker_gray"/>
 
         <EditText
@@ -60,20 +58,25 @@
             android:layout_width="250dp"
             android:layout_height="40dp"
             android:background="#11000000"
+            android:layout_below="@+id/FirstName"
+            android:padding="10dp"
+            android:textSize="16sp"
             android:textColor="@android:color/white"
-            android:hint="Enter: Second Name"
+            android:hint="@string/hint_enter_last_name"
             android:textColorHint="@android:color/darker_gray"
             android:layout_marginTop="15dp"
             android:layout_gravity="center_horizontal"
             android:inputType="textPersonName"/>
 
         <EditText
-            android:id="@+id/Email"
+            android:id="@+id/mail"
             android:layout_width="250dp"
             android:layout_height="40dp"
             android:background="#11000000"
+            android:padding="10dp"
+            android:layout_below="@+id/SecondName"
             android:textColor="@android:color/white"
-            android:hint="Enter mail: abc@gmail.com"
+            android:hint="@string/hint_enter_mail_abc_gmail_com"
             android:textColorHint="@android:color/darker_gray"
             android:layout_marginTop="15dp"
             android:layout_gravity="center_horizontal"
@@ -83,8 +86,11 @@
             android:layout_width="250dp"
             android:layout_height="40dp"
             android:background="#11000000"
+            android:layout_below="@+id/mail"
+            android:padding="10dp"
+            android:textSize="16sp"
             android:textColor="@android:color/white"
-            android:hint="Enter: Password"
+            android:hint="@string/hint_enter_password"
             android:textColorHint="@android:color/darker_gray"
             android:layout_marginTop="15dp"
             android:layout_gravity="center_horizontal"
@@ -94,22 +100,53 @@
             android:layout_width="250dp"
             android:layout_height="40dp"
             android:background="#11000000"
+            android:padding="10dp"
+            android:layout_below="@+id/Password"
             android:textColor="@android:color/white"
-            android:hint="Enter: Password Again"
+            android:hint="@string/hint_enter_password_again"
             android:layout_gravity="center_horizontal"
             android:textColorHint="@android:color/darker_gray"
             android:layout_marginTop="15dp"
             android:inputType="textPassword"/>
+
         <Button
             android:id="@+id/regOnPageBTN"
-            android:layout_width="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_width="200dp"
+            android:layout_below="@id/PasswordConfrim"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40sp"
-            android:text="Submit">
-        </Button>
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_margin="20dp"
+            android:padding="10dp"
+            android:background="@drawable/rec_gradient"
+            android:text="@string/lbl_submit_register"
+            android:textColor="@android:color/white"/>
+    </RelativeLayout>
 
-    </LinearLayout>
+    <TextView
+        android:id="@+id/WelcomeLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/editTextLayout"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="@string/welcome_to_car_application_n_create_an_account"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold">
+    </TextView>
+
+    <ImageView
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/app_logo"
+        android:paddingTop="30dp"
+        android:layout_marginBottom="20dp"
+        android:layout_above="@+id/WelcomeLbl"
+        android:layout_width="180dp"
+        android:layout_height="180dp">
+    </ImageView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="30dp"
@@ -132,10 +169,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:padding="3dp"
-            android:text="Log In"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
+            android:text="@string/regiser_txt_log_in"
+            android:textColor="@color/blueForHeadline"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
