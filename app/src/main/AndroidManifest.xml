@@ -18,6 +18,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="Car"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/app_logo1"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
         <activity
