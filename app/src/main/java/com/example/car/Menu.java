@@ -25,7 +25,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 import java.util.ArrayList;
 
-public class Menu extends AppCompatActivity implements NewAccidentObserver{
+public class Menu extends AppCompatActivity{
     private String userName, json;
     private TextView greeting;
     private  ImageView profile, logOut, qrCode;
@@ -39,7 +39,7 @@ public class Menu extends AppCompatActivity implements NewAccidentObserver{
         setContentView(R.layout.activity_menu);
 
         accidentHistoryScreen = new AccidentHistoryScreen();
-
+//        showAlertDialogNewAccident();
         getViews();
 
         //SharedPreferences
@@ -47,12 +47,6 @@ public class Menu extends AppCompatActivity implements NewAccidentObserver{
         json = pref.getString(Constants.KEY_SHARED_PREF_PROFILE, "");
         Profile userProfile = new Gson().fromJson(json, Profile.class);
         userName = userProfile.getUsername();
-        Log.d("Mainxxx", json);
-        //   if (json.compareTo("") == 0) { // TODO: 12/03/2020  do we need to consider the case of json is empty?
-//        }
-//        else {
-//            = new Gson().fromJson(json, PersonList.class);
-//        }
 
         greeting.setText(String.format("%s%s", Constants.GREETING_STR, userProfile.getFullName()));
 
@@ -61,7 +55,6 @@ public class Menu extends AppCompatActivity implements NewAccidentObserver{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Menu.this, EditProfile.class);
-//                intent.putExtra(Constants.INTENT_USER_NAME, userName);
                 startActivity(intent);
             }
         });
@@ -86,7 +79,6 @@ public class Menu extends AppCompatActivity implements NewAccidentObserver{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Menu.this, QrCodeScanner.class);
-//                intent.putExtra(Constants.INTENT_USER_NAME, userName);
                 startActivity(intent);
             }
         });
@@ -94,17 +86,13 @@ public class Menu extends AppCompatActivity implements NewAccidentObserver{
         showAccidents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//                transaction.add(R.id.LAYOUT_TO_INFLATE, accidentHistoryScreen);
-//                transaction.show(accidentHistoryScreen);
-//                transaction.commit();
                 Intent intent = new Intent(Menu.this, AccidentHistoryScreen.class);
-//                intent.putExtra(Constants.INTENT_IS_NEW_ACCIDENT, false);
                 startActivity(intent);
             }
         });
 
         generateQrCode();
+        update();
     }
 
     private void generateQrCode()
@@ -122,7 +110,6 @@ public class Menu extends AppCompatActivity implements NewAccidentObserver{
             qrCode.setImageBitmap(bitmap);
         } catch (Exception e) {
             e.printStackTrace();
-            Log.d("Menu Exception QR", e.getMessage());
         }
     }
 
@@ -137,15 +124,16 @@ public class Menu extends AppCompatActivity implements NewAccidentObserver{
         greeting = findViewById(R.id.greeting);
     }
 
-    @Override
+
     public void update() {
         MyFirebase.getAccidents(new CallBackAccidentsReady() {
             @Override
             public void accidentsReady(ArrayList<Accident> accidents) {
                 for(int i=0; i< accidents.size(); i++){
+                    Log.d("Menuxxx", accidents.get(i).getAccidentId());
                     if(accidents.get(i).getDriverWhoGotScanned().getUsername().equals(userName)) {
                         if(!accidents.get(i).isScannedUserOpened()) {
-                            showAlertDialogNewAccident(accidents.get(i));
+//                            showAlertDialogNewAccident(accidents.get(i));
                             saveAccidentData(accidents.get(i));
                         }
                     }
@@ -180,6 +168,7 @@ public class Menu extends AppCompatActivity implements NewAccidentObserver{
                 Toast.makeText(accidentHistoryScreen, "You can see your new accident later in the accidents history", Toast.LENGTH_SHORT).show();
             }
         });
+        alert.show();
     }
     private void saveAccidentData(Accident accident) {
         String json1 = new Gson().toJson(accident);

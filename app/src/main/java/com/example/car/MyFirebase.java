@@ -19,10 +19,6 @@ import java.util.ArrayList;
 
 public class MyFirebase {
 
-    // TODO: 16/03/2020 function to update profile
-    // TODO: 16/03/2020 function to add new accidents 
-    // TODO: 16/03/2020 function to add new profile
-    // TODO: 16/03/2020 function to edit accident -> only need to add photos
     public static void getAccidents(final CallBackAccidentsReady callBackAccidentsReady) {
         final ArrayList<Accident> accidents = new ArrayList<>();
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
