@@ -37,7 +37,7 @@ public class EditProfile extends AppCompatActivity {
     private EditText firstNameEdit, lastNameEdit, phoneNumberEdit, addressEdit, driverNameEdit, idEdit, carNumberEdit, carModelEdit, carColorEdit,
             licenceNumberEdit, ownerAddressEdit, ownerPhoneNumberEdit, insuranceCompanyNameEdit, insurancePolicyNumberEdit, insuranceAgentNameEdit, insuranceAgentPhoneNumEdit;
     private CircleImageView profilePicture;
-    private ImageView choose;
+    private ImageView choose, logOut;
     private Button save, edit;
     private String userName, mail, imageUrl = "";
 
@@ -122,6 +122,14 @@ public class EditProfile extends AppCompatActivity {
                 edit.setVisibility(View.GONE);
             }
         });
+
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(EditProfile.this, MainActivity.class));
+                finish();
+            }
+        });
     }
     private void editMode(EditText[] arr,boolean visibilityFlag){
         for(int i = 0;i < arr.length -1 ;i++){
@@ -201,6 +209,7 @@ public class EditProfile extends AppCompatActivity {
 
     private void setViews() {
         firstNameEdit = findViewById(R.id.firstNameEdit);
+        logOut = findViewById(R.id.logOutIcon);
         lastNameEdit = findViewById(R.id.lastNameEdit);
         phoneNumberEdit = findViewById(R.id.phoneNumberEdit);
         addressEdit = findViewById(R.id.addressEdit);

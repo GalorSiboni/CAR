@@ -21,6 +21,7 @@ public class EmergencyServices extends AppCompatActivity {
         CardView firefighters = findViewById(R.id.fireFighters);
         profile = findViewById(R.id.profileIcon);
         logOut = findViewById(R.id.logOutIcon);
+
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
