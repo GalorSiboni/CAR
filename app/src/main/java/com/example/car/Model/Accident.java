@@ -33,8 +33,7 @@ public class Accident {
         setScannedUserOpened(false);
         this.accidentId = ++counter + driverThatScan.getUsername() + "_" + driverWhoGotScanned.getUsername();
         this.date = Calendar.getInstance().getTime();
-        DateFormat df = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
-        openDate = df.format(date);
+        this.openDate = DateFormat.getDateInstance().format(date);
         this.locationStr = "";
         gallery = new ArrayList<>();
     }
@@ -46,6 +45,7 @@ public class Accident {
         this.openDate = DateFormat.getDateInstance().format(date);
         this.isScannedUserOpened = false;
         this.locationStr = "";
+
         gallery = new ArrayList<>();
     }
     public Profile getDriverThatScan() {
