@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
@@ -31,6 +32,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -38,7 +42,7 @@ import java.io.IOException;
 public class AccidentAfterScanning extends AppCompatActivity {
 
     private TextView date, location;
-    private ImageView profileIcon, logOut,image1,image2,image3;
+    private ImageView profileIcon, logOut, image1, image2, image3, qrCode;
     private ImageButton newImage, saveImage, leftPic, rightPic;
     private int width, hight, counter = 0;
     private Uri filePath;
@@ -77,6 +81,7 @@ public class AccidentAfterScanning extends AppCompatActivity {
         storage = FirebaseStorage.getInstance().getReference().child(Constants.FIRE_BASE_STORAGE_ACCIDENT_GALLERY);
 
         Button btnOtherDriverInfo = findViewById(R.id.otherDriverInfoBtn);
+        Button btnWitnessInfo = findViewById(R.id.witnessInfoBtn);
         date = findViewById(R.id.dateTextView);
         location = findViewById(R.id.locationTextView);
 
@@ -93,6 +98,7 @@ public class AccidentAfterScanning extends AppCompatActivity {
 
         date.setText(String.format("%s%s", date.getText(), accident.getOpenDate()));
         location.setText(String.format("%s%s", location.getText(), accident.getLocationStr()));
+        generateQrCode();
 
         if (accident.getGallery().size() > 3)
             setAllImages(0);
@@ -143,6 +149,14 @@ public class AccidentAfterScanning extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btnWitnessInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AccidentAfterScanning.this, PopWindowUserInfo.class);
+                intent.putExtra(Constants.INTENT_IS_NEW_ACCIDENT, isNewAccident);//is new accident or previous accident -> required to know which accident to present
+                startActivity(intent);
+            }
+        });
 
         newImage.setOnClickListener( new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
@@ -174,6 +188,7 @@ public class AccidentAfterScanning extends AppCompatActivity {
         saveImage = findViewById(R.id.saveImage);
         leftPic = findViewById(R.id.leftPic);
         rightPic = findViewById(R.id.rightPic);
+        qrCode = findViewById( R.id.witnessQrCode );
     }
 
     @Override
@@ -279,6 +294,23 @@ public class AccidentAfterScanning extends AppCompatActivity {
                 case 3: setAllImages(0);
                     break;
             }
+        }
+    }
+    private void generateQrCode()
+    {
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        try {
+            BitMatrix bitMatrix = qrCodeWriter.encode(accident.getAccidentId(), BarcodeFormat.QR_CODE, 150, 150, null);
+            Bitmap bitmap = Bitmap.createBitmap(150, 150, Bitmap.Config.RGB_565);
+
+            for (int x = 0; x < 150; x++) {
+                for (int y = 0; y < 150; y++) {
+                    bitmap.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
+                }
+            }
+            qrCode.setImageBitmap(bitmap);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

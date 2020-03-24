@@ -54,7 +54,9 @@
     <string name="accident_after_scanning_date_lbl">Date:</string>
     <string name="accident_after_scanning_time_lbl">Time:</string>
     <string name="aacident_after_scanning_location_lbl">Location:</string>
+    <string name="aacident_qr_code_lbl">Accident QR Code: </string>
     <string name="see_other_driver_s_details">Click me to see the other driver\'s details</string>
+    <string name="see_witnes_s_details">Click me to see the witness details</string>
     <string name="more_details_btn_text">more details</string>
     <string name="accidents_history">Accidents history</string>
     <string name="hint_enter_user_name">Enter: User Name</string>

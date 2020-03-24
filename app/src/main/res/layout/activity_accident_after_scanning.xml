@@ -78,26 +78,67 @@
         android:textColor="@color/darkBlue"
         android:text="@string/aacident_after_scanning_location_lbl">
     </TextView>
-
-    <Button
-        android:id="@+id/otherDriverInfoBtn"
-        android:layout_width="180dp"
+    <LinearLayout
+        android:id="@+id/driverWitnessDetails"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/locationTextView"
-        android:layout_marginTop="15dp"
-        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_below="@+id/locationTextView">
+        <Button
+            android:id="@+id/otherDriverInfoBtn"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:text="@string/see_other_driver_s_details"
+            android:background="#495D76"
+            android:textAllCaps="false"
+            android:textColor="@color/white">
+        </Button>
+        <Button
+            android:id="@+id/witnessInfoBtn"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:layout_marginHorizontal="50dp"
+            android:text="@string/see_witnes_s_details"
+            android:background="#495D76"
+            android:textAllCaps="false"
+            android:textColor="@color/white">
+        </Button>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/qrCodeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:layout_below="@id/driverWitnessDetails"
         android:textSize="18sp"
-        android:text="@string/see_other_driver_s_details"
-        android:background="#495D76"
-        android:textAllCaps="false"
-        android:textColor="@color/white">
-    </Button>
+        android:layout_marginTop="50dp"
+        android:textColor="@color/darkBlue"
+        android:text="@string/aacident_qr_code_lbl">
+    </TextView>
+    <ImageView
+        android:id="@+id/witnessQrCode"
+        android:layout_toRightOf="@id/qrCodeTextView"
+        android:layout_marginLeft="10dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:scaleType="fitXY"
+        app:srcCompat="?attr/actionBarDivider"
+        android:layout_below="@id/driverWitnessDetails"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"/>
 <RelativeLayout
     android:id="@+id/bottoms"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_below="@id/otherDriverInfoBtn"
-    android:layout_marginTop="130dp">
+    android:layout_below="@id/witnessQrCode"
+    android:layout_marginTop="10dp">
     <ImageButton
         android:id="@+id/new_images"
         android:layout_width="50dp"
