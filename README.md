@@ -1,5 +1,7 @@
 # CAR
+
 Android app for a degree assignment.
+
 Created by: Galor Siboni(Me) and Liel Titelbaum
 
 [Download apk](https://drive.google.com/open?id=1FjaqwliwjsgMpxM9nJLg5ovNS0J6htDz)	
